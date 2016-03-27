@@ -1,0 +1,11 @@
+Task,Description,Priority Rank,Time required
+Software knobs,communicate rotational position based user dragging up or down,5,medium
+Tap Tempo,clicking button on a beat makes a certain tempo,7,medium
+change tempo knob,,6,low
+Playing audio,playing audio on a certain beat,1,medium
+Rythm interface,"similar to tr 808, with 16 increments representing 16 count",3,medium
+playing multiple audio sources,,2,high
+volume control,volume control for each sound,4,low
+instrument controls,"volume, tuning, tone, decay for each instrument, done by loading a different buffer for each sound",9,high
+visual styling,"css, looks good, similar to tr 808",8,high
+pattern saving,through json or http get,10,high

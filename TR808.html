@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>TR 808</title>
+  <title>TR 808</title>
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -17,24 +19,134 @@
 	<script src="js/BufferLoader.js"></script>
 	<script src="js/AudioCore.js"></script>
 
-	<script>
-	</script>
+
+        <style>
+        p
+        {
+          background-color: #909090
+        }
+        .circle{
+          margin-left: 17.5%;
+          margin-right: 50%;
+          margin-bottom: 100%;
+          width: 13px;
+          height: 13px;
+          /*position: relative;*/
+          display:block;
+          border-radius:50%;
+          background:#b30000
+        }
+       .circle:hover{
+          background:#ff1a1a}
+        .button{
+          border: none;
+          height: 60px;
+          width:30px;
+          border-radius: 5px;
+          position: relative;
+          top: 130px;
+          left: 15%;
+          box-shadow: 1.5px 1.5px 1.5px #707070;
+        }
+        .button:hover{
+          box-shadow: 3px 3px 3px #707070;
+        }
+
+        .button1
+        {
+          background-color: #ff3300;
+        }
+        .button2
+        {
+          background-color: #ff9933;
+        }
+        .button3
+        {
+          background-color: #ffff00;
+        }
+        .button4
+        {
+          background-color: #ffffff;
+        }
+        .btn-primary
+        {
+            position: relative;
+            top: 15%;
+            left: 15%;
+        }
+        .btn-lg{
+          position:relative;
+          top:100px;
+          left:30%;
+        }
+        div.container
+        {
+          background-color: #909090;
+          padding: 0%;
+          width: 800px;
+          height: 300px;
+        }
+        p1{
+          font-family: "Arial";
+          font-weight: bold;
+          font-size:1.15em;
+          background-color: #c0c0c0;
+          position: relative;
+          top: 110px;
+          left: 15%;
+        }
+
+         </style>
+
+
 </head>
 <body>
-	<button class="btn btn-primary" onclick="playSound(instruments[0].buffer);">BD</button>
-	<button class="btn btn-primary" onclick="playSound(instruments[1].buffer);">SD</button>
-	<button class="btn btn-primary" onclick="playSound(instruments[2].buffer);">LT</button>
-	<button class="btn btn-primary" onclick="playSound(instruments[3].buffer);">MT</button>
-	<button class="btn btn-primary" onclick="playSound(instruments[4].buffer);">HT</button>
-	<button class="btn btn-primary" onclick="playSound(instruments[5].buffer);">RS</button>
-	<button class="btn btn-primary" onclick="playSound(instruments[6].buffer);">CP</button>
-	<button class="btn btn-primary" onclick="playSound(instruments[7].buffer);">CB</button>
-	<button class="btn btn-primary" onclick="playSound(instruments[8].buffer);">CY</button>
-	<button class="btn btn-primary" onclick="playSound(instruments[9].buffer);">OH</button>
-	<button class="btn btn-primary" onclick="playSound(instruments[10].buffer);">CH</button>
-	<br>
-	<button class="btn btn-lg btn-danger" onclick="testSequence(); start();">Start Test</button>
-	<button class="btn btn-lg btn-danger" onclick="stop();">Stop Test</button>
+
+
+<div class = "container" >
+  <button class="btn btn-primary" onclick="playSound(instruments[0].buffer);">BD</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[1].buffer);">SD</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[2].buffer);">LT</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[3].buffer);">MT</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[4].buffer);">HT</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[5].buffer);">RS</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[6].buffer);">CP</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[7].buffer);">CB</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[8].buffer);">CY</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[9].buffer);">OH</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[10].buffer);">CH</button>
+<br><br><br>
+
+  <button class="button button1"><div class="circle"></div></button>
+  <button class="button button1"><div class="circle"></div></button>
+  <button class="button button1"><div class="circle"></div></button>
+  <button class="button button1"><div class="circle"></div></button>
+  <button class="button button2"><div class="circle"></div></button>
+  <button class="button button2"><div class="circle"></div></button>
+  <button class="button button2"><div class="circle"></div></button>
+  <button class="button button2"><div class="circle"></div></button>
+  <button class="button button3"><div class="circle"></div></button>
+  <button class="button button3"><div class="circle"></div></button>
+  <button class="button button3"><div class="circle"></div></button>
+  <button class="button button3"><div class="circle"></div></button>
+  <button class="button button4"><div class="circle"></div></button>
+  <button class="button button4"><div class="circle"></div></button>
+  <button class="button button4"><div class="circle"></div></button>
+  <button class="button button4"><div class="circle"></div></button>
+  <br><br>
+  <p1> &nbsp1 &nbsp &nbsp  &nbsp 2  &nbsp &nbsp &nbsp  3  &nbsp &nbsp &nbsp  4  &nbsp&nbsp &nbsp   5 &nbsp  &nbsp&nbsp
+       6 &nbsp &nbsp  &nbsp  7 &nbsp  &nbsp&nbsp   8 &nbsp &nbsp&nbsp   9  &nbsp &nbsp
+          10 &nbsp  &nbsp  11  &nbsp&nbsp   12  &nbsp&nbsp   1 &nbsp  &nbsp&nbsp
+             2 &nbsp &nbsp  &nbsp  3 &nbsp &nbsp &nbsp   4 </p1><br>
+
+  <br>
+  <br>
+  <button class="btn btn-lg btn-danger" onclick="testSequence(); start();">Start Test</button>
+  <button class="btn btn-lg btn-danger" onclick="stop();">Stop Test</button>
+</div>
+
+
+
 
 </body>
 </html>

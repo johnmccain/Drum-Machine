@@ -12,18 +12,29 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+
+	<script src="js/Instrument.js"></script>
+	<script src="js/BufferLoader.js"></script>
 	<script src="js/AudioCore.js"></script>
 
 	<script>
-		//setup();
-
-		function soundTest()
-		{
-			playSound(myBuffer);
-		}
 	</script>
 </head>
 <body>
-	<button onclick="soundTest();">Click Me!</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[0].buffer);">BD</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[1].buffer);">SD</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[2].buffer);">LT</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[3].buffer);">MT</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[4].buffer);">HT</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[5].buffer);">RS</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[6].buffer);">CP</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[7].buffer);">CB</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[8].buffer);">CY</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[9].buffer);">OH</button>
+	<button class="btn btn-primary" onclick="playSound(instruments[10].buffer);">CH</button>
+	<br>
+	<button class="btn btn-lg btn-danger" onclick="testSequence(); start();">Start Test</button>
+	<button class="btn btn-lg btn-danger" onclick="stop();">Stop Test</button>
+
 </body>
 </html>

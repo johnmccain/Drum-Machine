@@ -6,13 +6,11 @@
   <title>TR 808</title>
 
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
 	<!-- Latest compiled JavaScript -->
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
 	<script src="js/Instrument.js"></script>
@@ -41,7 +39,7 @@
         .button{
           border: none;
           height: 60px;
-          width:30px;
+          width:31px;
           border-radius: 5px;
           position: relative;
           top: 130px;
@@ -72,11 +70,26 @@
         {
             position: relative;
             top: 15%;
-            left: 15%;
+            left: 20%;
+            border: none;
+            height: 35px;
+            width:45px;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 1.5px 1.5px 1.5px #707070;
+            background-color:#0099ff;
+            font-size:.75em;
+        }
+        .btn-primary:hover{
+          background-color: #007acc;
         }
         .btn-lg{
           position:relative;
-          top:100px;
+          background-color:#ff1a1a;
+          border-radius:7px;
+          height: 40px;
+          width: 70px;
+          top:200px;
           left:30%;
         }
         div.container
@@ -89,7 +102,7 @@
         p1{
           font-family: "Arial";
           font-weight: bold;
-          font-size:1.15em;
+          font-size:1.0em;
           background-color: #c0c0c0;
           position: relative;
           top: 110px;
@@ -104,17 +117,17 @@
 
 
 <div class = "container" >
-  <button class="btn btn-primary" onclick="playSound(instruments[0].buffer);">BD</button>
-  <button class="btn btn-primary" onclick="playSound(instruments[1].buffer);">SD</button>
-  <button class="btn btn-primary" onclick="playSound(instruments[2].buffer);">LT</button>
-  <button class="btn btn-primary" onclick="playSound(instruments[3].buffer);">MT</button>
-  <button class="btn btn-primary" onclick="playSound(instruments[4].buffer);">HT</button>
-  <button class="btn btn-primary" onclick="playSound(instruments[5].buffer);">RS</button>
-  <button class="btn btn-primary" onclick="playSound(instruments[6].buffer);">CP</button>
-  <button class="btn btn-primary" onclick="playSound(instruments[7].buffer);">CB</button>
-  <button class="btn btn-primary" onclick="playSound(instruments[8].buffer);">CY</button>
-  <button class="btn btn-primary" onclick="playSound(instruments[9].buffer);">OH</button>
-  <button class="btn btn-primary" onclick="playSound(instruments[10].buffer);">CH</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[0].buffer);">Bass Drum</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[1].buffer);">Snare Drum</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[2].buffer);">Low Tom</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[3].buffer);">Mid Tom</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[4].buffer);">High Tom</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[5].buffer);">Rim Shot</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[6].buffer);">Clap</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[7].buffer);">Cow Bell</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[8].buffer);">Cymbal</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[9].buffer);">Open Hihat</button>
+  <button class="btn btn-primary" onclick="playSound(instruments[10].buffer);">Closed Hihat</button>
 <br><br><br>
 
   <button class="button button1"><div class="circle"></div></button>
@@ -134,10 +147,23 @@
   <button class="button button4"><div class="circle"></div></button>
   <button class="button button4"><div class="circle"></div></button>
   <br><br>
-  <p1> &nbsp1 &nbsp &nbsp  &nbsp 2  &nbsp &nbsp &nbsp  3  &nbsp &nbsp &nbsp  4  &nbsp&nbsp &nbsp   5 &nbsp  &nbsp&nbsp
-       6 &nbsp &nbsp  &nbsp  7 &nbsp  &nbsp&nbsp   8 &nbsp &nbsp&nbsp   9  &nbsp &nbsp
-          10 &nbsp  &nbsp  11  &nbsp&nbsp   12  &nbsp&nbsp   1 &nbsp  &nbsp&nbsp
-             2 &nbsp &nbsp  &nbsp  3 &nbsp &nbsp &nbsp   4 </p1><br>
+  <p1> &nbsp
+    1 &nbsp &nbsp &nbsp
+    2  &nbsp &nbsp &nbsp
+    3 &nbsp  &nbsp &nbsp
+    4  &nbsp&nbsp &nbsp
+    5 &nbsp  &nbsp&nbsp
+    6 &nbsp &nbsp  &nbsp
+    7 &nbsp  &nbsp&nbsp
+    8 &nbsp &nbsp&nbsp
+    9  &nbsp &nbsp
+    10 &nbsp  &nbsp
+    11  &nbsp&nbsp
+    12  &nbsp&nbsp&nbsp&nbsp
+    1 &nbsp  &nbsp&nbsp&nbsp
+    2 &nbsp &nbsp  &nbsp
+    3 &nbsp &nbsp &nbsp
+    4 </p1><br>
 
   <br>
   <br>

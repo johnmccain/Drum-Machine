@@ -96,12 +96,26 @@ Knob.prototype =
  * @param {string} color - (optional) The color of the knob as a hex code (ex: '#FFDD44').  Defaults to # if no value is given
  * @return {element object} knob - the element object of the div that is the knob
  */
-function newKnob(color)
+function makeKnob(color)
 {
   var myColor = color || '#FFFFFF';
   var knob = document.createElement('div');
 	var jknob = new Knob(myColor, knob);
 	knob.onmousedown = function(myEvent){jknob.knobClick(myEvent)};
+  $(knob).data('jknob', jknob);  //This enables access to the javascript object knob via the html dom element object using the jquery .data feature
+  return knob;
+}
+
+/**
+ * Creates a knob from an existing html element
+ * @param {element object} - the element to knobbify
+ * @param {string} color - (optional) The color of the knob as a hex code (ex: '#FFDD44').  Defaults to # if no value is given
+ */
+function knobbify(knob, color)
+{
+  var myColor = color || '#FFFFFF';
+  var jknob = new Knob(myColor, knob);
+  knob.onmousedown = function(myEvent){jknob.knobClick(myEvent)};
   $(knob).data('jknob', jknob);  //This enables access to the javascript object knob via the html dom element object using the jquery .data feature
   return knob;
 }

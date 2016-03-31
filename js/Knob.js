@@ -56,6 +56,9 @@ Knob.prototype =
     var pos = (((this.position + (deg * .5)) % 360) + 360) % 360;
     this.element.style.webkitTransform = "rotate(" + pos + "deg)"; /* Chrome, Safari, Opera */
     this.element.style.transform = "rotate(" + pos + "deg);"
+
+    //uncomment this to display position (for testing)
+    //document.getElementById('test').innerHTML = pos;
   },
 
   /**
@@ -64,6 +67,7 @@ Knob.prototype =
    */
   knobClick:function(firstEvent)
   {
+    firstEvent.preventDefault();
     var me = this;
     $(document).on('mousemove', function knobDrag(myEvent)
     {

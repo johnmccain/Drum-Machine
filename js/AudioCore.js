@@ -33,34 +33,7 @@ function setup()
     bdLoader = new BufferLoader
       (
       audioContext,
-      [
-        "TR808WAV/BD/BD0000.WAV",
-        "TR808WAV/BD/BD0010.WAV",
-        "TR808WAV/BD/BD0025.WAV",
-        "TR808WAV/BD/BD0050.WAV",
-        "TR808WAV/BD/BD0075.WAV",
-        "TR808WAV/BD/BD0075.WAV",
-        "TR808WAV/BD/BD1000.WAV",
-        "TR808WAV/BD/BD1010.WAV",
-        "TR808WAV/BD/BD1025.WAV",
-        "TR808WAV/BD/BD1050.WAV",
-        "TR808WAV/BD/BD1075.WAV",
-        "TR808WAV/BD/BD2500.WAV",
-        "TR808WAV/BD/BD2510.WAV",
-        "TR808WAV/BD/BD2525.WAV",
-        "TR808WAV/BD/BD2550.WAV",
-        "TR808WAV/BD/BD2575.WAV",
-        "TR808WAV/BD/BD5000.WAV",
-        "TR808WAV/BD/BD5010.WAV",
-        "TR808WAV/BD/BD5025.WAV",
-        "TR808WAV/BD/BD5050.WAV",
-        "TR808WAV/BD/BD5075.WAV",
-        "TR808WAV/BD/BD7500.WAV",
-        "TR808WAV/BD/BD7510.WAV",
-        "TR808WAV/BD/BD7525.WAV",
-        "TR808WAV/BD/BD7550.WAV",
-        "TR808WAV/BD/BD7575.WAV"
-      ],
+      BDBufferList,
       function(buffers)
       {
         instrument = new Instrument(buffers, knobs);

@@ -16,7 +16,9 @@
 	<script src="js/Instrument.js"></script>
 	<script src="js/BufferLoader.js"></script>
 	<script src="js/AudioCore.js"></script>
-
+        <script>
+          
+        </script>
 
         <style>
         p
@@ -32,17 +34,16 @@
           /*position: relative;*/
           display:block;
           border-radius:50%;
-          background:#b30000
+          background:#660000
         }
-       .circle:hover{
-          background:#ff1a1a}
+
         .button{
           border: none;
           height: 60px;
           width:31px;
           border-radius: 5px;
           position: relative;
-          top: 130px;
+          top: 25%;
           left: 15%;
           box-shadow: 1.5px 1.5px 1.5px #707070;
         }
@@ -69,16 +70,16 @@
         .btn-primary
         {
             position: relative;
-            top: 15%;
-            left: 20%;
+            top: 10%;
+            left: 15%;
             border: none;
-            height: 35px;
-            width:45px;
+            height: 40px;
+            width:50px;
             border-radius: 5px;
             position: relative;
             box-shadow: 1.5px 1.5px 1.5px #707070;
             background-color:#0099ff;
-            font-size:.75em;
+            font-size:1.em;
         }
         .btn-primary:hover{
           background-color: #007acc;
@@ -89,8 +90,8 @@
           border-radius:7px;
           height: 40px;
           width: 70px;
-          top:200px;
-          left:30%;
+          top:8%;
+          left:40%;
         }
         div.container
         {
@@ -105,7 +106,7 @@
           font-size:1.0em;
           background-color: #c0c0c0;
           position: relative;
-          top: 110px;
+          top: 20%;
           left: 15%;
         }
 
@@ -114,7 +115,6 @@
 
 </head>
 <body>
-
 
 <div class = "container" >
   <button class="btn btn-primary" onclick="playSound(instruments[0].buffer);">Bass Drum</button>
@@ -129,23 +129,25 @@
   <button class="btn btn-primary" onclick="playSound(instruments[9].buffer);">Open Hihat</button>
   <button class="btn btn-primary" onclick="playSound(instruments[10].buffer);">Closed Hihat</button>
 <br><br><br>
-
-  <button class="button button1"><div class="circle"></div></button>
-  <button class="button button1"><div class="circle"></div></button>
-  <button class="button button1"><div class="circle"></div></button>
-  <button class="button button1"><div class="circle"></div></button>
-  <button class="button button2"><div class="circle"></div></button>
-  <button class="button button2"><div class="circle"></div></button>
-  <button class="button button2"><div class="circle"></div></button>
-  <button class="button button2"><div class="circle"></div></button>
-  <button class="button button3"><div class="circle"></div></button>
-  <button class="button button3"><div class="circle"></div></button>
-  <button class="button button3"><div class="circle"></div></button>
-  <button class="button button3"><div class="circle"></div></button>
-  <button class="button button4"><div class="circle"></div></button>
-  <button class="button button4"><div class="circle"></div></button>
-  <button class="button button4"><div class="circle"></div></button>
-  <button class="button button4"><div class="circle"></div></button>
+<button class="btn btn-lg btn-danger" onclick="testSequence(); start();">Start Test</button>
+<button class="btn btn-lg btn-danger" onclick="stop();">Stop Test</button>
+<br><br>
+  <button class="button button1" onclick = "document.getElementById('id1').style.backgroundColor = '#ff1a1a'"><div id = "id1"class="circle" ></div></button>
+  <button class="button button1"onclick = "document.getElementById('id2').style.backgroundColor = '#ff1a1a'"><div id = "id2" class="circle"></div></button>
+  <button class="button button1"onclick = "document.getElementById('id3').style.backgroundColor = '#ff1a1a'"><div id = "id3"class="circle"></div></button>
+  <button class="button button1"onclick = "document.getElementById('id4').style.backgroundColor = '#ff1a1a'"><div id = "id4"class="circle"></div></button>
+  <button class="button button2"onclick = "document.getElementById('id5').style.backgroundColor = '#ff1a1a'"><div id = "id5"class="circle"></div></button>
+  <button class="button button2"onclick = "document.getElementById('id6').style.backgroundColor = '#ff1a1a'"><div id = "id6"class="circle"></div></button>
+  <button class="button button2"onclick = "document.getElementById('id7').style.backgroundColor = '#ff1a1a'"><div id = "id7"class="circle"></div></button>
+  <button class="button button2"onclick = "document.getElementById('id8').style.backgroundColor = '#ff1a1a'"><div id = "id8"class="circle"></div></button>
+  <button class="button button3"onclick = "document.getElementById('id9').style.backgroundColor = '#ff1a1a'"><div id = "id9"class="circle"></div></button>
+  <button class="button button3"onclick = "document.getElementById('id10').style.backgroundColor = '#ff1a1a'"><div id = "id10"class="circle"></div></button>
+  <button class="button button3"onclick = "document.getElementById('id11').style.backgroundColor = '#ff1a1a'"><div id = "id11"class="circle"></div></button>
+  <button class="button button3"onclick = "document.getElementById('id12').style.backgroundColor = '#ff1a1a'"><div id = "id12"class="circle"></div></button>
+  <button class="button button4"onclick = "document.getElementById('id13').style.backgroundColor = '#ff1a1a'"><div id = "id13"class="circle"></div></button>
+  <button class="button button4"onclick = "document.getElementById('id14').style.backgroundColor = '#ff1a1a'"><div id = "id14"class="circle"></div></button>
+  <button class="button button4"onclick = "document.getElementById('id15').style.backgroundColor = '#ff1a1a'"><div id = "id15"class="circle"></div></button>
+  <button class="button button4"onclick = "document.getElementById('id16').style.backgroundColor = '#ff1a1a'"><div id = "id16" class="circle"></div></button>
   <br><br>
   <p1> &nbsp
     1 &nbsp &nbsp &nbsp
@@ -167,8 +169,7 @@
 
   <br>
   <br>
-  <button class="btn btn-lg btn-danger" onclick="testSequence(); start();">Start Test</button>
-  <button class="btn btn-lg btn-danger" onclick="stop();">Stop Test</button>
+
 </div>
 
 

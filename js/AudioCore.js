@@ -1,6 +1,6 @@
 var audioContext;
 
-var instruments = [];
+var instrument;
 
 //Timer for each beat
 var beatTimer;
@@ -16,26 +16,59 @@ function setup()
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     audioContext = new AudioContext();
 
-    bufferLoader = new BufferLoader
+    /* knobs */
+    var channel = document.getElementById('channel');
+
+    console.log('got channel');
+    var knob1 = makeKnob('#FF5555');
+    var knob2 = makeKnob('#5555FF');
+
+    channel.appendChild(knob1);
+    channel.appendChild(knob2);
+    //console.log('Made the knobs');
+
+    var knobs = [$(knob1).data('jknob'), $(knob2).data('jknob')];
+
+    /* buffers */
+    bdLoader = new BufferLoader
       (
       audioContext,
       [
+        "TR808WAV/BD/BD0000.WAV",
+        "TR808WAV/BD/BD0010.WAV",
+        "TR808WAV/BD/BD0025.WAV",
+        "TR808WAV/BD/BD0050.WAV",
+        "TR808WAV/BD/BD0075.WAV",
+        "TR808WAV/BD/BD0075.WAV",
+        "TR808WAV/BD/BD1000.WAV",
+        "TR808WAV/BD/BD1010.WAV",
+        "TR808WAV/BD/BD1025.WAV",
+        "TR808WAV/BD/BD1050.WAV",
+        "TR808WAV/BD/BD1075.WAV",
+        "TR808WAV/BD/BD2500.WAV",
+        "TR808WAV/BD/BD2510.WAV",
+        "TR808WAV/BD/BD2525.WAV",
+        "TR808WAV/BD/BD2550.WAV",
+        "TR808WAV/BD/BD2575.WAV",
+        "TR808WAV/BD/BD5000.WAV",
+        "TR808WAV/BD/BD5010.WAV",
+        "TR808WAV/BD/BD5025.WAV",
         "TR808WAV/BD/BD5050.WAV",
-        "TR808WAV/SD/SD5050.WAV",
-        "TR808WAV/LT/LT50.WAV",
-        "TR808WAV/MT/MT50.WAV",
-        "TR808WAV/HT/HT50.WAV",
-        "TR808WAV/RS/RS.WAV",
-        "TR808WAV/CP/CP.WAV",
-        "TR808WAV/CB/CB.WAV",
-        "TR808WAV/CY/CY5050.WAV",
-        "TR808WAV/OH/OH50.WAV",
-        "TR808WAV/CH/CH.WAV"
+        "TR808WAV/BD/BD5075.WAV",
+        "TR808WAV/BD/BD7500.WAV",
+        "TR808WAV/BD/BD7510.WAV",
+        "TR808WAV/BD/BD7525.WAV",
+        "TR808WAV/BD/BD7550.WAV",
+        "TR808WAV/BD/BD7575.WAV"
       ],
-      makeInstruments
+      function(buffers)
+      {
+        instrument = new Instrument(buffers, knobs);
+        testSequence();
+        start();
+      }
       );
-
-    bufferLoader.load();
+    bdLoader.load();
   }
   catch(exception)
   {
@@ -45,6 +78,7 @@ function setup()
   }
 }
 
+/*
 function makeInstruments(buffers)
 {
   for(var i = 0; i < buffers.length; i++)
@@ -52,6 +86,7 @@ function makeInstruments(buffers)
     instruments[i] = new Instrument(buffers[i]);
   }
 }
+*/
 
 function playSound(buffer)
 {
@@ -63,7 +98,7 @@ function playSound(buffer)
 
 function start()
 {
-  beatTimer = window.setInterval(onBeat, 200);
+  beatTimer = window.setInterval(onBeat, 400);
   beat = 0;
 }
 function stop()
@@ -73,20 +108,22 @@ function stop()
 
 function testSequence()
 {
-  instruments[0].sequence = [1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0]; //BD beat
+  instrument.sequence = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; //BD beat
+  /*
   instruments[1].sequence = [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0]; //SD beat
   instruments[7].sequence = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1]; //CH beat
   instruments[10].sequence = [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]; //CH beat
+  */
 }
 
 function onBeat()
 {
-  for(var i = 0; i < instruments.length; i++)
+  if(instrument.sequence[beat] > 0)
   {
-    if(instruments[i].sequence[beat] > 0)
-    {
-      playSound(instruments[i].buffer);
-    }
+    playSound(instrument.buffer);
   }
+
+  instrument.updateBuffer();
+
   beat = (beat + 1) % 16;
 }

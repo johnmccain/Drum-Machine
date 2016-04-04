@@ -9,7 +9,7 @@ function Knob(color, element)
   this.element = element;
 
   //The position in degrees.  Should always be between 0-359
-  this.position = 0;
+  this.position = 180;
 
   //The color of the knob in hex code
   this.color = color;
@@ -43,6 +43,7 @@ Knob.prototype =
   rotate:function(deg)
   {
     this.position = (((this.position + (deg * .5)) % 360) + 360) % 360;  //Guarantees that change is between 0 and 359 (inclusive)
+    $('#level')[0].innerHTML = this.position;
     this.visRotate(0); // Updates visual rotation to current position
   },
 
@@ -53,12 +54,12 @@ Knob.prototype =
   visRotate:function(deg)
   {
 
-    var pos = (((this.position + (deg * .5)) % 360) + 360) % 360;
+    var pos = (((this.position + (deg * .5) + 180) % 360) + 360) % 360;
     this.element.style.webkitTransform = "rotate(" + pos + "deg)"; /* Chrome, Safari, Opera */
     this.element.style.transform = "rotate(" + pos + "deg);"
 
     //uncomment this to display position (for testing)
-    //document.getElementById('test').innerHTML = pos;
+    //document.getElementById('test').innerHTML = ((pos + 180) % 360);
   },
 
   /**
@@ -92,6 +93,17 @@ Knob.prototype =
       me.delta = 0;
       me.startPosition = null;
     });
+  },
+
+  /**
+   * Returns the integer for the value the knob should represent (from 0-4)
+   * @return {element object} knob - the element object of the div that is the knob
+   */
+  getValue:function()
+  {
+    var val = Math.floor(this.position/72);
+    console.log('Value: ' + val);
+    return val;
   }
 }
 

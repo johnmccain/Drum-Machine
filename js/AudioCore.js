@@ -76,6 +76,7 @@ function setup()
 function selectInstrument(index)
 {
   currentInstrument = instruments[index];
+  updateLeds();
 }
 
 /**

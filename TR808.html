@@ -6,272 +6,119 @@
   <title>TR 808</title>
 
   <link rel="stylesheet" type="text/css" href="style/style.css">
-  <!-- Bootstrap CSS -->
 
   <!-- JQuery -->
   <script src="js/jquery-2.2.0.js"></script>
-
-  <!-- Bootstrap JavaScript -->
-
-
-        <style>
-
-        .knob{
-        margin: 10px auto 0 auto;
-        width: 50px;
-        height: 50px;
-        display: block;
-        border-radius: 50%;
-        border: 5px solid black;
-        float: left:
-      }
-
-      .knobIndicator{
-        width:5px;
-        height: 10px;
-        background-color: black;
-        position: relative;
-        margin: 0 auto;
-      }
-
-      /* Code from TR808.html style tag */
-
-      p
-      {
-        background-color: #909090
-      }
-      .circle{
-        margin-left: 17.5%;
-        margin-right: 50%;
-        margin-bottom: 100%;
-        width: 13px;
-        height: 13px;
-        display:block;
-        border-radius:50%;
-        background:#660000;
-      }
-
-
-      .button{
-        border: none;
-        height: 60px;
-        width:31px;
-        border-radius: 5px;
-        position: relative;
-        box-shadow: 1.5px 1.5px 1.5px #707070;
-      }
-      .button:hover{
-        box-shadow: 3px 3px 3px #707070;
-      }
-
-      .button1
-      {
-        background-color: #ff3300;
-      }
-      .button2
-      {
-        background-color: #ff9933;
-      }
-      .button3
-      {
-        background-color: #ffff00;
-      }
-      .button4
-      {
-        background-color: #ffffff;
-      }
-      .btn-primary
-      {
-          position: relative;
-          top: 10%;
-          left: 15%;
-          border: none;
-          height: 40px;
-          width:50px;
-          border-radius: 5px;
-          position: relative;
-          box-shadow: 1.5px 1.5px 1.5px #707070;
-          background-color:#ffffff;
-          font-size:1.em;
-      }
-      .btn-primary:hover{
-        background-color: #cccccc;
-      }
-      .btn-lg{
-        position:relative;
-        background-color:#ff1a1a;
-        border-radius:7px;
-        height: 40px;
-        width: 70px;
-
-      }
-      div.startstop
-      {
-        margin-left:0%;
-        float:left;
-        margin-top: 0%;
-        height: 100%;
-      }
-      div.container
-      {
-        background-color: #909090;
-        padding: 0%;
-        width: 800px;
-        height: 400px;
-      }
-      div.numbers{
-        font-family: "Arial";
-        font-weight: bold;
-        font-size:1.0em;
-        background-color: #c0c0c0;
-        position: relative;
-        float: left;
-      }
-      div.coloredbuttons
-      {
-        margin-left:8.75%;
-        margin-top: 10%;
-        float: left;
-      }
-      div.instrumentbuttons
-      {
-          margin-top: 0%;
-          margin-left:8.75%;
-          height: 13.3%;
-          width: 80.75%;
-      }
-      .channel
-      {
-        width: 9%;
-        height: 100%;
-        float: left;
-      }
-
-      .ledOn{
-        background-color: #ff1a1a;
-      }
-
-      .ledOff{
-        background-color: #660000;}
-
-         </style>
-         <script>
-          knob.appendChild(makeKnob('#FF4444'));
-         </script>
 
 </head>
 <body>
 
 
 <div class = "container" >
+  <div class = "startstop">
+    <button class="btn btn-lg btn-danger" onclick="testSequence(); start();">Start Test</button><br>
+    <button class="btn btn-lg btn-danger" onclick="stop();">Stop Test</button>
+  </div>
 
-
-    <div class ="instrumentbuttons">
-      <div id="i1" class="channel"  style="float:left; margin-right:.01%">
-        <div class = "knob" style="background-color: rgb(0,255,255);">
-          <div class="knobIndicator"></div>
-        </div>
-        <button class="btn btn-primary" onclick="playSound(instruments[0].buffer); selectInstrument(0);">Bass Drum</button>
-      </div>
-      <div id="i2" class="channel" style="float:left; margin-right:.01%">
-        <button class="btn btn-primary" onclick="playSound(instruments[1].buffer);selectInstrument(1);">Snare Drum</button>
-      </div>
-      <div id="i3" class="channel" style="float:left; margin-right:.01%">
-        <button class="btn btn-primary" onclick="playSound(instruments[2].buffer);selectInstrument(2);">Low Tom</button>
-      </div>
-      <div id="i4" class="channel" style="float:left; margin-right:.01%">
-        <button class="btn btn-primary" onclick="playSound(instruments[3].buffer);selectInstrument(3);">Mid Tom</button>
-      </div>
-      <div id="i5" class="channel" style="float:left; margin-right:.01%">
-        <button class="btn btn-primary" onclick="playSound(instruments[4].buffer);selectInstrument(4);">High Tom</button>
-      </div>
-      <div id="i6" class="channel" style="float:left; margin-right:.01%">
-        <button class="btn btn-primary" onclick="playSound(instruments[5].buffer);selectInstrument(5);">Rim Shot</button>
-      </div>
-      <div id="i7" class="channel" style="float:left; margin-right:.01%">
-        <button class="btn btn-primary" onclick="playSound(instruments[6].buffer);selectInstrument(6);">Clap</button>
-      </div>
-      <div id="i8" class="channel" style="float:left; margin-right:.01%">
-        <button class="btn btn-primary" onclick="playSound(instruments[7].buffer);selectInstrument(7);">Cow Bell</button>
-      </div>
-      <div id="i9" class="channel" style="float:left; margin-right:.01%">
-        <button class="btn btn-primary" onclick="playSound(instruments[8].buffer);selectInstrument(8);">Cymbal</button>
-      </div>
-      <div id="i10" class="channel" style="float:left; margin-right:.01%">
-        <button class="btn btn-primary" onclick="playSound(instruments[9].buffer);selectInstrument(9);">Open Hihat</button>
-      </div>
-      <div id="i11" class="channel" style="float:left; margin-right:.01%">
-        <button class="btn btn-primary" onclick="playSound(instruments[10].buffer);selectInstrument(10);">Closed Hihat</button>
-      </div>
+  <div id="instrumentbuttons">
+    <div id="i1" class="channel" >
+      <div></div>
+      <button class="btn btn-primary" onclick="playSound(instruments[0].buffer); selectInstrument(0);">BD</button>
     </div>
-  <br><br><br>
-<div class = "startstop">
-<button class="btn btn-lg btn-danger" onclick="testSequence(); start();">Start Test</button><br>
-<button class="btn btn-lg btn-danger" onclick="stop();">Stop Test</button>
-</div>
-<br><br>
+    <div id="i2" class="channel">
+      <button class="btn btn-primary" onclick="playSound(instruments[1].buffer);selectInstrument(1);">SD</button>
+    </div>
+    <div id="i3" class="channel">
+      <button class="btn btn-primary" onclick="playSound(instruments[2].buffer);selectInstrument(2);">LT</button>
+    </div>
+    <div id="i4" class="channel">
+      <button class="btn btn-primary" onclick="playSound(instruments[3].buffer);selectInstrument(3);">MT</button>
+    </div>
+    <div id="i5" class="channel">
+      <button class="btn btn-primary" onclick="playSound(instruments[4].buffer);selectInstrument(4);">HT</button>
+    </div>
+    <div id="i6" class="channel">
+      <button class="btn btn-primary" onclick="playSound(instruments[8].buffer);selectInstrument(8);">RS</button>
+    </div>
+    <div id="i7" class="channel">
+      <button class="btn btn-primary" onclick="playSound(instruments[9].buffer);selectInstrument(9);">CP</button>
+    </div>
+    <div id="i8" class="channel">
+      <button class="btn btn-primary" onclick="playSound(instruments[12].buffer);selectInstrument(12);">CB</button>
+    </div>
+    <div id="i9" class="channel">
+      <button class="btn btn-primary" onclick="playSound(instruments[13].buffer);selectInstrument(13);">CY</button>
+    </div>
+    <div id="i10" class="channel">
+      <button class="btn btn-primary" onclick="playSound(instruments[14].buffer);selectInstrument(14);">OH</button>
+    </div>
+    <div id="i11" class="channel">
+      <button class="btn btn-primary" onclick="playSound(instruments[15].buffer);selectInstrument(15);">CH</button>
+    </div>
+  </div>
+  <br><br><br><br><br>
 <div class = "coloredbuttons">
-  <button class="button button1" onclick="onBeatClick(0);document.getElementById('id1').style.backgroundColor = '#ff1a1a';">
-    <div id = "id1"class="circle ledOff" ></div>
+  <button class="button button1" onclick="onBeatClick(0);">
+    <div id = "id1" class="circle ledOff" ></div>
   </button>
 
-  <button class="button button1" onclick="onBeatClick(1); document.getElementById('id2').style.backgroundColor = '#ff1a1a';">
+  <button class="button button1" onclick="onBeatClick(1);">
     <div id = "id2" class="circle ledOff"></div>
   </button>
 
-  <button class="button button1" onclick="onBeatClick(2);document.getElementById('id3').style.backgroundColor = '#ff1a1a';">
-    <div id = "id3"class="circle ledOff"></div>
+  <button class="button button1" onclick="onBeatClick(2);">
+    <div id = "id3" class="circle ledOff"></div>
   </button>
 
-  <button class="button button1" onclick="onBeatClick(3);document.getElementById('id4').style.backgroundColor = '#ff1a1a';">
-    <div id = "id4"class="circle ledOff"></div>
+  <button class="button button1" onclick="onBeatClick(3);">
+    <div id = "id4" class="circle ledOff"></div>
   </button>
 
-  <button class="button button2" onclick="onBeatClick(4);document.getElementById('id5').style.backgroundColor = '#ff1a1a';">
-    <div id = "id5"class="circle ledOff"></div>
+  <button class="button button2" onclick="onBeatClick(4);">
+    <div id = "id5" class="circle ledOff"></div>
   </button>
 
-  <button class="button button2" onclick="onBeatClick(5);document.getElementById('id6').style.backgroundColor = '#ff1a1a';">
-    <div id = "id6"class="circle ledOff"></div>
+  <button class="button button2" onclick="onBeatClick(5);">
+    <div id = "id6" class="circle ledOff"></div>
   </button>
 
-  <button class="button button2" onclick="onBeatClick(6);document.getElementById('id7').style.backgroundColor = '#ff1a1a';">
-    <div id = "id7"class="circle ledOff"></div>
+  <button class="button button2" onclick="onBeatClick(6);">
+    <div id = "id7" class="circle ledOff"></div>
   </button>
 
-  <button class="button button2" onclick="onBeatClick(7);document.getElementById('id8').style.backgroundColor = '#ff1a1a';">
-    <div id = "id8"class="circle ledOff"></div>
+  <button class="button button2" onclick="onBeatClick(7);">
+    <div id = "id8" class="circle ledOff"></div>
   </button>
 
-  <button class="button button3" onclick="onBeatClick(8);document.getElementById('id9').style.backgroundColor = '#ff1a1a';">
-    <div id = "id9"class="circle ledOff"></div>
+  <button class="button button3" onclick="onBeatClick(8);">
+    <div id = "id9" class="circle ledOff"></div>
   </button>
 
-  <button class="button button3" onclick="onBeatClick(9);document.getElementById('id10').style.backgroundColor = '#ff1a1a';">
-    <div id = "id10"class="circle ledOff"></div>
+  <button class="button button3" onclick="onBeatClick(9);">
+    <div id = "id10" class="circle ledOff"></div>
   </button>
 
-  <button class="button button3" onclick="onBeatClick(10);document.getElementById('id11').style.backgroundColor = '#ff1a1a';">
-    <div id = "id11"class="circle ledOff"></div>
+  <button class="button button3" onclick="onBeatClick(10);">
+    <div id = "id11" class="circle ledOff"></div>
   </button>
 
-  <button class="button button3" onclick="onBeatClick(11);document.getElementById('id12').style.backgroundColor = '#ff1a1a';">
-    <div id = "id12"class="circle ledOff"></div>
+  <button class="button button3" onclick="onBeatClick(11);">
+    <div id = "id12" class="circle ledOff"></div>
   </button>
 
-  <button class="button button4" onclick="onBeatClick(12);document.getElementById('id13').style.backgroundColor = '#ff1a1a';">
-    <div id = "id13"class="circle ledOff"></div>
+  <button class="button button4" onclick="onBeatClick(12);">
+    <div id = "id13" class="circle ledOff"></div>
   </button>
 
-  <button class="button button4" onclick="onBeatClick(13);document.getElementById('id14').style.backgroundColor = '#ff1a1a';">
-    <div id = "id14"class="circle ledOff"></div>
+  <button class="button button4" onclick="onBeatClick(13);">
+    <div id = "id14" class="circle ledOff"></div>
   </button>
 
-  <button class="button button4" onclick="onBeatClick(14);document.getElementById('id15').style.backgroundColor = '#ff1a1a';">
-    <div id = "id15"class="circle ledOff"></div>
+  <button class="button button4" onclick="onBeatClick(14);">
+    <div id = "id15" class="circle ledOff"></div>
   </button>
 
-  <button class="button button4" onclick="onBeatClick(15);document.getElementById('id16').style.backgroundColor = '#ff1a1a';">
+  <button class="button button4" onclick="onBeatClick(15);">
     <div id = "id16" class="circle ledOff"></div>
   </button><br>
   <div class = "numbers"> &nbsp

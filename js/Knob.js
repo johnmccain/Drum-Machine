@@ -102,7 +102,6 @@ Knob.prototype =
   getValue:function()
   {
     var val = Math.floor(this.position/72);
-    console.log('Value: ' + val);
     return val;
   }
 }

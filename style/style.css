@@ -1,16 +1,16 @@
+/* TODO: Make knobs responsive */
 .knob{
 margin: 10px auto 0 auto;
-width: 50px;
-height: 50px;
+width: 30px;
+height: 30px;
 display: block;
 border-radius: 50%;
-border: 5px solid black;
-float: left;
+border: 3px solid black;
 }
 
 .knobIndicator{
-width:5px;
-height: 10px;
+width:4px;
+height: 8px;
 background-color: black;
 position: relative;
 margin: 0 auto;

@@ -7,6 +7,15 @@ for(var i = 0; i < 16; ++i)
   leds[i] = document.getElementById(myId);
 }
 
+//The DOM Element objects of each instrument channel, indexed by order on the screen from left to right
+var channels = Array();
+
+for(var i = 0; i < 16; ++i)
+{
+  var myId = 'i' + (i + 1);
+  channels[i] = document.getElementById(myId);
+}
+
 /**
  * Toggles the color of the beat button pressed and calls changeBeat
  * @param {int} beat - the beat of the button that was pressed (from 0-15)

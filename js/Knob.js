@@ -43,7 +43,6 @@ Knob.prototype =
   rotate:function(deg)
   {
     this.position = (((this.position + (deg * .5)) % 360) + 360) % 360;  //Guarantees that change is between 0 and 359 (inclusive)
-    $('#level')[0].innerHTML = this.position;
     this.visRotate(0); // Updates visual rotation to current position
   },
 
@@ -57,9 +56,6 @@ Knob.prototype =
     var pos = (((this.position + (deg * .5) + 180) % 360) + 360) % 360;
     this.element.style.webkitTransform = "rotate(" + pos + "deg)"; /* Chrome, Safari, Opera */
     this.element.style.transform = "rotate(" + pos + "deg);"
-
-    //uncomment this to display position (for testing)
-    //document.getElementById('test').innerHTML = ((pos + 180) % 360);
   },
 
   /**

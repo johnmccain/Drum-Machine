@@ -48,6 +48,7 @@ function setup()
           {
             var knob = makeKnob('#FF5555');
             knobs[j] = $(knob).data('jknob');
+            $(channels[i]).prepend($(knob).fadeIn('fast'));
           }
           console.log('Made ' + numKnobs + ' knobs.  Actual length of knobs: ' + knobs.length);
           //Create the instrument

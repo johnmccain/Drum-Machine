@@ -81,10 +81,10 @@
         }
         div.startstop
         {
-          margin-top:20%;
           margin-left:0%;
-          height:1px;
-
+          float:left;
+          margin-top: 0%;
+          height: 100%;
         }
         div.container
         {
@@ -103,15 +103,22 @@
         }
         div.coloredbuttons
         {
-
+          margin-left:8.75%;
+          margin-top: 10%;
           float: left;
-          margin-top:15%;
-          margin-left:10%;
         }
         div.instrumentbuttons
         {
             margin-top: 0%;
-            margin-left:70px;
+            margin-left:8.75%;
+            height: 13.3%;
+            width: 68.75%;
+        }
+        .channel
+        {
+          width: 8%;
+          height: 100%;
+          float: left;
         }
 
          </style>
@@ -123,21 +130,21 @@
 <div class = "container" >
 
 
-  <div class ="instrumentbuttons" style = "float:left; margin-left:70px">
-  <div class ="i1"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[0].buffer);">Bass Drum</button></div>
-  <div class ="i2"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[1].buffer);">Snare Drum</button></div>
-  <div class ="i3"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[2].buffer);">Low Tom</button></div>
-  <div class ="i4"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[3].buffer);">Mid Tom</button></div>
-  <div class ="i5"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[4].buffer);">High Tom</button></div>
-  <div class ="i6"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[5].buffer);">Rim Shot</button></div>
-  <div class ="i7"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[6].buffer);">Clap</button></div>
-  <div class ="i8"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[7].buffer);">Cow Bell</button></div>
-  <div class ="i9"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[8].buffer);">Cymbal</button></div>
-  <div class ="i10"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[9].buffer);">Open Hihat</button></div>
-  <div class ="i11"style = "float:left"><button class="btn btn-primary" onclick="playSound(instruments[10].buffer);">Closed Hihat</button></div>
+  <div class ="instrumentbuttons">
+  <div id="i1 channel" style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[0].buffer);">Bass Drum</button></div>
+  <div id="i2 channel"style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[1].buffer);">Snare Drum</button></div>
+  <div id="i3 channel"style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[2].buffer);">Low Tom</button></div>
+  <div id="i4 channel"style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[3].buffer);">Mid Tom</button></div>
+  <div id="i5 channel"style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[4].buffer);">High Tom</button></div>
+  <div id="i6 channel"style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[5].buffer);">Rim Shot</button></div>
+  <div id="i7 channel"style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[6].buffer);">Clap</button></div>
+  <div id="i8 channel"style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[7].buffer);">Cow Bell</button></div>
+  <div id="i9 channel"style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[8].buffer);">Cymbal</button></div>
+  <div id="i10 channel"style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[9].buffer);">Open Hihat</button></div>
+  <div id="i11 channel"style="float:left"><button class="btn btn-primary" onclick="playSound(instruments[10].buffer);">Closed Hihat</button></div>
   </div>
 <br><br><br>
-<div class = "startstop" style="margin-left:0%; float:left">
+<div class = "startstop">
 <button class="btn btn-lg btn-danger" onclick="testSequence(); start();">Start Test</button><br>
 <button class="btn btn-lg btn-danger" onclick="stop();">Stop Test</button>
 </div>
@@ -184,7 +191,11 @@
   <br>
 
 </div>
-
+<script src="js/BufferLists.js"></script>
+<script src="js/Knob.js"></script>
+<script src="js/Instrument.js"></script>
+<script src="js/BufferLoader.js"></script>
+<script src="js/AudioCore.js"></script>
 
 
 

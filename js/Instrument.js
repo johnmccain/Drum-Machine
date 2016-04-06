@@ -24,6 +24,7 @@ Instrument.prototype =
 		var bufferIndex = getBufferIndex(this.getKnobSettings());
 		//console.log('Updating buffer to index ' + bufferIndex);
 		this.buffer = this.buffers[bufferIndex];
+		console.log('Updated buffer to index ' + bufferIndex);
 	},
 
 	getKnobSettings:function()

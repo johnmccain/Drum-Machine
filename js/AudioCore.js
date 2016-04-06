@@ -1,6 +1,10 @@
 var audioContext;
 
-var instrument;
+//The currently selected instrument for editing
+var currentInstrument;
+
+//All of the instruments
+var instruments = Array();
 
 //Timer for each beat
 var beatTimer;
@@ -16,32 +20,46 @@ function setup()
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     audioContext = new AudioContext();
 
-    /* knobs */
-    var channel = document.getElementById('channel');
-
-    console.log('got channel');
-    var knob1 = makeKnob('#FF5555');
-    var knob2 = makeKnob('#5555FF');
-
-    channel.appendChild(knob1);
-    channel.appendChild(knob2);
-    //console.log('Made the knobs');
-
-    var knobs = [$(knob1).data('jknob'), $(knob2).data('jknob')];
-
     /* buffers */
-    bdLoader = new BufferLoader
+    loader = new MyBufferLoader
       (
       audioContext,
-      BDBufferList,
+      BufferLists,
       function(buffers)
       {
-        instrument = new Instrument(buffers, knobs);
+        for(var i = 0; i < buffers.length; ++i)
+        {
+          /* knobs */
+          var numKnobs = 0;
+          for(var x = 0; x >= 0; ++x)
+          {
+            if(Math.pow(5, x) <= buffers[i].length)
+            {
+              numKnobs = x;
+            }
+            else
+            {
+              x = -100;
+            }
+          }
+
+          var knobs = Array();
+          for(var j = 0; j < numKnobs; ++j)
+          {
+            var knob = makeKnob('#FF5555');
+            knobs[j] = $(knob).data('jknob');
+          }
+          console.log('Made ' + numKnobs + ' knobs.  Actual length of knobs: ' + knobs.length);
+          //Create the instrument
+          instruments[i] = new Instrument(buffers[i], knobs);
+        }
+
+        currentInstrument = instruments[i];
         testSequence();
         start();
       }
       );
-    bdLoader.load();
+    loader.load();
   }
   catch(exception)
   {
@@ -51,15 +69,23 @@ function setup()
   }
 }
 
-/*
-function makeInstruments(buffers)
+/**
+ * Change the currentInstrument to the instrument at index in instruments
+ * @param {int} index - the index of the instrument to select
+ */
+function selectInstrument(index)
 {
-  for(var i = 0; i < buffers.length; i++)
-  {
-    instruments[i] = new Instrument(buffers[i]);
-  }
+  currentInstrument = instruments[index];
 }
-*/
+
+/**
+ * Increment the sequence of the currentInstrument at index (will always be between 0-1, eventually 0-2)
+ * @param {int} index - the index of the sequence to change (valid values are 1-15)
+ */
+function changeBeat(index)
+{
+  currentInstrument.sequence[index] = (currentInstrument.sequence[index] + 1) % 2;
+}
 
 function playSound(buffer)
 {
@@ -81,22 +107,21 @@ function stop()
 
 function testSequence()
 {
-  instrument.sequence = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; //BD beat
-  /*
   instruments[1].sequence = [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0]; //SD beat
   instruments[7].sequence = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1]; //CH beat
   instruments[10].sequence = [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]; //CH beat
-  */
 }
 
 function onBeat()
 {
-  if(instrument.sequence[beat] > 0)
+  for(var i = 0; i < instruments.length; ++i)
   {
-    playSound(instrument.buffer);
+    if(instruments[i].sequence[beat] > 0)
+    {
+      playSound(instruments[i].buffer);
+    }
+    instruments[i].updateBuffer();
   }
-
-  instrument.updateBuffer();
 
   beat = (beat + 1) % 16;
 }

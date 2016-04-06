@@ -31,3 +31,21 @@ var CYBufferList = ["TR808WAV/CY/CY0000.WAV","TR808WAV/CY/CY0010.WAV","TR808WAV/
 var OHBufferList = ["TR808WAV/OH/OH00.WAV","TR808WAV/OH/OH10.WAV","TR808WAV/OH/OH25.WAV","TR808WAV/OH/OH50.WAV","TR808WAV/OH/OH75.WAV"];
 
 var CHBufferList = ["TR808WAV/CH/CH.WAV"];
+
+//Array of all the BufferLists
+var BufferLists = [ BDBufferList,
+                    SDBufferList,
+                    LTBufferList,
+                    MTBufferList,
+                    HTBufferList,
+                    LCBufferList,
+                    MCBufferList,
+                    HCBufferList,
+                    RSBufferList,
+                    CPBufferList,
+                    CLBufferList,
+                    MABufferList,
+                    CBBufferList,
+                    CYBufferList,
+                    OHBufferList,
+                    CHBufferList];

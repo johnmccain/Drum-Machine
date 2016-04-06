@@ -52,6 +52,5 @@ function getBufferIndex(arr)
 		//console.log('buffer index counting: ' + i + '; index is ' + index);
 		index += arr[i] * Math.pow(5, arr.length - 1 -i);
 	}
-	$('#bufferNo')[0].innerHTML = index;
 	return index;
 }

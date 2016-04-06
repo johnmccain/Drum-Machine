@@ -54,7 +54,7 @@ function setup()
           instruments[i] = new Instrument(buffers[i], knobs);
         }
 
-        currentInstrument = instruments[i];
+        currentInstrument = instruments[0];
         testSequence();
         start();
       }
@@ -97,7 +97,7 @@ function playSound(buffer)
 
 function start()
 {
-  beatTimer = window.setInterval(onBeat, 400);
+  beatTimer = window.setInterval(onBeat, 200);
   beat = 0;
 }
 function stop()

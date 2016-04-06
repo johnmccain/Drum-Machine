@@ -56,8 +56,6 @@ function setup()
         }
 
         currentInstrument = instruments[0];
-        testSequence();
-        start();
       }
       );
     loader.load();

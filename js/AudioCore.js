@@ -1,3 +1,8 @@
+/**
+ * @author John McCain <johnm.freestate@gmail.com>
+ * @version 1.0
+ */
+
 var audioContext;
 
 //The currently selected instrument for editing
@@ -70,7 +75,7 @@ function setup()
 
 /**
  * Change the currentInstrument to the instrument at index in instruments
- * @param {int} index - the index of the instrument to select
+ * @param {number} index - the index of the instrument to select
  */
 function selectInstrument(index)
 {
@@ -80,7 +85,7 @@ function selectInstrument(index)
 
 /**
  * Increment the sequence of the currentInstrument at index (will always be between 0-1, eventually 0-2)
- * @param {int} index - the index of the sequence to change (valid values are 1-15)
+ * @param {number} index - the index of the sequence to change (valid values are 1-15)
  */
 function changeBeat(index)
 {

@@ -1,4 +1,10 @@
 /**
+ * @author John McCain <johnm.freestate@gmail.com>
+ * @author Alan Wang
+ * @version 1.0
+ */
+
+/**
  * Represents a knob.
  * @constructor
  * @param {string} color - The color of the knob, in hex code
@@ -38,7 +44,7 @@ Knob.prototype =
 {
   /**
    * Changes the position of this knob by deg degrees, accounting for rollover and rollunder so that the value of position is always between 0 and 359 (inclusive)
-   * @param {int} deg - The number of degrees to rotate the knob by
+   * @param {number} deg - The number of degrees to rotate the knob by
    */
   rotate:function(deg)
   {
@@ -130,5 +136,3 @@ function knobbify(knob, color)
   $(knob).data('jknob', jknob);  //This enables access to the javascript object knob via the html dom element object using the jquery .data feature
   return knob;
 }
-
-//look into worker threads

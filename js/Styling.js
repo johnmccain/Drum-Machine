@@ -1,3 +1,8 @@
+/**
+ * @author John McCain <johnm.freestate@gmail.com>
+ * @version 1.0
+ */
+
 //The DOM Element objects of each led, indexed by beat
 var leds = Array();
 
@@ -18,7 +23,7 @@ for(var i = 0; i < 16; ++i)
 
 /**
  * Toggles the color of the beat button pressed and calls changeBeat
- * @param {int} beat - the beat of the button that was pressed (from 0-15)
+ * @param {number} beat - the beat of the button that was pressed (from 0-15)
  */
 function onBeatClick(beat)
 {

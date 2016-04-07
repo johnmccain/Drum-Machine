@@ -1,4 +1,9 @@
 /**
+ * @author John McCain <johnm.freestate@gmail.com>
+ * @version 1.0
+ */
+
+/**
  * Represents an Instrument.
  * @constructor
  * @param {arraybuffer array} buffers - The possible buffers for this instrument
@@ -6,19 +11,25 @@
  */
 function Instrument(buffers, knobs) //has array of knobs, array of buffers, array of sequence, and eventually a gainnode with associated volume knob
 {
+	//An array of the buffers of this instrument
 	this.buffers = buffers;
+
 	//Sequence represents the sequence of beats that this instrument should be played on.  Valid values for each of the 16 beats are 0 (rest), 1 (note), and 2 (emphasised note)
 	this.sequence = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+	//An array of the knobs of this instrument (the first knob should be in the first index)
 	this.knobs = knobs;
 
+	//The current buffer
 	this.buffer = {};
-
 	this.updateBuffer();
-	//console.log('Set Instrument buffer');
 }
 
 Instrument.prototype =
 {
+	/**
+	 * Updates the current buffer based on the current settings of the knobs
+	 */
 	updateBuffer:function()
 	{
 		var bufferIndex = getBufferIndex(this.getKnobSettings());
@@ -26,6 +37,10 @@ Instrument.prototype =
 		this.buffer = this.buffers[bufferIndex];
 	},
 
+	/**
+	 * Returns an array of the current knob settings
+	 * @return arr - An array of the current knob settings.
+	 */
 	getKnobSettings:function()
 	{
 		var arr = [];
@@ -40,8 +55,8 @@ Instrument.prototype =
 
 /**
  * Returns the index for the buffer indicated by the given settings
- * @param {int array} arr - An array of the knob positions (from 0 to 4) with the first knob in the first index and so on
- * @return {int} index - The index of the buffer for the given settings
+ * @param {number array} arr - An array of the knob positions (from 0 to 4) with the first knob in the first index and so on
+ * @return {number} index - The index of the buffer for the given settings
  */
 function getBufferIndex(arr)
 {

@@ -6,8 +6,8 @@
 /**
  * Represents an Instrument.
  * @constructor
- * @param {arraybuffer array} buffers - The possible buffers for this instrument
- * @param {knob array} knobs - The knobs that control parameters (aside from volume) for this instrument
+ * @param {Array} buffers - The possible buffers for this instrument
+ * @param {Array} knobs - The knobs that control parameters (aside from volume) for this instrument
  */
 function Instrument(buffers, knobs) //has array of knobs, array of buffers, array of sequence, and eventually a gainnode with associated volume knob
 {
@@ -55,7 +55,7 @@ Instrument.prototype =
 
 /**
  * Returns the index for the buffer indicated by the given settings
- * @param {number array} arr - An array of the knob positions (from 0 to 4) with the first knob in the first index and so on
+ * @param {Array} arr - An array of the knob positions (from 0 to 4) with the first knob in the first index and so on
  * @return {number} index - The index of the buffer for the given settings
  */
 function getBufferIndex(arr)

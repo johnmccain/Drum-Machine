@@ -1,0 +1,37 @@
+Task,Description,Priority Rank,Time required,Team Members(s),Status
+Software knobs,communicate rotational position based user dragging up or down,4,medium,John/Alan,complete
+change tempo knob,"enter a value, not necessarily knob yet",5,low,Alan,in progress
+Playing audio,playing audio on a certain beat,1,medium,John,complete
+Rythm interface,"similar to tr 808, with 16 increments representing 16 count",3,medium,"Audrey, Hari",in progress
+playing multiple audio sources,playing multiple audio sounds at a certain beat at the same time,2,high,John,complete
+Tap tempo,clicking button on a beat makes a certain tempo,7,medium,John/Alan,
+volume control,volume knobs for each sound,6,medium,John/Alan,
+instrument controls,"volume,tuning,tone,decay done by loading a different buffer for each sound",9,high,John,complete
+visual styling,making it look as similar to TR 808 as possible,8,high,Audrey/Hari with some help from everyone,
+pattern saving,through json or http get,10,medium,John/Alan,
+touch support,for knobs,11,low,John,
+loading screen,display loading screen with circle that fills up,12,medium,John,
+switches,,13,,John/Alan,
+sequence,a sequence is multiple beats,10,,TBD,
+beat restructure,restructure tempo timing,6,,John/Alan,
+,,,,,
+,,,,,
+,,,,,
+Project 4 requirements,,,,,
+documentation,,,medium,All,
+UML diagrams,"state, use-case, class diagrams",,low,Hari/Alan,
+Gantt chart,contains all tasks to complete in projects 3 and 4,,medium,Audrey,
+Sprint 2 backlog,,,,Audrey,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+Final Exam Requirements,,,,,
+Test Suite,"One-click test option, prints a final summary of test",,medium,John,
+Bug List,list of known bugs,,low,All,
+User's Manual,"document with screen shots, ect. 5 page minimum",,high,Hari ,
+Deployment plan,5 page minimum,,high,Audrey/Hari,
+maintenance plan,5 page minimum,,high,Audrey/Hari,
+Final Presentation powerpoint,,,medium,Audrey,

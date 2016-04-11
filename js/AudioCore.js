@@ -3,17 +3,33 @@
  * @version 1.0
  */
 
+/**
+ * @type {AudioContext}
+ */
 var audioContext;
 
-//The currently selected instrument for editing
+/**
+ * The currently selected instrument for editing
+ * @type {object}
+ */
 var currentInstrument;
 
-//All of the instruments
-var instruments = Array();
+/**
+ * Array of all the instruments
+ * @type {array}
+ */
+ var instruments = Array();
 
-//Timer for each beat
+ /**
+  * Timer for each beat
+  * @type {Timer}
+  */
 var beatTimer;
 
+/**
+ * Beat iterator (valid values are integers from 0-15)
+ * @type {number}
+ */
 var beat = 0;
 
 window.addEventListener('load', setup, false);

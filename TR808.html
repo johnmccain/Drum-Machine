@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -17,7 +16,8 @@
 <div class = "container" >
   <div class = "startstop">
     <button class="btn btn-lg btn-danger" onclick="start();">Start</button><br>
-    <button class="btn btn-lg btn-danger" onclick="stop();">Stop</button>
+    <button class="btn btn-lg btn-danger" onclick="stop();">Stop</button><br>
+    <button class="btn btn-lg btn-danger" onclick="setTempo(prompt('Enter a tempo in BPM'));">Change Tempo</button>
   </div>
 
   <div id="instrumentbuttons">
@@ -145,6 +145,7 @@
 </div>
 
 <script src="js/BufferLists.js"></script>
+<script src="js/Timer.js"></script>
 <script src="js/Knob.js"></script>
 <script src="js/Instrument.js"></script>
 <script src="js/MyBufferLoader.js"></script>

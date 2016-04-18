@@ -27,6 +27,12 @@ var currentInstrument;
 var beatTimer;
 
 /**
+ * The current BPM (beats per minute) of the drum machine.  Note: a beat is 4 steps in this drum machine.
+ * @type {number}
+ */
+var tempo;
+
+/**
  * Beat iterator (valid values are integers from 0-15)
  * @type {number}
  */
@@ -41,6 +47,8 @@ function setup()
 {
   try
   {
+    beatTimer = new Timer(function(){onBeat();}, 107.142857143);
+
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     audioContext = new AudioContext();
 
@@ -124,11 +132,21 @@ function playSound(buffer)
 }
 
 /**
+ * Set the BPM of the drum machine.  Updates the current BPM and the beatTimer interval
+ * @param {number} newTempo - The new tempo of the drum machine in beats per minute
+ */
+function setTempo(newTempo)
+{
+  tempo = newTempo;
+  beatTimer.setInterval(15000/newTempo);
+}
+
+/**
  * Starts a timer for playback
  */
 function start()
 {
-  beatTimer = window.setInterval(onBeat, 200);
+  beatTimer.start();
   beat = 0;
 }
 
@@ -137,7 +155,7 @@ function start()
 */
 function stop()
 {
-  window.clearInterval(beatTimer);
+  beatTimer.stop();
 }
 
 /**

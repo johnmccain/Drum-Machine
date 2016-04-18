@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Timer Test</title>
+  </head>
+  <body>
+    <h1 id="test"></h1>
+  </body>
+  <script src="js/Timer.js"></script>
+  <script>
+  var i=0;
+    window.addEventListener('load', function(){
+      var myTimer = new Timer(
+        function(){
+          ++i;
+          document.getElementById('test').innerHTML = i;
+          console.log('Callback happened: ' + i);
+      },
+      100);
+      setTimeout(function(){myTimer.start();}, 1000);
+    }, false);
+  </script>
+</html>

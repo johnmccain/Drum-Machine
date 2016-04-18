@@ -24,7 +24,7 @@ var currentInstrument;
   * Timer for each beat
   * @type {Timer}
   */
-var beatTimer;
+var myTimer;
 
 /**
  * Beat iterator (valid values are integers from 0-15)
@@ -41,6 +41,8 @@ function setup()
 {
   try
   {
+    myTimer = new Timer(function(){onBeat();}, (60/140));
+
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     audioContext = new AudioContext();
 
@@ -128,7 +130,7 @@ function playSound(buffer)
  */
 function start()
 {
-  beatTimer = window.setInterval(onBeat, 200);
+  myTimer.start();
   beat = 0;
 }
 
@@ -137,7 +139,7 @@ function start()
 */
 function stop()
 {
-  window.clearInterval(beatTimer);
+  myTimer.stop();
 }
 
 /**

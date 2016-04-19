@@ -52,6 +52,19 @@ function setup()
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     audioContext = new AudioContext();
 
+    //set up the tempo knob
+    var tempoKnob = document.getElementById('tempo-knob');
+    knobbify(tempoKnob);
+    var jTempoKnob = $(tempoKnob).data('jknob');
+    jTempoKnob.getValue = function()
+    {
+      return ((this.position/2.375) + 40); //Possible values: 40-200bpm
+    };
+    jTempoKnob.onValueChange = function()
+    {
+      setTempo(this.getValue());
+    };
+
     /* buffers */
     loader = new MyBufferLoader
       (

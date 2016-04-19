@@ -43,6 +43,14 @@ function Knob(color, element)
 Knob.prototype =
 {
   /**
+   * Called after rotate() is called to handle any actions that should occur upon a change in knob value
+   */
+   onValueChange:function()
+   {
+
+   },
+
+  /**
    * Changes the position of this knob by deg degrees, accounting for rollover and rollunder so that the value of position is always between 0 and 359 (inclusive)
    * @param {number} deg - The number of degrees to rotate the knob by
    */
@@ -94,6 +102,7 @@ Knob.prototype =
       me.rotate(me.delta);
       me.delta = 0;
       me.startPosition = null;
+      me.onValueChange();
     });
   },
 

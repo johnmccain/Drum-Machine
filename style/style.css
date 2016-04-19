@@ -16,6 +16,11 @@ position: relative;
 margin: 0 auto;
 }
 
+#tempo-knob{
+  width: 60px;
+  height: 60px;
+}
+
 /* Code from TR808.html style tag */
 
 p

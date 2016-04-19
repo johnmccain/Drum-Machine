@@ -65,6 +65,17 @@ function setup()
       setTempo(this.getValue());
     };
 
+    //Bind keys
+    $(window).bind('keyup', function(key)
+    {
+      if (key.which == 32) //Space Bar -> Play/Pause
+      {
+        playPause();
+        key.preventDefault();
+      }
+
+    });
+
     /* buffers */
     loader = new MyBufferLoader
       (
@@ -151,20 +162,39 @@ function playSound(buffer)
 function setTempo(newTempo)
 {
   tempo = newTempo;
+  console.log('Changed tempo to ' + tempo);
   beatTimer.setInterval(15000/newTempo);
 }
 
 /**
- * Starts a timer for playback
+ * Called when the play/pause button is pressed or the spacebar is pressed.  Calls start() if the TR808 is stopped, calls stop() otherwise
  */
-function start()
+function playPause()
 {
-  beatTimer.start();
-  beat = 0;
+ if(beatTimer.running)
+ {
+   stop();
+ }
+ else
+ {
+   start();
+ }
 }
 
 /**
-* Stops the timer for playback
+ * Starts the beatTimer for playback
+ */
+function start()
+{
+  if(!beatTimer.running)
+  {
+    beatTimer.start();
+    beat = 0;
+  }
+}
+
+/**
+* Stops the beatTimer for playback
 */
 function stop()
 {

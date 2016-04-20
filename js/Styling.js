@@ -47,6 +47,9 @@ function onBeatChange()
   leds[(beat-1 < 0 ? 15 : beat -1)].classList.remove("ledBeat");
 }
 
+/**
+ * Clears the beat indicator. Called when playback is stopped.
+ */
 function clearBeatIndicator()
 {
   leds[(beat-1 < 0 ? 15 : beat -1)].classList.remove("ledBeat");

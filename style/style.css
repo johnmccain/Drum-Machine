@@ -142,4 +142,13 @@ background-color: #ff1a1a;
 }
 
 .ledOff{
-background-color: #660000;}
+background-color: #660000;
+}
+
+.ledOff.ledBeat{
+  background-color: #B01a1a;
+}
+
+.ledOn.ledBeat{
+  background-color: #ff5a5a;
+}

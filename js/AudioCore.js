@@ -18,7 +18,7 @@ var currentInstrument;
  * Array of all the instruments
  * @type {array}
  */
- var instruments = Array();
+var instruments = Array();
 
  /**
   * Timer for each beat
@@ -199,6 +199,7 @@ function start()
 function stop()
 {
   beatTimer.stop();
+  clearBeatIndicator();
 }
 
 /**
@@ -206,6 +207,7 @@ function stop()
  */
 function onBeat()
 {
+  onBeatChange();
   for(var i = 0; i < instruments.length; ++i)
   {
     if(instruments[i].sequence[beat] > 0)

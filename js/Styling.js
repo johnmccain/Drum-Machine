@@ -39,6 +39,20 @@ function onBeatClick(beat)
 }
 
 /**
+ * Updates the leds to show current beat positions.
+ */
+function onBeatChange()
+{
+  leds[beat].classList.add("ledBeat");
+  leds[(beat-1 < 0 ? 15 : beat -1)].classList.remove("ledBeat");
+}
+
+function clearBeatIndicator()
+{
+  leds[(beat-1 < 0 ? 15 : beat -1)].classList.remove("ledBeat");
+}
+
+/**
  * Updates the Leds to reflect the current state of the selected instrument's sequence
  */
 function updateLeds()

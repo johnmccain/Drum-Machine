@@ -80,9 +80,9 @@ Knob.prototype =
   {
     firstEvent.preventDefault();
     var me = this;
+    me.startPosition = firstEvent.screenY;
     $(document).on('mousemove', function knobDrag(myEvent)
     {
-      me.startPosition = firstEvent.screenY;
       console.log("drag detected");
       if(typeof(me.startPosition) != 'undefined') //we have mouse context
       {
@@ -104,6 +104,48 @@ Knob.prototype =
       me.startPosition = null;
       me.onValueChange();
     });
+  },
+
+  touchStart:function(firstEvent)
+  {
+      firstEvent.preventDefault();
+      var me = this;
+      var myTouch = firstEvent.touches[0];
+      me.startPosition = firstEvent.touches[0].screenY;
+      console.log('Start value: ' + me.startPosition + '; Type: ' + typeof me.startPosition);
+      document.addEventListener('touchmove', function(myEvent)
+        {
+          console.log('drag detected');
+          if(typeof(me.startPosition) != 'undefined') //we have mouse context
+          {
+            me.delta = me.startPosition - myEvent.changedTouches[0].screenY;
+            //console.log('Now value: ' + myEvent.changedTouches[0].screenY + '; Type: ' + typeof myEvent.changedTouches[0].screenY);
+            me.visRotate(me.delta);
+            console.log('Visrotated by ' + me.delta);
+          }
+          else
+          {
+            console.log('mousemove without startPosition set');
+          }
+        }, false);
+      $(document).on('touchend', function knobTouchRelease(myEvent)
+      {
+        console.log('Ended touch');
+        $(document).off('touchmove');
+        $(document).off('touchend');
+        me.rotate(me.delta);
+        me.delta = 0;
+        me.startPosition = null;
+        me.onValueChange();
+      });
+      $(document).on('touchcancel', function knobTouchCancel(myEvent)
+      {
+        console.log('Cancelled touch');
+        $(document).off('touchmove');
+        $(document).off('touchend');
+        me.delta = 0;
+        me.startPosition = null;
+      });
   },
 
   /**
@@ -128,6 +170,7 @@ function makeKnob(color)
   var knob = document.createElement('div');
 	var jknob = new Knob(myColor, knob);
 	knob.onmousedown = function(myEvent){jknob.knobClick(myEvent)};
+  knob.addEventListener("touchstart", function(myEvent){jknob.touchStart(myEvent)}, false);
   $(knob).data('jknob', jknob);  //This enables access to the javascript object knob via the html dom element object using the jquery .data feature
   return knob;
 }
@@ -142,6 +185,7 @@ function knobbify(knob, color)
   var myColor = color || '#FFFFFF';
   var jknob = new Knob(myColor, knob);
   knob.onmousedown = function(myEvent){jknob.knobClick(myEvent)};
+  knob.addEventListener("touchstart", function(myEvent){jknob.touchStart(myEvent)}, false);
   $(knob).data('jknob', jknob);  //This enables access to the javascript object knob via the html dom element object using the jquery .data feature
   return knob;
 }

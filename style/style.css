@@ -1,24 +1,27 @@
-/* TODO: Make knobs responsive */
+body{
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
 .knob{
-margin: 10px auto 0 auto;
-width: 30px;
-height: 30px;
-display: block;
-border-radius: 50%;
-border: 3px solid black;
+  margin: 1vw auto 0 auto;
+  width: 2.5vw;
+  height: 2.5vw;
+  display: block;
+  border-radius: 50%;
+  border: 3px solid black;
 }
 
 .knobIndicator{
-width:4px;
-height: 8px;
-background-color: black;
-position: relative;
-margin: 0 auto;
+  width:4px;
+  height: 8px;
+  background-color: black;
+  position: relative;
+  margin: 0 auto;
 }
 
 #tempo-knob{
-  width: 90px;
-  height: 90px;
+  width: 7vw;
+  height: 7vw;
 }
 
 /* Code from TR808.html style tag */
@@ -27,7 +30,7 @@ p
 {
   font-size: 2.0em;
   margin-left:30%;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-weight:bold;
 
 }
@@ -97,7 +100,7 @@ height: 40px;
 width: 70px;
 margin-left:15%;
 text-align: center;
-font-family:Arial, Helvetica, sans-serif;
+font-family: "Helvetica Neue", Helvetica, sans-serif;
 font-weight:bold;
 
 }
@@ -112,7 +115,7 @@ float:left;
 margin-top: 35%;
 height: 100%;
 text-align: center;
-font-family:Arial, Helvetica, sans-serif;
+font-family: "Helvetica Neue", Helvetica, sans-serif;
 font-weight:bold;
 }
 p.label
@@ -120,7 +123,7 @@ p.label
   float:right;
   margin-top: 0%;
   text-align: center;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-weight:bold;
   color: #ff6600;
 
@@ -132,13 +135,17 @@ padding: 0%;
 width: 850px;
 height: 500px;
 }
-div.numbers{
-font-family: "Arial";
-font-weight: bold;
+.numbers{
 font-size:1.0em;
+border-style: solid;
+border-color: #c0c0c0;
+border-left-width: medium;
+border-right-width: medium;
 background-color: #c0c0c0;
-position: relative;
-float: left;
+}
+.number{
+  font-weight: bold;
+  text-align: center;
 }
 
 div.coloredbuttons
@@ -166,7 +173,7 @@ float: left;
 background-color: #484848;
 border-radius: 5%;
 text-align: center;
-font-family:Arial, Helvetica, sans-serif;
+font-family:  "Helvetica Neue", Helvetica, sans-serif;
 font-weight:bold;
 font-size:.75em;
 

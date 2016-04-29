@@ -72,6 +72,22 @@ Knob.prototype =
     this.element.style.transform = "rotate(" + pos + "deg);"
   },
 
+  mytouchmove:function(myEvent)
+  {
+     console.log('drag detected');
+     if(typeof(currentKnob.startPosition) != 'undefined') //we have mouse context
+     {
+       currentKnob.delta = currentKnob.startPosition - myEvent.changedTouches[0].screenY;
+       //console.log('Now value: ' + myEvent.changedTouches[0].screenY + '; Type: ' + typeof myEvent.changedTouches[0].screenY);
+       currentKnob.visRotate(currentKnob.delta);
+       console.log('Visrotated by ' + currentKnob.delta);
+     }
+     else
+     {
+       console.log('mousemove without startPosition set');
+     }
+   },
+
   /**
    * Handle a mouseon event for a knob, rotating the knob by the change in vertical position of the mouse while the knob is held down
    * @param {number} deg - The number of degrees to twist the knob by
@@ -109,30 +125,19 @@ Knob.prototype =
   touchStart:function(firstEvent)
   {
       firstEvent.preventDefault();
+      currentKnob = this;
       var me = this;
       var myTouch = firstEvent.touches[0];
       me.startPosition = firstEvent.touches[0].screenY;
       console.log('Start value: ' + me.startPosition + '; Type: ' + typeof me.startPosition);
-      document.addEventListener('touchmove', function(myEvent)
-        {
-          console.log('drag detected');
-          if(typeof(me.startPosition) != 'undefined') //we have mouse context
-          {
-            me.delta = me.startPosition - myEvent.changedTouches[0].screenY;
-            //console.log('Now value: ' + myEvent.changedTouches[0].screenY + '; Type: ' + typeof myEvent.changedTouches[0].screenY);
-            me.visRotate(me.delta);
-            console.log('Visrotated by ' + me.delta);
-          }
-          else
-          {
-            console.log('mousemove without startPosition set');
-          }
-        }, false);
+      document.addEventListener('touchmove', me.mytouchmove, false);
       $(document).on('touchend', function knobTouchRelease(myEvent)
       {
         console.log('Ended touch');
-        $(document).off('touchmove');
+        document.removeEventListener('touchmove', me.mytouchmove);
         $(document).off('touchend');
+        $(document).off('touchcancel');
+        currentKnob = undefined;
         me.rotate(me.delta);
         me.delta = 0;
         me.startPosition = null;
@@ -140,9 +145,10 @@ Knob.prototype =
       });
       $(document).on('touchcancel', function knobTouchCancel(myEvent)
       {
-        console.log('Cancelled touch');
-        $(document).off('touchmove');
+        document.removeEventListener('touchmove', me.touchmove);
         $(document).off('touchend');
+        $(document).off('touchcancel');
+        currentKnob = undefined;
         me.delta = 0;
         me.startPosition = null;
       });
@@ -160,7 +166,7 @@ Knob.prototype =
 }
 
 /**
- * Creates a knob and returns the element object of the div that is the knob
+ * Creates a knob and retur=ns the element object of the div that is the knob
  * @param {string} color - (optional) The color of the knob as a hex code (ex: '#FFDD44').  Defaults to # if no value is given
  * @return {object} knob - the element object of the div that is the knob
  */
@@ -189,3 +195,5 @@ function knobbify(knob, color)
   $(knob).data('jknob', jknob);  //This enables access to the javascript object knob via the html dom element object using the jquery .data feature
   return knob;
 }
+
+var currentKnob = undefined;

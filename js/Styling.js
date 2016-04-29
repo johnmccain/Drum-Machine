@@ -3,7 +3,10 @@
  * @version 1.0
  */
 
-//The DOM Element objects of each led, indexed by beat
+/**
+ * The DOM Element objects of each led, indexed by beat
+ * @type {Array}
+ */
 var leds = Array();
 
 for(var i = 0; i < 16; ++i)
@@ -12,7 +15,10 @@ for(var i = 0; i < 16; ++i)
   leds[i] = document.getElementById(myId);
 }
 
-//The DOM Element objects of each instrument channel, indexed by order on the screen from left to right
+/**
+ * The DOM Element objects of each instrument channel, indexed by order on the screen from left to right
+ * @type {Array}
+ */
 var channels = Array();
 
 for(var i = 0; i < 16; ++i)
@@ -33,7 +39,24 @@ function onBeatClick(beat)
 }
 
 /**
- *  Updates the Leds to reflect the current state of the selected instrument's sequence
+ * Updates the leds to show current beat positions.
+ */
+function onBeatChange()
+{
+  leds[beat].classList.add("ledBeat");
+  leds[(beat-1 < 0 ? 15 : beat -1)].classList.remove("ledBeat");
+}
+
+/**
+ * Clears the beat indicator. Called when playback is stopped.
+ */
+function clearBeatIndicator()
+{
+  leds[(beat-1 < 0 ? 15 : beat -1)].classList.remove("ledBeat");
+}
+
+/**
+ * Updates the Leds to reflect the current state of the selected instrument's sequence
  */
 function updateLeds()
 {

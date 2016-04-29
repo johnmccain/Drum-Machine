@@ -18,13 +18,19 @@ var currentInstrument;
  * Array of all the instruments
  * @type {array}
  */
- var instruments = Array();
+var instruments = Array();
 
  /**
   * Timer for each beat
   * @type {Timer}
   */
-var myTimer;
+var beatTimer;
+
+/**
+ * The current BPM (beats per minute) of the drum machine.  Note: a beat is 4 steps in this drum machine.
+ * @type {number}
+ */
+var tempo;
 
 /**
  * Beat iterator (valid values are integers from 0-15)
@@ -41,10 +47,34 @@ function setup()
 {
   try
   {
-    myTimer = new Timer(function(){onBeat();}, (60/140));
+    beatTimer = new Timer(function(){onBeat();}, 107.142857143);
 
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     audioContext = new AudioContext();
+
+    //set up the tempo knob
+    var tempoKnob = document.getElementById('tempo-knob');
+    knobbify(tempoKnob);
+    var jTempoKnob = $(tempoKnob).data('jknob');
+    jTempoKnob.getValue = function()
+    {
+      return ((this.position/2.375) + 40); //Possible values: 40-200bpm
+    };
+    jTempoKnob.onValueChange = function()
+    {
+      setTempo(this.getValue());
+    };
+
+    //Bind keys
+    $(window).bind('keyup', function(key)
+    {
+      if (key.which == 32) //Space Bar -> Play/Pause
+      {
+        playPause();
+        key.preventDefault();
+      }
+
+    });
 
     /* buffers */
     loader = new MyBufferLoader
@@ -126,20 +156,50 @@ function playSound(buffer)
 }
 
 /**
- * Starts a timer for playback
+ * Set the BPM of the drum machine.  Updates the current BPM and the beatTimer interval
+ * @param {number} newTempo - The new tempo of the drum machine in beats per minute
  */
-function start()
+function setTempo(newTempo)
 {
-  myTimer.start();
-  beat = 0;
+  tempo = newTempo;
+  console.log('Changed tempo to ' + tempo);
+  beatTimer.setInterval(15000/newTempo);
 }
 
 /**
-* Stops the timer for playback
+ * Called when the play/pause button is pressed or the spacebar is pressed.  Calls start() if the TR808 is stopped, calls stop() otherwise
+ */
+function playPause()
+{
+ if(beatTimer.running)
+ {
+   stop();
+ }
+ else
+ {
+   start();
+ }
+}
+
+/**
+ * Starts the beatTimer for playback
+ */
+function start()
+{
+  if(!beatTimer.running)
+  {
+    beatTimer.start();
+    beat = 0;
+  }
+}
+
+/**
+* Stops the beatTimer for playback
 */
 function stop()
 {
-  myTimer.stop();
+  beatTimer.stop();
+  clearBeatIndicator();
 }
 
 /**
@@ -147,6 +207,7 @@ function stop()
  */
 function onBeat()
 {
+  onBeatChange();
   for(var i = 0; i < instruments.length; ++i)
   {
     if(instruments[i].sequence[beat] > 0)

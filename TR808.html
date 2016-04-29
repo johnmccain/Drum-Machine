@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -9,19 +8,22 @@
 
   <!-- JQuery -->
   <script src="js/jquery-2.2.0.js"></script>
+  <script src="js/jquery.mobile.custom.min.js"></script>
 
 </head>
 <body>
 
-
+<p>Drum Machine</p>
 <div class = "container" >
+<p class = "label">Team 2</p>
   <div class = "startstop">
-    <button class="btn btn-lg btn-danger" onclick="start();">Start</button><br>
-    <button class="btn btn-lg btn-danger" onclick="stop();">Stop</button>
-  </div>
+    <div id="tempo-knob"></div>Tempo<br><br>
+    <button class="btn btn-lg btn-danger" onclick="playPause();">Start<br>Stop</button><br>
 
+  </div>
+<br><br><br><br><br><br><br><br>
   <div id="instrumentbuttons">
-    <div id="i1" class="channel" >
+    <div id="i1" class="channel" >volume <br><br>
       <button class="btn btn-primary" onclick="playSound(instruments[0].buffer); selectInstrument(0);">BD</button>
     </div>
     <div id="i2" class="channel">
@@ -55,7 +57,7 @@
       <button class="btn btn-primary" onclick="playSound(instruments[15].buffer);selectInstrument(15);">CH</button>
     </div>
   </div>
-  <br><br><br><br><br>
+  <br><br><br><br>
 <div class = "coloredbuttons">
   <button class="button button1" onclick="onBeatClick(0);">
     <div id = "id1" class="circle ledOff" ></div>

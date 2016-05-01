@@ -1,6 +1,52 @@
 body {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
+
+/* Loading stuff */
+#loading-screen{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: block;
+  background-color: #DDDDDD;
+  z-index: 100;
+}
+
+#loading-container{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 110;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+#loading-bar{
+  margin-left: auto;
+  margin-right: auto;
+  height: 1vh;
+  width: 50vw;
+}
+
+#loading-bar-fill{
+  background-color: #003377;
+  height: 100%;
+  width: 0%;
+  border-radius: .5vh;
+}
+
+#loading-meter{
+  font-size: 2em;
+  font-weight: lighter;
+  z-index: 120;
+}
+
+/* Knob stuff */
 .knob {
     margin: 1vw auto 0 auto;
     width: 2.5vw;
@@ -24,8 +70,6 @@ body {
     width: 7vw;
     height: 7vw;
 }
-
-/* Code from TR808.html style tag */
 
 p {
     font-size: 2.0em;

@@ -10,11 +10,21 @@
     <script src="js/jquery-2.2.0.js"></script>
     <script src="js/jquery.mobile.custom.min.js"></script>
 
+    <script src="js/Loading.js"></script>
+
 </head>
 
 <body>
 
     <p>Drum Machine</p>
+    <div id="loading-screen">
+        <div id="loading-container">
+            <h3 style="font-weight: lighter;">Loading</h3>
+            <h1 id="loading-meter"><span id="loading-percent">0</span>%</h1>
+            <br>
+            <div id="loading-bar"><div id="loading-bar-fill"></div></div>
+        </div>
+    </div>
     <div class="container">
         <div id="master-controls">
             <div id="volume-knob" sclass="big-knob"></div>Volume

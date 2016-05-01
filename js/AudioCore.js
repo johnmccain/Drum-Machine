@@ -51,6 +51,7 @@ window.addEventListener('load', setup, false);
  */
 function setup() {
     try {
+        incrementLoadingProgress();
         beatTimer = new Timer(function() {
             onBeat();
         }, 107.142857143);
@@ -102,6 +103,7 @@ function setup() {
             BufferLists,
             function(buffers) {
                 for (var i = 0; i < buffers.length; ++i) {
+                    incrementLoadingProgress();
                     /* knobs */
                     var numKnobs = 0;
                     for (var x = 0; x >= 0; ++x) {

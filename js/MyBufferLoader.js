@@ -56,6 +56,7 @@ MyBufferLoader.prototype.loadBuffer = function(url, i, j) {
                     return;
                 }
                 loader.bufferList[i][j] = buffer;
+                incrementLoadingProgress();
                 if (++loader.loadCount == loader.loadMax)
                     loader.onload(loader.bufferList);
             },

@@ -53,7 +53,21 @@ Instrument.prototype =
 			arr[i] = this.knobs[i].getValue();
 		}
 		return arr;
-	}
+	},
+
+	/**
+	 * Returns a simple object representation of the instrument's current state
+	 * For use with JSON.stringify for debugging and saving states.
+	 * @return obj - An object representing the instrument
+	 */
+	 toObject:function()
+	 {
+		 var obj = {};
+		 obj.knobs = this.getKnobSettings();
+		 obj.gain = this.gain.gain.value;
+		 obj.sequence = this.sequence;
+		 return obj;
+	 }
 }
 
 /**

@@ -19,6 +19,11 @@ body{
   margin: 0 auto;
 }
 
+#volume-knob{
+  width: 7vw;
+  height: 7vw;
+}
+
 #tempo-knob{
   width: 7vw;
   height: 7vw;
@@ -108,11 +113,10 @@ font-weight:bold;
 {
   box-shadow: 3px 3px 3px #181818;
 }
-div.startstop
-{
+#master-controls{
 margin-left:3%;
 float:left;
-margin-top: 35%;
+margin-top: 10%;
 height: 100%;
 text-align: center;
 font-family: "Helvetica Neue", Helvetica, sans-serif;
@@ -160,7 +164,7 @@ div.instrumentbuttons
   float: left;
   margin-top: 60%;
   margin-left:87.5%;
-  height: 150px;
+  height: 40vh;
   width: 800px;
 
 
@@ -168,7 +172,7 @@ div.instrumentbuttons
 .channel
 {
 width: 7%;
-height: 100%;
+height: 30vh;
 float: left;
 background-color: #484848;
 border-radius: 5%;

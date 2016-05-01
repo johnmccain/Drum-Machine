@@ -48,7 +48,7 @@ function onBeatChange()
 }
 
 /**
- * Clears the beat indicator. Called when playback is stopped.
+ * Clears the beat indicator.
  */
 function clearBeatIndicator()
 {

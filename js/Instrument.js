@@ -6,10 +6,11 @@
 /**
  * Represents an Instrument.
  * @constructor
- * @param {Array} buffers - The possible buffers for this instrument
+ * @param {Array} buffers - The possible AudioBufferSourceNodes for this instrument
  * @param {Array} knobs - The knobs that control parameters (aside from volume) for this instrument
+ * @param {GainNode} gain - The gain node for this instrument
  */
-function Instrument(buffers, knobs) //has array of knobs, array of buffers, array of sequence, and eventually a gainnode with associated volume knob
+function Instrument(buffers, knobs, gain) //has array of knobs, array of buffers, array of sequence, and eventually a gainnode with associated volume knob
 {
 	//An array of the buffers of this instrument
 	this.buffers = buffers;
@@ -19,6 +20,8 @@ function Instrument(buffers, knobs) //has array of knobs, array of buffers, arra
 
 	//An array of the knobs of this instrument (the first knob should be in the first index)
 	this.knobs = knobs;
+
+	this.gain = gain;
 
 	//The current buffer
 	this.buffer = {};

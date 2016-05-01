@@ -15,46 +15,46 @@
 
 <p>Drum Machine</p>
 <div class = "container" >
-<p class = "label">Team 2</p>
-  <div class = "startstop">
-    <div id="tempo-knob"></div>Tempo<br><br>
-    <button class="btn btn-lg btn-danger" onclick="playPause();">Start<br>Stop</button><br>
+  <div id="master-controls">
+    <div id="volume-knob" sclass="big-knob"></div>Volume<br><br>
+    <div id="tempo-knob" class="big-knob"></div>Tempo<br><br>
+
+    <button class="btn btn-lg btn-danger" onclick="playPause();">Start/<br>Stop</button><br>
 
   </div>
-<br><br><br><br><br><br><br><br>
   <div id="instrumentbuttons">
-    <div id="i1" class="channel" >volume <br><br>
-      <button class="btn btn-primary" onclick="playSound(instruments[0].buffer); selectInstrument(0);">BD</button>
+    <div id="i1" class="channel" >
+      <button class="btn btn-primary" onclick="playSound(instruments[0]); selectInstrument(0);">BD</button>
     </div>
     <div id="i2" class="channel">
-      <button class="btn btn-primary" onclick="playSound(instruments[1].buffer);selectInstrument(1);">SD</button>
+      <button class="btn btn-primary" onclick="playSound(instruments[1]);selectInstrument(1);">SD</button>
     </div>
     <div id="i3" class="channel">
-      <button class="btn btn-primary" onclick="playSound(instruments[2].buffer);selectInstrument(2);">LT</button>
+      <button class="btn btn-primary" onclick="playSound(instruments[2]);selectInstrument(2);">LT</button>
     </div>
     <div id="i4" class="channel">
-      <button class="btn btn-primary" onclick="playSound(instruments[3].buffer);selectInstrument(3);">MT</button>
+      <button class="btn btn-primary" onclick="playSound(instruments[3]);selectInstrument(3);">MT</button>
     </div>
     <div id="i5" class="channel">
-      <button class="btn btn-primary" onclick="playSound(instruments[4].buffer);selectInstrument(4);">HT</button>
+      <button class="btn btn-primary" onclick="playSound(instruments[4]);selectInstrument(4);">HT</button>
     </div>
     <div id="i6" class="channel">
-      <button class="btn btn-primary" onclick="playSound(instruments[8].buffer);selectInstrument(8);">RS</button>
+      <button class="btn btn-primary" onclick="playSound(instruments[8]);selectInstrument(8);">RS</button>
     </div>
     <div id="i7" class="channel">
-      <button class="btn btn-primary" onclick="playSound(instruments[9].buffer);selectInstrument(9);">CP</button>
+      <button class="btn btn-primary" onclick="playSound(instruments[9]);selectInstrument(9);">CP</button>
     </div>
     <div id="i8" class="channel">
-      <button class="btn btn-primary" onclick="playSound(instruments[12].buffer);selectInstrument(12);">CB</button>
+      <button class="btn btn-primary" onclick="playSound(instruments[12]);selectInstrument(12);">CB</button>
     </div>
     <div id="i9" class="channel">
-      <button class="btn btn-primary" onclick="playSound(instruments[13].buffer);selectInstrument(13);">CY</button>
+      <button class="btn btn-primary" onclick="playSound(instruments[13]);selectInstrument(13);">CY</button>
     </div>
     <div id="i10" class="channel">
-      <button class="btn btn-primary" onclick="playSound(instruments[14].buffer);selectInstrument(14);">OH</button>
+      <button class="btn btn-primary" onclick="playSound(instruments[14]);selectInstrument(14);">OH</button>
     </div>
     <div id="i11" class="channel">
-      <button class="btn btn-primary" onclick="playSound(instruments[15].buffer);selectInstrument(15);">CH</button>
+      <button class="btn btn-primary" onclick="playSound(instruments[15]);selectInstrument(15);">CH</button>
     </div>
   </div>
   <br><br><br><br>

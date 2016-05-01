@@ -38,6 +38,12 @@ var tempo;
  */
 var beat = 0;
 
+/**
+ * Gain node for the master volume
+ * @type {gainnode}
+ */
+var masterVolume;
+
 window.addEventListener('load', setup, false);
 
 /**
@@ -52,13 +58,30 @@ function setup()
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     audioContext = new AudioContext();
 
+    //set up master volume gain node
+    masterVolume = audioContext.createGain();
+    masterVolume.connect(audioContext.destination);
+    masterVolume.gain.value = .6;
+
+    var masterVolumeKnob = document.getElementById('volume-knob');
+    knobbify(masterVolumeKnob, '#55FF55');
+    var jVolumeKnob = $(masterVolumeKnob).data('jknob');
+    jVolumeKnob.gainNode = masterVolume;
+    jVolumeKnob.getValue = function(){
+      return this.position/300;
+    };
+    jVolumeKnob.onValueChange = function(){
+      this.gainNode.gain.value = this.getValue();
+
+    };
+
     //set up the tempo knob
     var tempoKnob = document.getElementById('tempo-knob');
     knobbify(tempoKnob);
     var jTempoKnob = $(tempoKnob).data('jknob');
     jTempoKnob.getValue = function()
     {
-      return ((this.position/2.375) + 40); //Possible values: 40-200bpm
+      return ((this.position/1.8) + 40); //Possible values: 40-200bpm
     };
     jTempoKnob.onValueChange = function()
     {
@@ -99,6 +122,23 @@ function setup()
             }
           }
 
+          gain = audioContext.createGain();
+          gain.connect(masterVolume);
+
+          gain.gain.value = .6;
+
+
+          var gainKnob = makeKnob('#5555FF');
+          var jGainKnob = $(gainKnob).data('jknob');
+          jGainKnob.gainNode = gain;
+          jGainKnob.getValue = function(){
+            return this.position/300;
+          };
+          jGainKnob.onValueChange = function(){
+            this.gainNode.gain.value = this.getValue();
+          };
+          $(channels[i]).prepend($(gainKnob).fadeIn('fast'));
+
           var knobs = Array();
           for(var j = 0; j < numKnobs; ++j)
           {
@@ -108,7 +148,7 @@ function setup()
           }
           console.log('Made ' + numKnobs + ' knobs.  Actual length of knobs: ' + knobs.length);
           //Create the instrument
-          instruments[i] = new Instrument(buffers[i], knobs);
+          instruments[i] = new Instrument(buffers[i], knobs, gain);
         }
 
         currentInstrument = instruments[0];
@@ -141,18 +181,6 @@ function selectInstrument(index)
 function changeBeat(index)
 {
   currentInstrument.sequence[index] = (currentInstrument.sequence[index] + 1) % 2;
-}
-
-/**
- * Plays the input buffer
- * @param {buffer} buffer - The buffer to play
- */
-function playSound(buffer)
-{
-  sample = audioContext.createBufferSource();
-  sample.buffer = buffer;
-  sample.connect(audioContext.destination);
-  sample.start(0);
 }
 
 /**
@@ -203,6 +231,18 @@ function stop()
 }
 
 /**
+ * Plays the input buffer
+ * @param {Instrument} buffer - The instrument to play
+ */
+function playSound(instrument)
+{
+  var sample = audioContext.createBufferSource();
+  sample.buffer = instrument.buffer;
+  sample.connect(instrument.gain);
+  sample.start(0);
+}
+
+/**
  * Plays the instruments that are set to play during the current beat and increments the beat
  */
 function onBeat()
@@ -212,8 +252,11 @@ function onBeat()
   {
     if(instruments[i].sequence[beat] > 0)
     {
-      playSound(instruments[i].buffer);
+      playSound(instruments[i]);
     }
+  }
+  for(var i = 0; i < instruments.length; ++i)
+  {
     instruments[i].updateBuffer();
   }
 

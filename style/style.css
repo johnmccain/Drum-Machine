@@ -1,167 +1,206 @@
 body {
+    background-color: #AAAAAA;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    margin: 0;
+}
+p {
+    font-size: 2.0em;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
 /* Loading stuff */
-#loading-screen{
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  display: block;
-  background-color: #DDDDDD;
-  z-index: 100;
-}
 
-#loading-container{
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  z-index: 110;
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+#loading-screen {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: block;
+    background-color: #DDDDDD;
+    z-index: 100;
 }
-
-#loading-bar{
-  margin-left: auto;
-  margin-right: auto;
-  height: 1vh;
-  width: 50vw;
+#loading-container {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 110;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
-
-#loading-bar-fill{
-  background-color: #003377;
-  height: 100%;
-  width: 0%;
-  border-radius: .5vh;
+#loading-bar {
+    margin-left: auto;
+    margin-right: auto;
+    height: 1vh;
+    width: 50vw;
 }
-
-#loading-meter{
-  font-size: 2em;
-  font-weight: lighter;
-  z-index: 120;
+#loading-bar-fill {
+    background-color: #003377;
+    height: 100%;
+    width: 0%;
+    border-radius: .5vh;
+    box-shadow 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+#loading-meter {
+    font-size: 2em;
+    font-weight: lighter;
+    z-index: 120;
 }
 
 /* Knob stuff */
+
 .knob {
-    margin: 1vw auto 0 auto;
-    width: 2.5vw;
-    height: 2.5vw;
+    margin: 1vh auto 1vh auto;
+    width: 3vw;
+    height: 3vw;
     display: block;
     border-radius: 50%;
-    border: 3px solid black;
+    border: .3vw solid black;
+    box-shadow 0px 1px 3px 1px rgba(0, 0, 0, 0.3);
 }
 .knobIndicator {
-    width: 4px;
-    height: 8px;
+    width: .3vw;
+    height: .6vw;
     background-color: black;
     position: relative;
     margin: 0 auto;
 }
 #volume-knob {
+    margin: 2vh auto 2vh auto;
     width: 7vw;
     height: 7vw;
 }
 #tempo-knob {
+    margin: 2vh auto 2vh auto;
     width: 7vw;
     height: 7vw;
 }
 
-p {
-    font-size: 2.0em;
-    margin-left: 30%;
+/* Master stuff */
+
+#master-controls {
+    float: left;
+    padding-top: 10%;
+    height: 100%;
+    padding-bottom: 10%;
+    width: 15%;
+    text-align: center;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #DDDDDD;
+    font-weight: bold;
+    background-color: #333343;
+    box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.2);
+}
+.button-large {
+    margin: 1vh auto 1vh auto;
+    position: relative;
+    background-color: #BB2A2C;
+    border: .3vw solid black;
+    border-radius: .7vw;
+    height: 5vw;
+    width: 6.5vw;
+    margin: 1vw auto 1vw auto;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #DDDDDD;
+    font-size: 1.5vw;
     font-weight: bold;
 }
-.circle {
-    margin-left: 17.5%;
-    margin-right: 50%;
-    margin-bottom: 100%;
-    width: 13px;
-    height: 13px;
-    display: block;
-    border-radius: 50%;
-    background: #660000;
+.button-large:hover {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
 }
-.button {
-    border: none;
-    height: 60px;
-    width: 31px;
-    border-radius: 5px;
+
+/* Channel stuff */
+
+#channels-container {
+    width: 85%;
+    float: left;
+}
+.spacer {
+    width: 4%;
+    height: 40vh;
+    display: inline-block;
+}
+.channel {
     position: relative;
-    box-shadow: 1.5px 1.5px 1.5px #707070;
+    display: inline-block;
+    width: 6vw;
+    height: 40vh;
+    padding-top: 8vh;
+    background-color: #686878;
+    border-radius: .7vw;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: .75em;
 }
-.button:hover {
-    box-shadow: 3px 3px 3px #181818;
+.button-instrument {
+    margin: 1vh auto 0 auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: none;
+    height: 3vw;
+    width: 100%;
+    border-bottom-left-radius: .7vw;
+    border-bottom-right-radius: .7vw;
+    box-shadow 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    background-color: #333343;
+    color: #DDDDDD;
+    font-size: 1vw;
+    font-weight: bold;
 }
-.button1 {
+.button-instrument:hover {
+    background-color: #2A2A38;
+}
+
+/* Beat stuff */
+
+#beats-container {
+    width: 80%;
+    padding-left: 4%;
+    float: left;
+}
+#beats {
+    float: left;
+    margin: 0 auto 0 auto;
+    position: absolute;
+    bottom: 5vh;
+}
+.button-beat {
+    border: none;
+    height: 8vw;
+    width: 4vw;
+    border-radius: .7vw;
+    position: relative;
+    box-shadow 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+}
+.button-beat:hover {
+    box-shadow 0px 2px 3px 2px rgba(0, 0, 0, 0.4);
+}
+.beat1 {
     background-color: #ff3300;
 }
-.button2 {
+.beat2 {
     background-color: #ff9933;
 }
-.button3 {
+.beat3 {
     background-color: #ffff00;
 }
-.button4 {
+.beat4 {
     background-color: #ffffff;
 }
-.btn-primary {
-    position: relative;
-    top: 10%;
-    left: 15%;
-    border: none;
-    height: 40px;
-    width: 50px;
-    border-radius: 5px;
-    position: relative;
-    box-shadow: 1.5px 1.5px 1.5px #707070;
-    background-color: #ffffff;
-    font-size: 1em;
-}
-.btn-primary:hover {
-    background-color: #cccccc;
-}
-.btn-lg {
-    position: relative;
-    background-color: #ff1a1a;
-    border-radius: 7px;
-    height: 40px;
-    width: 70px;
-    margin-left: 15%;
-    text-align: center;
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-weight: bold;
-}
-.btn-lg:hover {
-    box-shadow: 3px 3px 3px #181818;
-}
-#master-controls {
-    margin-left: 3%;
-    float: left;
-    margin-top: 10%;
-    height: 100%;
-    text-align: center;
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-weight: bold;
-}
-p.label {
+.label {
     float: right;
     margin-top: 0%;
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-weight: bold;
     color: #ff6600;
-}
-div.container {
-    background-color: #484848;
-    padding: 0%;
-    width: 850px;
-    height: 500px;
 }
 .numbers {
     font-size: 1.0em;
@@ -175,29 +214,27 @@ div.container {
     font-weight: bold;
     text-align: center;
 }
-div.coloredbuttons {
-    margin-left: 7.75%;
-    margin-top: 15%;
+.coloredbuttons {
+    margin-top: 30%;
     height: 5%;
     float: left;
 }
-div.instrumentbuttons {
-    float: left;
-    margin-top: 60%;
-    margin-left: 87.5%;
-    height: 40vh;
-    width: 800px;
+.instrumentbuttons {
+    overflow: hidden;
+    margin-left: 10%;
+    height: 50%;
+    width: 70%;
 }
-.channel {
-    width: 7%;
-    height: 30vh;
-    float: left;
-    background-color: #484848;
-    border-radius: 5%;
-    text-align: center;
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-weight: bold;
-    font-size: .75em;
+
+/* LED Stuff */
+
+.led {
+    margin: 0 auto 100% auto;
+    width: 1.75vw;
+    height: 1.75vw;
+    display: block;
+    border-radius: 50%;
+    background: #660000;
 }
 .ledOn {
     background-color: #ff1a1a;

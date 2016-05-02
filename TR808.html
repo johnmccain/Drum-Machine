@@ -15,179 +15,172 @@
 </head>
 
 <body>
-
-    <p>Drum Machine</p>
     <div id="loading-screen">
         <div id="loading-container">
             <h3 style="font-weight: lighter;">Loading</h3>
             <h1 id="loading-meter"><span id="loading-percent">0</span>%</h1>
             <br>
-            <div id="loading-bar"><div id="loading-bar-fill"></div></div>
+            <div id="loading-bar">
+                <div id="loading-bar-fill"></div>
+            </div>
         </div>
     </div>
-    <div class="container">
-        <div id="master-controls">
-            <div id="volume-knob" sclass="big-knob"></div>Volume
-            <br>
-            <br>
-            <div id="tempo-knob" class="big-knob"></div>Tempo
-            <br>
-            <br>
+    <div id="master-controls">
+        <div id="volume-knob" sclass="big-knob"></div>Volume
 
-            <button class="btn btn-lg btn-danger" onclick="playPause();">Start/
-                <br>Stop</button>
-            <br>
-
-        </div>
-        <div id="instrumentbuttons">
-            <div id="i1" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[0]); selectInstrument(0);">BD</button>
-            </div>
-            <div id="i2" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[1]);selectInstrument(1);">SD</button>
-            </div>
-            <div id="i3" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[2]);selectInstrument(2);">LT</button>
-            </div>
-            <div id="i4" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[3]);selectInstrument(3);">MT</button>
-            </div>
-            <div id="i5" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[4]);selectInstrument(4);">HT</button>
-            </div>
-            <div id="i6" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[8]);selectInstrument(8);">RS</button>
-            </div>
-            <div id="i7" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[9]);selectInstrument(9);">CP</button>
-            </div>
-            <div id="i8" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[12]);selectInstrument(12);">CB</button>
-            </div>
-            <div id="i9" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[13]);selectInstrument(13);">CY</button>
-            </div>
-            <div id="i10" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[14]);selectInstrument(14);">OH</button>
-            </div>
-            <div id="i11" class="channel">
-                <button class="btn btn-primary" onclick="playSound(instruments[15]);selectInstrument(15);">CH</button>
-            </div>
-        </div>
+        <div id="tempo-knob" class="big-knob"></div>Tempo
         <br>
-        <br>
-        <br>
-        <br>
-        <table>
-            <tr>
-                <div class="coloredbuttons">
-                    <td>
-                        <button class="button button1" onclick="onBeatClick(0);">
-                            <div id="id1" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button1" onclick="onBeatClick(1);">
-                            <div id="id2" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button1" onclick="onBeatClick(2);">
-                            <div id="id3" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button1" onclick="onBeatClick(3);">
-                            <div id="id4" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button2" onclick="onBeatClick(4);">
-                            <div id="id5" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button2" onclick="onBeatClick(5);">
-                            <div id="id6" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button2" onclick="onBeatClick(6);">
-                            <div id="id7" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button2" onclick="onBeatClick(7);">
-                            <div id="id8" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button3" onclick="onBeatClick(8);">
-                            <div id="id9" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button3" onclick="onBeatClick(9);">
-                            <div id="id10" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button3" onclick="onBeatClick(10);">
-                            <div id="id11" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button3" onclick="onBeatClick(11);">
-                            <div id="id12" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button4" onclick="onBeatClick(12);">
-                            <div id="id13" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button4" onclick="onBeatClick(13);">
-                            <div id="id14" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button4" onclick="onBeatClick(14);">
-                            <div id="id15" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button4" onclick="onBeatClick(15);">
-                            <div id="id16" class="circle ledOff"></div>
-                        </button>
-                    </td>
-                </div>
-            </tr>
-            <tr class="numbers">
-                <td class="number">1</td>
-                <td class="number">2</td>
-                <td class="number">3</td>
-                <td class="number">4</td>
-                <td class="number">5</td>
-                <td class="number">6</td>
-                <td class="number">7</td>
-                <td class="number">8</td>
-                <td class="number">9</td>
-                <td class="number">10</td>
-                <td class="number">11</td>
-                <td class="number">12</td>
-                <td class="number">13</td>
-                <td class="number">14</td>
-                <td class="number">15</td>
-                <td class="number">16</td>
-            </tr>
-        </table>
-
-        <br>
-        <br>
-
+        <button class="button-large" onclick="playPause();">Start/
+            <br>Stop
+        </button>
     </div>
-
+    <div id="channels-container">
+        <div class="spacer">
+        </div>
+        <div id="i1" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[0]); selectInstrument(0);">BD</button>
+        </div>
+        <div id="i2" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[1]);selectInstrument(1);">SD</button>
+        </div>
+        <div id="i3" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[2]);selectInstrument(2);">LT</button>
+        </div>
+        <div id="i4" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[3]);selectInstrument(3);">MT</button>
+        </div>
+        <div id="i5" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[4]);selectInstrument(4);">HT</button>
+        </div>
+        <div id="i6" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[8]);selectInstrument(8);">RS</button>
+        </div>
+        <div id="i7" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[9]);selectInstrument(9);">CP</button>
+        </div>
+        <div id="i8" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[12]);selectInstrument(12);">CB</button>
+        </div>
+        <div id="i9" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[13]);selectInstrument(13);">CY</button>
+        </div>
+        <div id="i10" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[14]);selectInstrument(14);">OH</button>
+        </div>
+        <div id="i11" class="channel">
+            <button class="button-instrument" onclick="playSound(instruments[15]);selectInstrument(15);">CH</button>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="beats-container">
+      <table id="beats">
+          <tr>
+              <div class="coloredbuttons">
+                  <td>
+                      <button class="button-beat beat1" onclick="onBeatClick(0);">
+                          <div id="id1" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat1" onclick="onBeatClick(1);">
+                          <div id="id2" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat1" onclick="onBeatClick(2);">
+                          <div id="id3" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat1" onclick="onBeatClick(3);">
+                          <div id="id4" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat2" onclick="onBeatClick(4);">
+                          <div id="id5" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat2" onclick="onBeatClick(5);">
+                          <div id="id6" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat2" onclick="onBeatClick(6);">
+                          <div id="id7" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat2" onclick="onBeatClick(7);">
+                          <div id="id8" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat3" onclick="onBeatClick(8);">
+                          <div id="id9" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat3" onclick="onBeatClick(9);">
+                          <div id="id10" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat3" onclick="onBeatClick(10);">
+                          <div id="id11" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat3" onclick="onBeatClick(11);">
+                          <div id="id12" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat4" onclick="onBeatClick(12);">
+                          <div id="id13" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat4" onclick="onBeatClick(13);">
+                          <div id="id14" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat4" onclick="onBeatClick(14);">
+                          <div id="id15" class="led ledOff"></div>
+                      </button>
+                  </td>
+                  <td>
+                      <button class="button-beat beat4" onclick="onBeatClick(15);">
+                          <div id="id16" class="led ledOff"></div>
+                      </button>
+                  </td>
+              </div>
+          </tr>
+          <tr class="numbers">
+              <td class="number">1</td>
+              <td class="number">2</td>
+              <td class="number">3</td>
+              <td class="number">4</td>
+              <td class="number">5</td>
+              <td class="number">6</td>
+              <td class="number">7</td>
+              <td class="number">8</td>
+              <td class="number">9</td>
+              <td class="number">10</td>
+              <td class="number">11</td>
+              <td class="number">12</td>
+              <td class="number">13</td>
+              <td class="number">14</td>
+              <td class="number">15</td>
+              <td class="number">16</td>
+          </tr>
+      </table>
+    </div>
     <script src="js/BufferLists.js"></script>
     <script src="js/Timer.js"></script>
     <script src="js/Knob.js"></script>

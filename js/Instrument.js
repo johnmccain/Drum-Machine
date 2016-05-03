@@ -15,8 +15,11 @@ function Instrument(buffers, knobs, gain) //has array of knobs, array of buffers
     //An array of the buffers of this instrument
     this.buffers = buffers;
 
-    //Sequence represents the sequence of beats that this instrument should be played on.  Valid values for each of the 16 beats are 0 (rest), 1 (note), and 2 (emphasised note)
-    this.sequence = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    //Sequence represents the sequences of beats that this instrument should be played on.  Valid values for each of the 16 beats are 0 (rest) and 1 (note)
+    this.sequence = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ];
 
     //An array of the knobs of this instrument (the first knob should be in the first index)
     this.knobs = knobs;
@@ -73,7 +76,6 @@ Instrument.prototype = {
 function getBufferIndex(arr) {
     var index = 0;
     for (var i = 0; i < arr.length; i++) {
-        console.log('buffer index counting: ' + i + '; index is ' + index);
         index += arr[i] * Math.pow(5, i);
     }
     return index;

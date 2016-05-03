@@ -6,7 +6,7 @@ var loadTotal = 128;
  * Increments the loading progress meter
  */
 function incrementLoadingProgress() {
-    console.log('Loading progress: ' + (++loadCount));
+    ++loadCount;
     document.getElementById('loading-percent').innerHTML = (loadCount * 100 / loadTotal).toFixed(0);
     document.getElementById('loading-bar-fill').style.width = (loadCount * 100 / loadTotal).toFixed(0) + '%';
 

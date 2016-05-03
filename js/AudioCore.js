@@ -40,9 +40,21 @@ var beat = 0;
 
 /**
  * Gain node for the master volume
- * @type {gainnode}
+ * @type {GainNode}
  */
 var masterVolume;
+
+/**
+ * The sequence mode, where 0 is for A only, 1 is for B only, and 2 is for AB
+ * @type {number}
+ */
+var sequenceMode = 0;
+
+/**
+ * The sequence number to be played and displayed
+ * @type {number}
+ */
+var sequenceNumber = 0;
 
 window.addEventListener('load', setup, false);
 
@@ -65,7 +77,7 @@ function setup() {
         masterVolume.gain.value = .6;
 
         var masterVolumeKnob = document.getElementById('volume-knob');
-        knobbify(masterVolumeKnob, '#55FF55');
+        knobbify(masterVolumeKnob, '#5555AA');
         var jVolumeKnob = $(masterVolumeKnob).data('jknob');
         jVolumeKnob.gainNode = masterVolume;
         jVolumeKnob.getValue = function() {
@@ -78,7 +90,7 @@ function setup() {
 
         //set up the tempo knob
         var tempoKnob = document.getElementById('tempo-knob');
-        knobbify(tempoKnob);
+        knobbify(tempoKnob, '#DDDDDD');
         var jTempoKnob = $(tempoKnob).data('jknob');
         jTempoKnob.getValue = function() {
             return ((this.position / 1.8) + 40); //Possible values: 40-200bpm
@@ -127,7 +139,7 @@ function selectInstrument(index) {
  * @param {number} index - The index of the sequence to change (valid values are 1-15)
  */
 function changeBeat(index) {
-    currentInstrument.sequence[index] = (currentInstrument.sequence[index] + 1) % 2;
+    currentInstrument.sequence[sequenceNumber][index] = (currentInstrument.sequence[sequenceNumber][index] + 1) % 2;
 }
 
 /**
@@ -186,7 +198,7 @@ function playSound(instrument) {
 function onBeat() {
     onBeatChange();
     for (var i = 0; i < instruments.length; ++i) {
-        if (instruments[i].sequence[beat] > 0) {
+        if (instruments[i].sequence[sequenceNumber][beat] > 0) {
             playSound(instruments[i]);
         }
     }
@@ -195,6 +207,24 @@ function onBeat() {
     }
 
     beat = (beat + 1) % 16;
+    if(beat == 0 && sequenceMode == 2) {
+        sequenceNumber = (sequenceNumber + 1) % 2;
+        updateLeds();
+    }
+}
+
+/**
+ * Handles all necessary operations for when the sequence mode changes
+ */
+function onSequenceModeChange()
+{
+    if(sequenceMode == 0) {
+        sequenceNumber = 0;
+    }
+    else if(sequenceMode == 1) {
+        sequenceNumber = 1;
+    }
+    updateLeds();
 }
 
 /**

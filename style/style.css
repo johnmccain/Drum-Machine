@@ -88,6 +88,7 @@ p {
     height: 3vw;
     width: 1.75vw;
     background-color: #121214;
+    margin-top: 1vw;
     position: relative;
     left: 2.125vw;
 }
@@ -121,13 +122,13 @@ p {
 }
 .master-label {
     font-size: 2vw;
+    font-weight: lighter;
 }
 .button-large {
-    margin: 1vh auto 1vh auto;
     position: relative;
-    background-color: #BB2A2C;
-    border: .3vw solid black;
-    border-radius: .7vw;
+    background: linear-gradient(#AB2A2C, #BB2A2C, #AB2A2C);
+    border: .1vw solid #4B0A0C;
+    border-radius: .2vw;
     height: 5vw;
     width: 6.5vw;
     margin: 1vw auto 1vw auto;
@@ -135,12 +136,37 @@ p {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     color: #DDDDDD;
     font-size: 1.5vw;
-    font-weight: bold;
+    font-weight: lighter;
 }
 .button-large:hover {
     box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(#9B1A1C, #8B1A1C, #9B1A1C);
+    color: #CCCCCC;
 }
-
+.button-sequence {
+    margin: 1vh auto 1vh auto;
+    display: inline-block;
+    position: relative;
+    background: linear-gradient(#4E4E66, #52526B, #4E4E66);
+    border: .1vw solid #3A3A4D;
+    border-radius: .2vw;
+    height: 3vw;
+    width: 3vw;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #DDDDDD;
+    font-size: 1vw;
+    font-weight: lighter;
+}
+.button-sequence:hover {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(#444459, #404054, #444459);
+    color: #CCCCCC;
+}
+.button-sequence.on{
+    background: linear-gradient(#2B2B38, #272733, #2B2B38) !important;
+    border: .1vw solid #39394A;
+}
 /* Channel stuff */
 
 #channels-grid {

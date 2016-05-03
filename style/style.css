@@ -135,7 +135,7 @@ p {
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     color: #DDDDDD;
-    font-size: 1.5vh;
+    font-size: 2.25vh;
     font-weight: lighter;
 }
 .button-large:active {
@@ -184,15 +184,20 @@ p {
     background: linear-gradient(#4E4E66, #52526B, #4E4E66);
     border: .1vw solid #3A3A4D;
     border-radius: .4vh;
-    height: 5vh;
-    width: 5vh;
+    height: 7vh;
+    width: 7vh;
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     color: #DDDDDD;
-    font-size: 1vw;
+    font-size: 2.5vh;
     font-weight: lighter;
 }
-.button-sequence:hover {
+.button-tap:active {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(#404054, #3A3A45, #404054);
+    color: #BBBBBB;
+}
+.button-tap:hover {
     box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
     background: linear-gradient(#444459, #404054, #444459);
     color: #CCCCCC;

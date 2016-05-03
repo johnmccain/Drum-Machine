@@ -27,10 +27,22 @@ var instruments = Array();
 var beatTimer;
 
 /**
+ * TapTempo handler
+ * @type {TapTempo}
+ */
+var tapTempo;
+
+/**
  * The current BPM (beats per minute) of the drum machine.  Note: a beat is 4 steps in this drum machine.
  * @type {number}
  */
 var tempo;
+
+/**
+ * Knob for the tempo
+ * @type {knob}
+ */
+var jTempoKnob;
 
 /**
  * Beat iterator (valid values are integers from 0-15)
@@ -43,6 +55,12 @@ var beat = 0;
  * @type {GainNode}
  */
 var masterVolume;
+
+/**
+ * Knob for the master volume
+ * @type {knob}
+ */
+var jMasterVolumeKnob;
 
 /**
  * The sequence mode, where 0 is for A only, 1 is for B only, and 2 is for AB
@@ -68,6 +86,10 @@ function setup() {
             onBeat();
         }, 107.142857143);
 
+        tempo = 140;
+
+        tapTempo = new TapTempo();
+
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
         audioContext = new AudioContext();
 
@@ -78,12 +100,12 @@ function setup() {
 
         var masterVolumeKnob = document.getElementById('volume-knob');
         knobbify(masterVolumeKnob, '#5555AA');
-        var jVolumeKnob = $(masterVolumeKnob).data('jknob');
-        jVolumeKnob.gainNode = masterVolume;
-        jVolumeKnob.getValue = function() {
+        jMasterVolumeKnob = $(masterVolumeKnob).data('jknob');
+        jMasterVolumeKnob.gainNode = masterVolume;
+        jMasterVolumeKnob.getValue = function() {
             return this.position / 300;
         };
-        jVolumeKnob.onValueChange = function() {
+        jMasterVolumeKnob.onValueChange = function() {
             this.gainNode.gain.value = this.getValue();
 
         };
@@ -91,7 +113,7 @@ function setup() {
         //set up the tempo knob
         var tempoKnob = document.getElementById('tempo-knob');
         knobbify(tempoKnob, '#DDDDDD');
-        var jTempoKnob = $(tempoKnob).data('jknob');
+        jTempoKnob = $(tempoKnob).data('jknob');
         jTempoKnob.getValue = function() {
             return ((this.position / 1.8) + 40); //Possible values: 40-200bpm
         };
@@ -99,6 +121,16 @@ function setup() {
             setTempo(this.getValue());
         };
 
+        /* buffers */
+        loader = new MyBufferLoader(
+            audioContext,
+            BufferLists,
+            function(buffers) {
+                createInstruments(buffers)
+            }
+        );
+        loader.load();
+        
         //Bind keys
         $(window).bind('keyup', function(key) {
             if (key.which == 32) {
@@ -123,20 +155,10 @@ function setup() {
             }
             else if (key.which == 84) {
                 //T -> Tap
+                tapTempo.timing();
                 key.preventDefault();
             }
-
         });
-
-        /* buffers */
-        loader = new MyBufferLoader(
-            audioContext,
-            BufferLists,
-            function(buffers) {
-                createInstruments(buffers)
-            }
-        );
-        loader.load();
     } catch (exception) {
         console.trace();
         console.log(exception);
@@ -162,13 +184,18 @@ function changeBeat(index) {
 }
 
 /**
- * Set the BPM of the drum machine.  Updates the current BPM and the beatTimer interval
+ * Set the BPM of the drum machine.  Updates the current BPM, tempo knob, and the beatTimer interval if given a valid (truthy) value.
+ * Note: the maximum tempo allowed is 239
  * @param {number} newTempo - The new tempo of the drum machine in beats per minute
  */
 function setTempo(newTempo) {
-    tempo = newTempo;
-    console.log('Changed tempo to ' + tempo);
-    beatTimer.setInterval(15000 / newTempo);
+    if(newTempo)
+    {
+        newTempo = (newTempo < 240) ? newTempo : 239;
+        tempo = newTempo;
+        beatTimer.setInterval(15000 / newTempo);
+        console.log('Changed tempo to ' + tempo);
+    }
 }
 
 /**

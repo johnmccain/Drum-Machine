@@ -33,6 +33,10 @@
         <div class="master-label">Tempo</div>
         <br>
         <span>
+            <button class="button-tap" onclick="tapTempo.timing();">TAP</button>
+        </span>
+        <br>
+        <span>
             <button id="sequenceA" class="button-sequence on" onclick="setSequenceMode(0);">A</button>
             <button id="sequenceB" class="button-sequence" onclick="setSequenceMode(1);">B</button>
             <button id="sequenceAB" class="button-sequence" onclick="setSequenceMode(2);">AB</button>
@@ -244,6 +248,7 @@
 
 <script src="js/BufferLists.js"></script>
 <script src="js/Timer.js"></script>
+<script src="js/TapTempo.js"></script>
 <script src="js/Knob.js"></script>
 <script src="js/Switch.js"></script>
 <script src="js/Instrument.js"></script>

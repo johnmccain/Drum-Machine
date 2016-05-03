@@ -73,13 +73,13 @@ p {
 }
 #volume-knob {
     margin: 2vh auto 2vh auto;
-    width: 7vw;
-    height: 7vw;
+    width: 13vh;
+    height: 13vh;
 }
 #tempo-knob {
     margin: 2vh auto 2vh auto;
-    width: 7vw;
-    height: 7vw;
+    width: 13vh;
+    height: 13vh;
 }
 
 /* Switch stuff */
@@ -109,9 +109,9 @@ p {
 
 #master-controls {
     float: left;
-    padding-top: 10%;
+    padding-top: 4vh;
     height: 100%;
-    padding-bottom: 10%;
+    padding-bottom: 4vh%;
     width: 15%;
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
@@ -129,14 +129,19 @@ p {
     background: linear-gradient(#AB2A2C, #BB2A2C, #AB2A2C);
     border: .1vw solid #4B0A0C;
     border-radius: .2vw;
-    height: 5vw;
-    width: 6.5vw;
-    margin: 1vw auto 1vw auto;
+    height: 8.5vh;
+    width: 11vh;
+    margin: 1vh auto 1vh auto;
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     color: #DDDDDD;
-    font-size: 1.5vw;
+    font-size: 1.5vh;
     font-weight: lighter;
+}
+.button-large:active {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(#8B1A1C, #881718, #8B1A1C);
+    color: #BBBBBB;
 }
 .button-large:hover {
     box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
@@ -149,9 +154,38 @@ p {
     position: relative;
     background: linear-gradient(#4E4E66, #52526B, #4E4E66);
     border: .1vw solid #3A3A4D;
-    border-radius: .2vw;
-    height: 3vw;
-    width: 3vw;
+    border-radius: .4vh;
+    height: 5vh;
+    width: 5vh;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #DDDDDD;
+    font-size: 1vw;
+    font-weight: lighter;
+}
+.button-sequence:active {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(#404054, #3A3A45, #404054);
+    color: #BBBBBB;
+}
+.button-sequence:hover {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(#444459, #404054, #444459);
+    color: #CCCCCC;
+}
+.button-sequence.on{
+    background: linear-gradient(#2B2B38, #272733, #2B2B38) !important;
+    border: .1vw solid #39394A;
+}
+.button-tap {
+    margin: 1vh auto 1vh auto;
+    display: inline-block;
+    position: relative;
+    background: linear-gradient(#4E4E66, #52526B, #4E4E66);
+    border: .1vw solid #3A3A4D;
+    border-radius: .4vh;
+    height: 5vh;
+    width: 5vh;
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     color: #DDDDDD;
@@ -162,10 +196,6 @@ p {
     box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
     background: linear-gradient(#444459, #404054, #444459);
     color: #CCCCCC;
-}
-.button-sequence.on{
-    background: linear-gradient(#2B2B38, #272733, #2B2B38) !important;
-    border: .1vw solid #39394A;
 }
 /* Channel stuff */
 

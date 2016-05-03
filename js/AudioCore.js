@@ -281,6 +281,16 @@ function createInstruments(buffers) {
         //Create the instrument
         instruments[i] = new Instrument(buffers[i], myControls, gain);
 
+        //Set the knobs and switches to update its instrument's buffer
+        for(var j=0; j<instruments[i].knobs.length; ++j)
+        {
+            instruments[i].knobs[j].instrumentId = i;
+            instruments[i].knobs[j].onValueChange = function() {
+                console.log('Value changed');
+                instruments[this.instrumentId].updateBuffer();
+            };
+        }
+
         $(channels[i]).prepend($(gainKnob).fadeIn('fast'));
         var gainLabel = document.createElement('p');
         gainLabel.classList = 'label';

@@ -8,7 +8,7 @@
  * @param {object} element - The element to turn into a switch
  * @constructor
  */
-function FlipSwitch(element) {
+function Switch(element) {
     this.value = 0;
 
     this.element = element;
@@ -22,18 +22,26 @@ function FlipSwitch(element) {
 }
 
 /**
+ * Called when the value of the Switch changes
+ */
+Switch.prototype.onValueChange = function() {
+
+}
+
+/**
  * Returns the integer for the value the knob should represent (from 0-4)
  * @return {object} knob - the element object of the div that is the knob
  */
-FlipSwitch.prototype.getValue = function() {
+Switch.prototype.getValue = function() {
     return this.value;
 }
 
 /**
  * Flips the switch value from 0 to 1 or 1 to 0
  */
-FlipSwitch.prototype.flip = function() {
+Switch.prototype.flip = function() {
     this.value = (this.value + 1) % 2;
+    this.onValueChange();
     $(this.element).toggleClass('switchOff');
     $(this.element).toggleClass('switchOn');
     console.log('flipped');
@@ -44,7 +52,7 @@ FlipSwitch.prototype.flip = function() {
  * @param {object} mySwitch
  */
 function switchify(mySwitch) {
-    var jswitch = new FlipSwitch(mySwitch);
+    var jswitch = new Switch(mySwitch);
     $(mySwitch).data('jswitch', jswitch);
     mySwitch.onclick = function() {
         jswitch.flip()
@@ -57,7 +65,7 @@ function switchify(mySwitch) {
  */
 function makeSwitch() {
     var mySwitch = document.createElement('div');
-    var jswitch = new FlipSwitch(mySwitch);
+    var jswitch = new Switch(mySwitch);
     $(mySwitch).data('jswitch', jswitch);
     mySwitch.onclick = function() {
         jswitch.flip()

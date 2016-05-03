@@ -1,0 +1,6 @@
+Task,Description,Priority Rank,Time required,Team Member(s)
+Software knobs,communicate rotational position based user dragging up or down,4,medium,Alan
+change tempo knob,"enter a value, not necessarily knob yet",5,low,Alan
+Playing audio,playing audio on a certain beat,1,medium,John
+Rythm interface,"similar to tr 808, with 16 increments representing 16 count",3,medium,"Audrey, Hari"
+playing multiple audio sources,playing multiple audio sounds at a certain beat at the same time,2,high,John

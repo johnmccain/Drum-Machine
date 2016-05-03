@@ -63,10 +63,22 @@
          var newTapTempo = 0;
          
          //time calc variables
+         
+         //time calc for first 8 values
+         var avgTimePriority = 0;
+         var totalTimePriority = 0;
+         
+         //time calc for all values
          var avgTime = 0;
          var totalTime = 0;
          
          //std calc variables
+         
+         //std calc for first 8 values
+         var standardDeviationPriority = 0;
+         var stdInstancePriority = 0;
+         
+         //std calc for all values
          var standardDeviation = 0;
          var stdInstance = 0;
          
@@ -74,9 +86,11 @@
          var deviationCorrect = false;
          var deviationCount = 0;
 
-             while (!deviationCorrect)
-             {
-                    if (this.timeStore.length <= 5)
+
+                    if (this.timeStore.length <= 1)
+                    {
+                    }
+                    else if (this.timeStore.length < 5)
                     {
                         for (var i = 0; i<this.timeStore.length; ++i)
                         {
@@ -84,14 +98,37 @@
                         }
                         avgTime = totalTime/this.timeStore.length;
                         deviationCorrect = true;
+                        newTapTempo = (1/(avgTime/1000)*60);
+                        setTempo(newTapTempo);
                     }
                     else
                     {
-                        
+                    while (!deviationCorrect)
+                    { 
                         if (deviationCount == 0)
                         {
                             deviationCorrect = true;
                         }
+                        
+                        
+                        
+                        for (var i = this.timeStore.length-6; i<this.timeStore.length; ++i)
+                        {
+                            totalTimePriority = totalTimePriority + this.timeStore[i];
+                        }
+                        avgTimePriority = totalTimePriority/5;  
+                        
+                        for (var i = this.timeStore.length-6; i<this.timeStore.length; ++i)
+                        {
+                            stdInstancePriority = (this.timeStore[i] - avgTimePriority)*(this.timeStore[i] - avgTimePriority);
+                            standardDeviationPriority = standardDeviationPriority + stdInstancePriority;
+                        }
+                        standardDeviationPriority = standardDeviationPriority/5;
+                        
+                        standardDeviationPriority = Math.sqrt(standardDeviationPriority);
+                        
+                        
+                        
                         for (var i = 0; i<this.timeStore.length; ++i)
                         {
                             totalTime = totalTime + this.timeStore[i];
@@ -111,22 +148,30 @@
                         
                         deviationCount = 0;
                         
-                        
-                        for (var i=0; i<(this.timeStore.length-2); ++i)
+                        if (avgTime > avgTimePriority + (3*standardDeviationPriority) || avgTime < avgTimePriority - (3*standardDeviationPriority))
                         {
-                            if (this.timeStore[i] > avgTime + (2*standardDeviation) || this.timeStore[i] < avgTime - (2*standardDeviation))
+                            this.timeStore.splice(0, this.timeStore.length-6);
+                            deviationCount ++;
+                        }
+                            
+                            
+                            
+                        
+                        
+                        
+                        for (var i=0; i<(this.timeStore.length-6); ++i)
+                        {
+                            if (this.timeStore[i] > avgTime + (2.3*standardDeviation) || this.timeStore[i] < avgTime - (2.3*standardDeviation))
                             {
                                 this.timeStore.splice (i, 1);
-                                deviationCount ++;file:///home/awang/public_html
+                                deviationCount ++;
                             }
                         }
-                        
-
+                        newTapTempo = (1/(avgTime/1000)*60);
                     }
+                    setTempo(newTapTempo);
              }
              
-             newTapTempo = (1/(avgTime/1000)*60);
-             setTempo(newTapTempo);
              
      }
  }

@@ -101,9 +101,28 @@ function setup() {
 
         //Bind keys
         $(window).bind('keyup', function(key) {
-            if (key.which == 32) //Space Bar -> Play/Pause
-            {
+            if (key.which == 32) {
+                //Space Bar -> Play/Pause
                 playPause();
+                key.preventDefault();
+            }
+            else if (key.which == 65) {
+                //A -> Sequence A
+                setSequenceMode(0);
+                key.preventDefault();
+            }
+            else if (key.which == 66) {
+                //B -> Sequence B
+                setSequenceMode(1);
+                key.preventDefault();
+            }
+            else if (key.which == 89) {
+                //Y -> Sequence AB
+                setSequenceMode(2);
+                key.preventDefault();
+            }
+            else if (key.which == 84) {
+                //T -> Tap
                 key.preventDefault();
             }
 

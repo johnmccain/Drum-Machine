@@ -66,3 +66,21 @@ function updateLeds() {
         }
     }
 }
+
+/**
+ * An array of all the instrument control elements
+ * @type {array}
+ */
+var controls = [
+    [document.getElementById('BDDecay'), document.getElementById('BDTone')],
+    [document.getElementById('SDSnappy'), document.getElementById('SDTone')],
+    [document.getElementById('LTuning'), document.getElementById('LSwitch')],
+    [document.getElementById('MTuning'), document.getElementById('MSwitch')],
+    [document.getElementById('HTuning'), document.getElementById('HSwitch')],
+    [document.getElementById('RSSwitch')],
+    [document.getElementById('CPSwitch')],
+    [],
+    [document.getElementById('CYDecay'), document.getElementById('CYTone')],
+    [document.getElementById('OHDecay')],
+    []
+];

@@ -102,47 +102,7 @@ function setup() {
             audioContext,
             BufferLists,
             function(buffers) {
-                for (var i = 0; i < buffers.length; ++i) {
-                    incrementLoadingProgress();
-                    /* knobs */
-                    var numKnobs = 0;
-                    for (var x = 0; x >= 0; ++x) {
-                        if (Math.pow(5, x) <= buffers[i].length) {
-                            numKnobs = x;
-                        } else {
-                            x = -100;
-                        }
-                    }
-
-                    gain = audioContext.createGain();
-                    gain.connect(masterVolume);
-
-                    gain.gain.value = .6;
-
-
-                    var gainKnob = makeKnob('#5555FF');
-                    var jGainKnob = $(gainKnob).data('jknob');
-                    jGainKnob.gainNode = gain;
-                    jGainKnob.getValue = function() {
-                        return this.position / 300;
-                    };
-                    jGainKnob.onValueChange = function() {
-                        this.gainNode.gain.value = this.getValue();
-                    };
-                    $(channels[i]).prepend($(gainKnob).fadeIn('fast'));
-
-                    var knobs = Array();
-                    for (var j = 0; j < numKnobs; ++j) {
-                        var knob = makeKnob('#FF5555');
-                        knobs[j] = $(knob).data('jknob');
-                        $(channels[i]).prepend($(knob).fadeIn('fast'));
-                    }
-                    console.log('Made ' + numKnobs + ' knobs.  Actual length of knobs: ' + knobs.length);
-                    //Create the instrument
-                    instruments[i] = new Instrument(buffers[i], knobs, gain);
-                }
-
-                currentInstrument = instruments[0];
+                createInstruments(buffers)
             }
         );
         loader.load();
@@ -235,4 +195,48 @@ function onBeat() {
     }
 
     beat = (beat + 1) % 16;
+}
+
+/**
+ * Creates the instruments and knobs
+ * @param {array} buffers - the 2d array of buffers to be made into instruments
+ */
+function createInstruments(buffers) {
+    for (var i = 0; i < buffers.length; ++i) {
+        incrementLoadingProgress();
+        gain = audioContext.createGain();
+        gain.connect(masterVolume);
+        gain.gain.value = .6;
+        var gainKnob = makeKnob('#5555FF');
+        var jGainKnob = $(gainKnob).data('jknob');
+        jGainKnob.gainNode = gain;
+        jGainKnob.getValue = function() {
+            return this.position / 300;
+        };
+        jGainKnob.onValueChange = function() {
+            this.gainNode.gain.value = this.getValue();
+        };
+
+        var myControls = Array();
+        for (var j = 0; j < controls[i].length; ++j) {
+            if (controls[i][j].classList == 'knob') {
+                knobbify(controls[i][j], '#FF5555');
+                myControls[j] = $(controls[i][j]).data('jknob');
+                console.log('controls[' + i + '][' + j + '] is a knob');
+            } else {
+                switchify(controls[i][j]);
+                myControls[j] = $(controls[i][j]).data('jswitch');
+                console.log('controls[' + i + '][' + j + '] is a switch');
+            }
+        }
+        //Create the instrument
+        instruments[i] = new Instrument(buffers[i], myControls, gain);
+
+        $(channels[i]).prepend($(gainKnob).fadeIn('fast'));
+        var gainLabel = document.createElement('p');
+        gainLabel.classList = 'label';
+        gainLabel.innerHTML = 'volume';
+        $(channels[i]).prepend($(gainLabel).fadeIn('fast'));
+    }
+    currentInstrument = instruments[0];
 }

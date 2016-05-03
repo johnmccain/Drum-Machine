@@ -1,0 +1,12 @@
+<script src="js/jquery-2.2.0.js"></script>
+<script src="js/Switch.js"></script>
+<link rel="stylesheet" type="text/css" href="style/style.css">
+<body>
+    <div id="container"></div>
+</body>
+<script>
+    var mySwitch = makeSwitch();
+    document.getElementById('container').appendChild(mySwitch);
+    var jswitch = $(mySwitch).data('jswitch');
+    mySwitch.onclick = function(){jswitch.flip()};
+</script>

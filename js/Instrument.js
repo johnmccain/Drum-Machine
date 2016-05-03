@@ -73,8 +73,8 @@ Instrument.prototype = {
 function getBufferIndex(arr) {
     var index = 0;
     for (var i = 0; i < arr.length; i++) {
-        //console.log('buffer index counting: ' + i + '; index is ' + index);
-        index += arr[i] * Math.pow(5, arr.length - 1 - i);
+        console.log('buffer index counting: ' + i + '; index is ' + index);
+        index += arr[i] * Math.pow(5, i);
     }
     return index;
 }

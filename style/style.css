@@ -2,6 +2,9 @@ body {
     background-color: #AAAAAA;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     margin: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 p {
     font-size: 2.0em;
@@ -79,6 +82,28 @@ p {
     height: 7vw;
 }
 
+/* Switch stuff */
+
+.switch {
+    height: 3vw;
+    width: 1.75vw;
+    background-color: #121214;
+    position: relative;
+    left: 2.125vw;
+}
+.switch-indicator {
+    height: 1.25vw;
+    width: 1.75vw;
+    position: absolute;
+    background: linear-gradient(#2A2A3C, #434353, #2A2A3C);
+}
+.switchOn .switch-indicator {
+    top: 0;
+}
+.switchOff .switch-indicator {
+    bottom: 0;
+}
+
 /* Master stuff */
 
 #master-controls {
@@ -93,6 +118,9 @@ p {
     font-weight: bold;
     background-color: #333343;
     box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.2);
+}
+.master-label {
+    font-size: 2vw;
 }
 .button-large {
     margin: 1vh auto 1vh auto;
@@ -115,9 +143,10 @@ p {
 
 /* Channel stuff */
 
-#channels-container {
-    width: 85%;
-    float: left;
+#channels-grid {
+    position: absolute;
+    top: 5vh;
+    right: 4vw;
 }
 .spacer {
     width: 4%;
@@ -125,17 +154,22 @@ p {
     display: inline-block;
 }
 .channel {
-    position: relative;
+    position: absolute;
+    top: 7vh;
     display: inline-block;
     width: 6vw;
-    height: 40vh;
-    padding-top: 8vh;
+    height: 50vh;
+    padding-top: 1vh;
     background-color: #686878;
     border-radius: .7vw;
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-weight: bold;
     font-size: .75em;
+}
+.channel-box {
+    position: relative;
+    width: 6vw;
 }
 .button-instrument {
     margin: 1vh auto 0 auto;
@@ -160,16 +194,11 @@ p {
 
 /* Beat stuff */
 
-#beats-container {
-    width: 80%;
-    padding-left: 4%;
-    float: left;
-}
 #beats {
-    float: left;
     margin: 0 auto 0 auto;
     position: absolute;
     bottom: 5vh;
+    right: 4vw;
 }
 .button-beat {
     border: none;
@@ -195,22 +224,21 @@ p {
     background-color: #ffffff;
 }
 .label {
-    float: right;
-    margin-top: 0%;
-    text-align: center;
+    margin: 0;
+    font-size: 1.2vw;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-weight: bold;
-    color: #ff6600;
+    font-weight: lighter;
+    color: #DDDDDD;
 }
 .numbers {
-    font-size: 1.0em;
     border-style: solid;
     border-color: #c0c0c0;
-    border-left-width: medium;
-    border-right-width: medium;
+    border-left-width: .1vw;
+    border-right-width: .1vw;
     background-color: #c0c0c0;
 }
 .number {
+    font-size: 1.5vw;
     font-weight: bold;
     text-align: center;
 }

@@ -130,7 +130,7 @@ function setup() {
             }
         );
         loader.load();
-        
+
         //Bind keys
         $(window).bind('keyup', function(key) {
             if (key.which == 32) {
@@ -191,7 +191,6 @@ function changeBeat(index) {
 function setTempo(newTempo) {
     if(newTempo)
     {
-        newTempo = (newTempo < 240) ? newTempo : 239;
         tempo = newTempo;
         beatTimer.setInterval(15000 / newTempo);
         console.log('Changed tempo to ' + tempo);

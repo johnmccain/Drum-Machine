@@ -134,6 +134,7 @@
                  }
                  newTapTempo = (1 / (avgTime / 1000) * 60);
              }
+             (newTapTempo < 240) ? newTapTempo : 239;
              setTempo(newTapTempo);
              jTempoKnob.position = (newTapTempo - 40) * 1.8;
              jTempoKnob.rotate(0);

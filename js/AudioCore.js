@@ -438,6 +438,21 @@ function pushGet(param) {
 }
 
 /**
+ * Fixes any formatting issues in the JSON object due to being passed in through the url
+ * @return url {string} - The fixed url
+ */
+function replaceSymbols(url)
+{
+    url = url.replace(/%22/gi, '"');
+    url = url.replace(/%7B/gi, '{');
+    url = url.replace(/%7D/gi, '}');
+    url = url.replace(/%3A/gi, ':');
+    url = url.replace(/%2C/gi, ',');
+    console.log('FIXED URL: ' + url);
+    return url;
+}
+
+/**
  * Pulls a get parameter under key 'p' from the url
  * @return obj {object | undefined} - the object pulled from get, undefined if no object as 'p' is a get parameter or the parameter is not a valid JSON object
  */
@@ -445,7 +460,7 @@ function pullGet() {
     var url = window.location.href;
     if (url.indexOf('?p=') > 0) {
         try {
-            var str = url.substring(url.indexOf('?p=') + 3, url.length).replace(/%22/g, '"');
+            var str = replaceSymbols(url.substring(url.indexOf('?p=') + 3, url.length));
             return JSON.parse(str);
         } catch (e) {
             console.log('Error parsing the get parameter');

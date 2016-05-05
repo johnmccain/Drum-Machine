@@ -167,6 +167,9 @@ function compressSequence(sequence) {
     }
     var num = parseInt(str, 2);
     str = num.toString(16);
+    if (str.length < 8) {
+        str = leftPad(str, '0', 8 - str.length);
+    }
     return str;
 }
 
@@ -186,4 +189,18 @@ function decompressSequence(str) {
         }
     }
     return sequence;
+}
+
+/**
+ * Pads a string on the left with the specified string or character a specified number of times
+ * @param str {String} - The string to left pad
+ * @param pad {String} - The pad to use
+ * @param num {number} - The number of times to pad
+ * @return str {String} - The padded string
+ */
+function leftPad(str, pad, num) {
+    for (var i = 0; i < num; ++i) {
+        str = pad + str;
+    }
+    return str;
 }

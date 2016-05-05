@@ -80,8 +80,8 @@ Instrument.prototype = {
     toObject: function() {
         var obj = {};
         obj.knobs = this.getKnobSettings();
-        obj.gain = this.gain.gain.value;
-        obj.sequence = this.sequence;
+        obj.gain = this.gain.gain.value.toFixed(2);
+        obj.sequence = compressSequence(this.sequence);
         return obj;
     },
 
@@ -93,7 +93,7 @@ Instrument.prototype = {
         this.gain.gain.value = obj.gain;
         this.gainKnob.position = obj.gain * 300;
         this.gainKnob.visRotate(0);
-        this.sequence = obj.sequence;
+        this.sequence = decompressSequence(obj.sequence);
         this.setKnobSettings(obj.knobs);
     }
 }

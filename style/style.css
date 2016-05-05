@@ -177,7 +177,7 @@ p {
     background: linear-gradient(#2B2B38, #272733, #2B2B38) !important;
     border: .1vw solid #39394A;
 }
-.button-tap {
+.button-med {
     margin: 1vh auto 1vh auto;
     display: inline-block;
     position: relative;
@@ -189,18 +189,27 @@ p {
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     color: #DDDDDD;
-    font-size: 2.5vh;
+    font-size: 2vh;
     font-weight: lighter;
 }
-.button-tap:active {
+.button-med:active {
     box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.3);
     background: linear-gradient(#404054, #3A3A45, #404054);
     color: #BBBBBB;
 }
-.button-tap:hover {
+.button-med:hover {
     box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
     background: linear-gradient(#444459, #404054, #444459);
     color: #CCCCCC;
+}
+#button-reset {
+    background: linear-gradient(#9B2A2C, #A32A2C, #9B2A2C);
+}
+#button-reset:active {
+    background: linear-gradient(#8B1A1C, #9B2A2C, #8B1A1C);
+}
+#button-reset:hover {
+    background: linear-gradient(#7B1A1C, #8B1A1C, #7B1A1C);
 }
 /* Channel stuff */
 

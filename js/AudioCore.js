@@ -74,6 +74,12 @@ var sequenceMode = 0;
  */
 var sequenceNumber = 0;
 
+/**
+ * The object of a blank scene (used for resetting)
+ * @type {object}
+ */
+var blankSceneObj = {"instruments":[{"knobs":[2,2],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"knobs":[2,2],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"knobs":[2,0],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"knobs":[2,0],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"knobs":[2,0],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"knobs":[0],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"knobs":[0],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"knobs":[],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"knobs":[2,2],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"knobs":[2],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},{"knobs":[],"gain":0.6000000238418579,"sequence":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}],"volume":0.6000000238418579,"tempo":140,"sequenceMode":0}
+
 window.addEventListener('load', setup, false);
 
 /**
@@ -126,7 +132,7 @@ function setup() {
             audioContext,
             BufferLists,
             function(buffers) {
-                createInstruments(buffers)
+                createInstruments(buffers);
             }
         );
         loader.load();
@@ -137,23 +143,19 @@ function setup() {
                 //Space Bar -> Play/Pause
                 playPause();
                 key.preventDefault();
-            }
-            else if (key.which == 65) {
+            } else if (key.which == 65) {
                 //A -> Sequence A
                 setSequenceMode(0);
                 key.preventDefault();
-            }
-            else if (key.which == 66) {
+            } else if (key.which == 66) {
                 //B -> Sequence B
                 setSequenceMode(1);
                 key.preventDefault();
-            }
-            else if (key.which == 89) {
+            } else if (key.which == 89) {
                 //Y -> Sequence AB
                 setSequenceMode(2);
                 key.preventDefault();
-            }
-            else if (key.which == 84) {
+            } else if (key.which == 84) {
                 //T -> Tap
                 tapTempo.timing();
                 key.preventDefault();
@@ -189,8 +191,7 @@ function changeBeat(index) {
  * @param {number} newTempo - The new tempo of the drum machine in beats per minute
  */
 function setTempo(newTempo) {
-    if(newTempo)
-    {
+    if (newTempo) {
         tempo = newTempo;
         beatTimer.setInterval(15000 / newTempo);
         console.log('Changed tempo to ' + tempo);
@@ -252,7 +253,7 @@ function onBeat() {
     }
 
     beat = (beat + 1) % 16;
-    if(beat == 0 && sequenceMode == 2) {
+    if (beat == 0 && sequenceMode == 2) {
         sequenceNumber = (sequenceNumber + 1) % 2;
         updateLeds();
     }
@@ -261,12 +262,10 @@ function onBeat() {
 /**
  * Handles all necessary operations for when the sequence mode changes
  */
-function onSequenceModeChange()
-{
-    if(sequenceMode == 0) {
+function onSequenceModeChange() {
+    if (sequenceMode == 0) {
         sequenceNumber = 0;
-    }
-    else if(sequenceMode == 1) {
+    } else if (sequenceMode == 1) {
         sequenceNumber = 1;
     }
     updateLeds();
@@ -297,19 +296,16 @@ function createInstruments(buffers) {
             if (controls[i][j].classList == 'knob') {
                 knobbify(controls[i][j], '#FF5555');
                 myControls[j] = $(controls[i][j]).data('jknob');
-                console.log('controls[' + i + '][' + j + '] is a knob');
             } else {
                 switchify(controls[i][j]);
                 myControls[j] = $(controls[i][j]).data('jswitch');
-                console.log('controls[' + i + '][' + j + '] is a switch');
             }
         }
         //Create the instrument
-        instruments[i] = new Instrument(buffers[i], myControls, gain);
+        instruments[i] = new Instrument(buffers[i], myControls, gain, jGainKnob);
 
         //Set the knobs and switches to update its instrument's buffer
-        for(var j=0; j<instruments[i].knobs.length; ++j)
-        {
+        for (var j = 0; j < instruments[i].knobs.length; ++j) {
             instruments[i].knobs[j].instrumentId = i;
             instruments[i].knobs[j].onValueChange = function() {
                 console.log('Value changed');
@@ -324,4 +320,108 @@ function createInstruments(buffers) {
         $(channels[i]).prepend($(gainLabel).fadeIn('fast'));
     }
     currentInstrument = instruments[0];
+    loadScene();
+}
+
+/**
+ * Returns an object representing the current state of the drum machine (for pattern saving/sharing)
+ * @return {object} obj - the object representing the current state of the drum machine
+ */
+function toObject() {
+    var obj = {};
+    var instrumentObjects = Array();
+    for (var i = 0; i < instruments.length; ++i) {
+        instrumentObjects[i] = instruments[i].toObject();
+    }
+    obj.instruments = instrumentObjects;
+    obj.volume = masterVolume.gain.value;
+    obj.tempo = tempo;
+    obj.sequenceMode = sequenceMode;
+    return obj;
+}
+
+/**
+ * Pushes a get parameter to the URL, removing previous get parameters if they exist
+ * @param param {string} - the parameter to push to get with key 'p'
+ */
+function pushGet(param) {
+    var url = window.location.href;
+    if (url.indexOf('?p=') > 0) {
+        url = url.substring(0, url.indexOf('?p='));
+    }
+    window.history.pushState({
+        "html": document.documentElement.outerHTML,
+        "pageTitle": document.title
+    }, "", url + '?p=' + param);
+}
+
+/**
+ * Pulls a get parameter under key 'p' from the url
+ * @return obj {object | undefined} - the object pulled from get, undefined if no object as 'p' is a get parameter or the parameter is not a valid JSON object
+ */
+function pullGet() {
+    var url = window.location.href;
+    if (url.indexOf('?p=') > 0) {
+        try {
+            var str = url.substring(url.indexOf('?p=') + 3, url.length).replace(/%22/g, '"');
+            return JSON.parse(str);
+        } catch (e) {
+            console.log('Error parsing the get parameter');
+            return undefined;
+        }
+    } else {
+        return undefined;
+    }
+}
+
+/**
+ * Loads a scene (including all settings) from an object
+ * @param obj {object} - the scene to load from
+ */
+function loadFromObject(obj) {
+    if (!obj || !obj.volume) {
+        console.error('Error: invalid object');
+        alert('Error: invalid scene settings');
+        return;
+    }
+    for (var i = 0; i < instruments.length; ++i) {
+        instruments[i].fromObject(obj.instruments[i]);
+    }
+    masterVolume.gain.value = obj.volume;
+    jMasterVolumeKnob.position = obj.volume * 300;
+    jMasterVolumeKnob.rotate(0);
+    setTempo(obj.tempo);
+    setSequenceMode(obj.sequenceMode);
+}
+
+/**
+ * Attempts to load a scene from a serialized jSON object in the url
+ */
+function loadScene() {
+    var obj = pullGet();
+    if (obj) {
+        loadFromObject(obj);
+    }
+}
+
+/**
+ * Saves a scene (including all settings) to a serialized JSON object in the url
+ */
+function saveScene() {
+    pushGet(JSON.stringify(toObject()));
+}
+
+function reset() {
+    loadFromObject(blankSceneObj);
+
+    var url = window.location.href;
+    if(url.indexOf('?') > 0)
+    {
+        url = url.substring(0, url.indexOf('?'));
+    }
+
+    window.history.pushState({
+        "html": document.documentElement.outerHTML,
+        "pageTitle": document.title
+    }, "", url);
 }

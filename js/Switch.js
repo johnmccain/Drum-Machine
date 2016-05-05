@@ -44,7 +44,29 @@ Switch.prototype.flip = function() {
     this.onValueChange();
     $(this.element).toggleClass('switchOff');
     $(this.element).toggleClass('switchOn');
-    console.log('flipped');
+}
+
+/**
+ * Updates the current switch styling based on value
+ */
+Switch.prototype.update = function() {
+    if(this.value == 1) {
+        $(this.element).removeClass('switchOff');
+        $(this.element).addClass('switchOn');
+    }
+    else {
+        $(this.element).addClass('switchOff');
+        $(this.element).removeClass('switchOn');
+    }
+}
+
+/**
+ * Returns the type of this object (switch)
+ * @return {string} - 'switch';
+ */
+Switch.prototype.getType = function()
+{
+    return 'switch';
 }
 
 /**

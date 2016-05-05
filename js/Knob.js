@@ -48,6 +48,15 @@ Knob.prototype = {
     },
 
     /**
+     * Returns the type of this object (knob)
+     * @return {string} - 'knob';
+     */
+    getType()
+    {
+        return 'knob';
+    },
+
+    /**
      * Changes the position of this knob by deg degrees, accounting for rollover and rollunder so that the value of position is always between 0 and 359 (inclusive)
      * @param {number} deg - The number of degrees to rotate the knob by
      */

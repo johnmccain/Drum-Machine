@@ -10,6 +10,9 @@
     <script src="js/jquery-2.2.0.js"></script>
     <script src="js/jquery.mobile.custom.min.js"></script>
 
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
     <script src="js/Loading.js"></script>
 
 </head>
@@ -33,13 +36,22 @@
         <div class="master-label">Tempo</div>
         <br>
         <span>
-            <button class="button-tap" onclick="tapTempo.timing();">TAP</button>
+            <button class="button-med" onclick="tapTempo.timing();">TAP</button>
         </span>
         <br>
         <span>
             <button id="sequenceA" class="button-sequence on" onclick="setSequenceMode(0);">A</button>
             <button id="sequenceB" class="button-sequence" onclick="setSequenceMode(1);">B</button>
             <button id="sequenceAB" class="button-sequence" onclick="setSequenceMode(2);">AB</button>
+        </span>
+        <br>
+        <span>
+            <table style="margin: auto;">
+                <tr>
+                    <td><button class="button-med" onclick="saveScene();"><i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i></button></td>
+                    <td><button id="button-reset" class="button-med" onclick="reset();">Reset</button></td>
+                </tr>
+            </table>
         </span>
         <br>
         <br>

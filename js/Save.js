@@ -15,10 +15,9 @@ function toObject() {
     }
     obj.instruments = instrumentObjects;
     obj.gain = masterVolume.gain.value.toFixed(2);
-    if(tempo % 0.01 < 0.009) {
+    if (tempo % 0.01 < 0.009) {
         obj.tempo = tempo.toFixed(2);
-    }
-    else {
+    } else {
         obj.tempo = tempo;
     }
     obj.mode = sequenceMode;

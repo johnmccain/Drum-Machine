@@ -51,8 +51,7 @@ Knob.prototype = {
      * Returns the type of this object (knob)
      * @return {string} - 'knob';
      */
-    getType()
-    {
+    getType() {
         return 'knob';
     },
 

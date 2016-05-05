@@ -50,11 +50,10 @@ Switch.prototype.flip = function() {
  * Updates the current switch styling based on value
  */
 Switch.prototype.update = function() {
-    if(this.value == 1) {
+    if (this.value == 1) {
         $(this.element).removeClass('switchOff');
         $(this.element).addClass('switchOn');
-    }
-    else {
+    } else {
         $(this.element).addClass('switchOff');
         $(this.element).removeClass('switchOn');
     }
@@ -64,8 +63,7 @@ Switch.prototype.update = function() {
  * Returns the type of this object (switch)
  * @return {string} - 'switch';
  */
-Switch.prototype.getType = function()
-{
+Switch.prototype.getType = function() {
     return 'switch';
 }
 

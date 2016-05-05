@@ -61,11 +61,10 @@ Instrument.prototype = {
      */
     setKnobSettings: function(arr) {
         for (var i = 0; i < this.knobs.length; i++) {
-            if(this.knobs[i].getType() == 'knob') {
+            if (this.knobs[i].getType() == 'knob') {
                 this.knobs[i].position = arr[i] * 72 + 36;
                 this.knobs[i].visRotate(0);
-            }
-            else {
+            } else {
                 //param is a switch
                 this.knobs[i].value = arr[i];
                 this.knobs[i].update();

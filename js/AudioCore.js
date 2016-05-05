@@ -161,6 +161,11 @@ function setup() {
                 key.preventDefault();
             }
         });
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+              stop();
+            }
+        }, false);
     } catch (exception) {
         console.trace();
         console.log(exception);

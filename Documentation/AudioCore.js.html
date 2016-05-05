@@ -31,142 +31,338 @@
  * @version 1.0
  */
 
+/**
+ * @type {AudioContext}
+ */
 var audioContext;
 
-//The currently selected instrument for editing
+/**
+ * The currently selected instrument for editing
+ * @type {object}
+ */
 var currentInstrument;
 
-//All of the instruments
+/**
+ * Array of all the instruments
+ * @type {array}
+ */
 var instruments = Array();
 
-//Timer for each beat
+/**
+ * Timer for each beat
+ * @type {Timer}
+ */
 var beatTimer;
 
+/**
+ * TapTempo handler
+ * @type {TapTempo}
+ */
+var tapTempo;
+
+/**
+ * The current BPM (beats per minute) of the drum machine.  Note: a beat is 4 steps in this drum machine.
+ * @type {number}
+ */
+var tempo;
+
+/**
+ * Knob for the tempo
+ * @type {knob}
+ */
+var jTempoKnob;
+
+/**
+ * Beat iterator (valid values are integers from 0-15)
+ * @type {number}
+ */
 var beat = 0;
+
+/**
+ * Gain node for the master volume
+ * @type {GainNode}
+ */
+var masterVolume;
+
+/**
+ * Knob for the master volume
+ * @type {knob}
+ */
+var jMasterVolumeKnob;
+
+/**
+ * The sequence mode, where 0 is for A only, 1 is for B only, and 2 is for AB
+ * @type {number}
+ */
+var sequenceMode = 0;
+
+/**
+ * The sequence number to be played and displayed
+ * @type {number}
+ */
+var sequenceNumber = 0;
+
+/**
+ * The object of a blank scene (used for resetting)
+ * @type {object}
+ */
+var blankSceneObjStr = "vxixyqvxkxyq2z2rzxgxyx0.60xzxsxyx0xwzvxkxyq2z2rzxgxyx0.60xzxsxyx0xwzvxkxyq2z0rzxgxyx0.60xzxsxyx0xwzvxkxyq2z0rzxgxyx0.60xzxsxyx0xwzvxkxyq2z0rzxgxyx0.60xzxsxyx0xwzvxkxyq0rzxgxyx0.60xzxsxyx0xwzvxkxyq0rzxgxyx0.60xzxsxyx0xwzvxkxyqrzxgxyx0.60xzxsxyx0xwzvxkxyq2z2rzxgxyx0.60xzxsxyx0xwzvxkxyq2rzxgxyx0.60xzxsxyx0xwzvxkxyqrzxgxyx0.60xzxsxyx0xwrzxgxyx0.60xzxtxy140zxmxy0w"
 
 window.addEventListener('load', setup, false);
 
 /**
  * Loads the buffers, sets up the instruments, creates the knobs, and sets the current instrument to the BD
  */
-function setup()
-{
-  try
-  {
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    audioContext = new AudioContext();
+function setup() {
+    try {
+        incrementLoadingProgress();
+        beatTimer = new Timer(function() {
+            onBeat();
+        }, 107.142857143);
 
-    /* buffers */
-    loader = new MyBufferLoader
-      (
-      audioContext,
-      BufferLists,
-      function(buffers)
-      {
-        for(var i = 0; i &lt; buffers.length; ++i)
-        {
-          /* knobs */
-          var numKnobs = 0;
-          for(var x = 0; x >= 0; ++x)
-          {
-            if(Math.pow(5, x) &lt;= buffers[i].length)
-            {
-              numKnobs = x;
+        tempo = 140;
+
+        tapTempo = new TapTempo();
+
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContext = new AudioContext();
+
+        //set up master volume gain node
+        masterVolume = audioContext.createGain();
+        masterVolume.connect(audioContext.destination);
+        masterVolume.gain.value = .6;
+
+        var masterVolumeKnob = document.getElementById('volume-knob');
+        knobbify(masterVolumeKnob, '#5555AA');
+        jMasterVolumeKnob = $(masterVolumeKnob).data('jknob');
+        jMasterVolumeKnob.gainNode = masterVolume;
+        jMasterVolumeKnob.getValue = function() {
+            return this.position / 300;
+        };
+        jMasterVolumeKnob.onValueChange = function() {
+            this.gainNode.gain.value = this.getValue();
+
+        };
+
+        //set up the tempo knob
+        var tempoKnob = document.getElementById('tempo-knob');
+        knobbify(tempoKnob, '#DDDDDD');
+        jTempoKnob = $(tempoKnob).data('jknob');
+        jTempoKnob.getValue = function() {
+            return ((this.position / 1.8) + 40); //Possible values: 40-200bpm
+        };
+        jTempoKnob.onValueChange = function() {
+            setTempo(this.getValue());
+        };
+
+        /* buffers */
+        loader = new MyBufferLoader(
+            audioContext,
+            BufferLists,
+            function(buffers) {
+                createInstruments(buffers);
             }
-            else
-            {
-              x = -100;
+        );
+        loader.load();
+
+        //Bind keys
+        $(window).bind('keyup', function(key) {
+            if (key.which == 32) {
+                //Space Bar -> Play/Pause
+                playPause();
+                key.preventDefault();
+            } else if (key.which == 65) {
+                //A -> Sequence A
+                setSequenceMode(0);
+                key.preventDefault();
+            } else if (key.which == 66) {
+                //B -> Sequence B
+                setSequenceMode(1);
+                key.preventDefault();
+            } else if (key.which == 89) {
+                //Y -> Sequence AB
+                setSequenceMode(2);
+                key.preventDefault();
+            } else if (key.which == 84) {
+                //T -> Tap
+                tapTempo.timing();
+                key.preventDefault();
             }
-          }
-
-          var knobs = Array();
-          for(var j = 0; j &lt; numKnobs; ++j)
-          {
-            var knob = makeKnob('#FF5555');
-            knobs[j] = $(knob).data('jknob');
-            $(channels[i]).prepend($(knob).fadeIn('fast'));
-          }
-          console.log('Made ' + numKnobs + ' knobs.  Actual length of knobs: ' + knobs.length);
-          //Create the instrument
-          instruments[i] = new Instrument(buffers[i], knobs);
-        }
-
-        currentInstrument = instruments[0];
-      }
-      );
-    loader.load();
-  }
-  catch(exception)
-  {
-    console.trace();
-    console.log(exception);
-    alert("HTML5 audio is not supported in your browser.");
-  }
+        });
+    } catch (exception) {
+        console.trace();
+        console.log(exception);
+        alert("HTML5 audio is not supported in your browser.");
+    }
 }
 
 /**
  * Change the currentInstrument to the instrument at index in instruments
  * @param {number} index - The index of the instrument to select
  */
-function selectInstrument(index)
-{
-  currentInstrument = instruments[index];
-  updateLeds();
+function selectInstrument(index) {
+    currentInstrument = instruments[index];
+    updateLeds();
 }
 
 /**
  * Increment the sequence of the currentInstrument at index (will always be between 0-1, eventually 0-2)
  * @param {number} index - The index of the sequence to change (valid values are 1-15)
  */
-function changeBeat(index)
-{
-  currentInstrument.sequence[index] = (currentInstrument.sequence[index] + 1) % 2;
+function changeBeat(index) {
+    currentInstrument.sequence[sequenceNumber][index] = (currentInstrument.sequence[sequenceNumber][index] + 1) % 2;
+}
+
+/**
+ * Set the BPM of the drum machine.  Updates the current BPM, tempo knob, and the beatTimer interval if given a valid (truthy) value.
+ * Note: the maximum tempo allowed is 239
+ * @param {number} newTempo - The new tempo of the drum machine in beats per minute
+ */
+function setTempo(newTempo) {
+    if (newTempo) {
+        tempo = newTempo;
+        beatTimer.setInterval(15000 / newTempo);
+        console.log('Changed tempo to ' + tempo);
+    }
+}
+
+/**
+ * Called when the play/pause button is pressed or the spacebar is pressed.  Calls start() if the TR808 is stopped, calls stop() otherwise
+ */
+function playPause() {
+    if (beatTimer.running) {
+        stop();
+    } else {
+        start();
+    }
+}
+
+/**
+ * Starts the beatTimer for playback
+ */
+function start() {
+    if (!beatTimer.running) {
+        beatTimer.start();
+        beat = 0;
+    }
+}
+
+/**
+ * Stops the beatTimer for playback
+ */
+function stop() {
+    beatTimer.stop();
+    clearBeatIndicator();
 }
 
 /**
  * Plays the input buffer
- * @param {buffer} buffer - The buffer to play
+ * @param {Instrument} buffer - The instrument to play
  */
-function playSound(buffer)
-{
-  sample = audioContext.createBufferSource();
-  sample.buffer = buffer;
-  sample.connect(audioContext.destination);
-  sample.start(0);
-}
-
-/**
- * Starts a timer for playback
- */
-function start()
-{
-  beatTimer = window.setInterval(onBeat, 200);
-  beat = 0;
-}
-
-/**
-* Stops the timer for playback
-*/
-function stop()
-{
-  window.clearInterval(beatTimer);
+function playSound(instrument) {
+    var sample = audioContext.createBufferSource();
+    sample.buffer = instrument.buffer;
+    sample.connect(instrument.gain);
+    sample.start(0);
 }
 
 /**
  * Plays the instruments that are set to play during the current beat and increments the beat
  */
-function onBeat()
-{
-  for(var i = 0; i &lt; instruments.length; ++i)
-  {
-    if(instruments[i].sequence[beat] > 0)
-    {
-      playSound(instruments[i].buffer);
+function onBeat() {
+    onBeatChange();
+    for (var i = 0; i &lt; instruments.length; ++i) {
+        if (instruments[i].sequence[sequenceNumber][beat] > 0) {
+            playSound(instruments[i]);
+        }
     }
-    instruments[i].updateBuffer();
-  }
+    for (var i = 0; i &lt; instruments.length; ++i) {
+        instruments[i].updateBuffer();
+    }
 
-  beat = (beat + 1) % 16;
+    beat = (beat + 1) % 16;
+    if (beat == 0 &amp;&amp; sequenceMode == 2) {
+        sequenceNumber = (sequenceNumber + 1) % 2;
+        updateLeds();
+    }
+}
+
+/**
+ * Handles all necessary operations for when the sequence mode changes
+ */
+function onSequenceModeChange() {
+    if (sequenceMode == 0) {
+        sequenceNumber = 0;
+    } else if (sequenceMode == 1) {
+        sequenceNumber = 1;
+    }
+    updateLeds();
+}
+
+/**
+ * Creates the instruments and knobs
+ * @param {array} buffers - the 2d array of buffers to be made into instruments
+ */
+function createInstruments(buffers) {
+    for (var i = 0; i &lt; buffers.length; ++i) {
+        incrementLoadingProgress();
+        gain = audioContext.createGain();
+        gain.connect(masterVolume);
+        gain.gain.value = .6;
+        var gainKnob = makeKnob('#5555FF');
+        var jGainKnob = $(gainKnob).data('jknob');
+        jGainKnob.gainNode = gain;
+        jGainKnob.getValue = function() {
+            return this.position / 300;
+        };
+        jGainKnob.onValueChange = function() {
+            this.gainNode.gain.value = this.getValue();
+        };
+
+        var myControls = Array();
+        for (var j = 0; j &lt; controls[i].length; ++j) {
+            if (controls[i][j].classList == 'knob') {
+                knobbify(controls[i][j], '#FF5555');
+                myControls[j] = $(controls[i][j]).data('jknob');
+            } else {
+                switchify(controls[i][j]);
+                myControls[j] = $(controls[i][j]).data('jswitch');
+            }
+        }
+        //Create the instrument
+        instruments[i] = new Instrument(buffers[i], myControls, gain, jGainKnob);
+
+        //Set the knobs and switches to update its instrument's buffer
+        for (var j = 0; j &lt; instruments[i].knobs.length; ++j) {
+            instruments[i].knobs[j].instrumentId = i;
+            instruments[i].knobs[j].onValueChange = function() {
+                console.log('Value changed');
+                instruments[this.instrumentId].updateBuffer();
+            };
+        }
+
+        $(channels[i]).prepend($(gainKnob).fadeIn('fast'));
+        var gainLabel = document.createElement('p');
+        gainLabel.classList = 'label';
+        gainLabel.innerHTML = 'volume';
+        $(channels[i]).prepend($(gainLabel).fadeIn('fast'));
+    }
+    currentInstrument = instruments[0];
+    loadScene();
+}
+
+function reset() {
+    loadFromObject(JSON.parse(decompressSceneData(replaceSymbols(blankSceneObjStr))));
+
+    var url = window.location.href;
+    if (url.indexOf('?') > 0) {
+        url = url.substring(0, url.indexOf('?'));
+    }
+
+    window.history.pushState({
+        "html": document.documentElement.outerHTML,
+        "pageTitle": document.title
+    }, "", url);
 }
 </code></pre>
         </article>
@@ -178,13 +374,13 @@ function onBeat()
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Instrument.html">Instrument</a></li><li><a href="Knob.html">Knob</a></li><li><a href="MyBufferLoader.html">MyBufferLoader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#audioContext">audioContext</a></li><li><a href="global.html#changeBeat">changeBeat</a></li><li><a href="global.html#getBufferIndex">getBufferIndex</a></li><li><a href="global.html#knobbify">knobbify</a></li><li><a href="global.html#leds">leds</a></li><li><a href="global.html#makeKnob">makeKnob</a></li><li><a href="global.html#onBeat">onBeat</a></li><li><a href="global.html#onBeatClick">onBeatClick</a></li><li><a href="global.html#playSound">playSound</a></li><li><a href="global.html#selectInstrument">selectInstrument</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#stop">stop</a></li><li><a href="global.html#updateLeds">updateLeds</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Instrument.html">Instrument</a></li><li><a href="Knob.html">Knob</a></li><li><a href="MyBufferLoader.html">MyBufferLoader</a></li><li><a href="Switch.html">Switch</a></li><li><a href="Timer.html">Timer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#audioContext">audioContext</a></li><li><a href="global.html#beat">beat</a></li><li><a href="global.html#beatTimer">beatTimer</a></li><li><a href="global.html#blankSceneObjStr">blankSceneObjStr</a></li><li><a href="global.html#changeBeat">changeBeat</a></li><li><a href="global.html#channels">channels</a></li><li><a href="global.html#clearBeatIndicator">clearBeatIndicator</a></li><li><a href="global.html#compressSceneData">compressSceneData</a></li><li><a href="global.html#compressSequence">compressSequence</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#createInstruments">createInstruments</a></li><li><a href="global.html#currentInstrument">currentInstrument</a></li><li><a href="global.html#decompressSceneData">decompressSceneData</a></li><li><a href="global.html#decompressSequence">decompressSequence</a></li><li><a href="global.html#getBufferIndex">getBufferIndex</a></li><li><a href="global.html#incrementLoadingProgress">incrementLoadingProgress</a></li><li><a href="global.html#instruments">instruments</a></li><li><a href="global.html#jMasterVolumeKnob">jMasterVolumeKnob</a></li><li><a href="global.html#jTempoKnob">jTempoKnob</a></li><li><a href="global.html#knobbify">knobbify</a></li><li><a href="global.html#leds">leds</a></li><li><a href="global.html#loadFromObject">loadFromObject</a></li><li><a href="global.html#loadScene">loadScene</a></li><li><a href="global.html#makeKnob">makeKnob</a></li><li><a href="global.html#makeSwitch">makeSwitch</a></li><li><a href="global.html#masterVolume">masterVolume</a></li><li><a href="global.html#modeButtons">modeButtons</a></li><li><a href="global.html#onBeat">onBeat</a></li><li><a href="global.html#onBeatChange">onBeatChange</a></li><li><a href="global.html#onBeatClick">onBeatClick</a></li><li><a href="global.html#onLoadFinish">onLoadFinish</a></li><li><a href="global.html#onSequenceModeChange">onSequenceModeChange</a></li><li><a href="global.html#playPause">playPause</a></li><li><a href="global.html#playSound">playSound</a></li><li><a href="global.html#pullGet">pullGet</a></li><li><a href="global.html#pushGet">pushGet</a></li><li><a href="global.html#replaceSymbols">replaceSymbols</a></li><li><a href="global.html#saveScene">saveScene</a></li><li><a href="global.html#selectInstrument">selectInstrument</a></li><li><a href="global.html#sequenceMode">sequenceMode</a></li><li><a href="global.html#sequenceNumber">sequenceNumber</a></li><li><a href="global.html#setSequenceMode">setSequenceMode</a></li><li><a href="global.html#setTempo">setTempo</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#stop">stop</a></li><li><a href="global.html#switchify">switchify</a></li><li><a href="global.html#tapTempo">tapTempo</a></li><li><a href="global.html#TapTempo">TapTempo</a></li><li><a href="global.html#tempo">tempo</a></li><li><a href="global.html#toObject">toObject</a></li><li><a href="global.html#updateLeds">updateLeds</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Apr 07 2016 19:37:13 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu May 05 2016 12:16:36 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

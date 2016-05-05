@@ -34,51 +34,96 @@
 /**
  * Represents an Instrument.
  * @constructor
- * @param {Array} buffers - The possible buffers for this instrument
+ * @param {Array} buffers - The possible AudioBufferSourceNodes for this instrument
  * @param {Array} knobs - The knobs that control parameters (aside from volume) for this instrument
+ * @param {GainNode} gain - The gain node for this instrument
  */
-function Instrument(buffers, knobs) //has array of knobs, array of buffers, array of sequence, and eventually a gainnode with associated volume knob
+function Instrument(buffers, knobs, gain, gainKnob) //has array of knobs, array of buffers, array of sequence, and eventually a gainnode with associated volume knob
 {
-	//An array of the buffers of this instrument
-	this.buffers = buffers;
+    //An array of the buffers of this instrument
+    this.buffers = buffers;
 
-	//Sequence represents the sequence of beats that this instrument should be played on.  Valid values for each of the 16 beats are 0 (rest), 1 (note), and 2 (emphasised note)
-	this.sequence = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    //Sequence represents the sequences of beats that this instrument should be played on.  Valid values for each of the 16 beats are 0 (rest) and 1 (note)
+    this.sequence = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ];
 
-	//An array of the knobs of this instrument (the first knob should be in the first index)
-	this.knobs = knobs;
+    //An array of the knobs of this instrument (the first knob should be in the first index)
+    this.knobs = knobs;
 
-	//The current buffer
-	this.buffer = {};
-	this.updateBuffer();
+    this.gain = gain;
+
+    this.gainKnob = gainKnob;
+
+    //The current buffer
+    this.buffer = {};
+    this.updateBuffer();
 }
 
-Instrument.prototype =
-{
-	/**
-	 * Updates the current buffer based on the current settings of the knobs
-	 */
-	updateBuffer:function()
-	{
-		var bufferIndex = getBufferIndex(this.getKnobSettings());
-		//console.log('Updating buffer to index ' + bufferIndex);
-		this.buffer = this.buffers[bufferIndex];
-	},
+Instrument.prototype = {
+    /**
+     * Updates the current buffer based on the current settings of the knobs
+     */
+    updateBuffer: function() {
+        var bufferIndex = getBufferIndex(this.getKnobSettings());
+        //console.log('Updating buffer to index ' + bufferIndex);
+        this.buffer = this.buffers[bufferIndex];
+    },
 
-	/**
-	 * Returns an array of the current knob settings
-	 * @return arr - An array of the current knob settings.
-	 */
-	getKnobSettings:function()
-	{
-		var arr = [];
-		//console.log('Getting knob settings for ' + this.knobs.length + ' knobs.');
-		for(var i = 0; i &lt; this.knobs.length; i++)
-		{
-			arr[i] = this.knobs[i].getValue();
-		}
-		return arr;
-	}
+    /**
+     * Returns an array of the current knob settings
+     * @return arr - An array of the current knob settings.
+     */
+    getKnobSettings: function() {
+        var arr = [];
+        for (var i = 0; i &lt; this.knobs.length; i++) {
+            arr[i] = this.knobs[i].getValue();
+        }
+        return arr;
+    },
+
+    /**
+     * Sets the knob settings based on an array of values in the same form as getKnobSettings returns
+     * @param arr {Array} - The array of values
+     */
+    setKnobSettings: function(arr) {
+        for (var i = 0; i &lt; this.knobs.length; i++) {
+            if (this.knobs[i].getType() == 'knob') {
+                this.knobs[i].position = arr[i] * 72 + 36;
+                this.knobs[i].visRotate(0);
+            } else {
+                //param is a switch
+                this.knobs[i].value = arr[i];
+                this.knobs[i].update();
+            }
+        }
+    },
+
+    /**
+     * Returns a simple object representation of the instrument's current state
+     * For use with JSON.stringify for debugging and saving states.
+     * @return obj - An object representing the instrument
+     */
+    toObject: function() {
+        var obj = {};
+        obj.knobs = this.getKnobSettings();
+        obj.gain = this.gain.gain.value.toFixed(2);
+        obj.sequence = compressSequence(this.sequence);
+        return obj;
+    },
+
+    /**
+     * Loads knob settings, gain level, and sequences from an object
+     * @param obj {object} - The object to load from (must be in the form returned by Instrument.toObject)
+     */
+    fromObject: function(obj) {
+        this.gain.gain.value = obj.gain;
+        this.gainKnob.position = obj.gain * 300;
+        this.gainKnob.visRotate(0);
+        this.sequence = decompressSequence(obj.sequence);
+        this.setKnobSettings(obj.knobs);
+    }
 }
 
 /**
@@ -86,15 +131,12 @@ Instrument.prototype =
  * @param {Array} arr - An array of the knob positions (from 0 to 4) with the first knob in the first index and so on
  * @return {number} index - The index of the buffer for the given settings
  */
-function getBufferIndex(arr)
-{
-	var index = 0;
-	for(var i = 0; i &lt; arr.length; i++)
-	{
-		//console.log('buffer index counting: ' + i + '; index is ' + index);
-		index += arr[i] * Math.pow(5, arr.length - 1 -i);
-	}
-	return index;
+function getBufferIndex(arr) {
+    var index = 0;
+    for (var i = 0; i &lt; arr.length; i++) {
+        index += arr[i] * Math.pow(5, i);
+    }
+    return index;
 }
 </code></pre>
         </article>
@@ -106,13 +148,13 @@ function getBufferIndex(arr)
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Instrument.html">Instrument</a></li><li><a href="Knob.html">Knob</a></li><li><a href="MyBufferLoader.html">MyBufferLoader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#audioContext">audioContext</a></li><li><a href="global.html#changeBeat">changeBeat</a></li><li><a href="global.html#getBufferIndex">getBufferIndex</a></li><li><a href="global.html#knobbify">knobbify</a></li><li><a href="global.html#leds">leds</a></li><li><a href="global.html#makeKnob">makeKnob</a></li><li><a href="global.html#onBeat">onBeat</a></li><li><a href="global.html#onBeatClick">onBeatClick</a></li><li><a href="global.html#playSound">playSound</a></li><li><a href="global.html#selectInstrument">selectInstrument</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#stop">stop</a></li><li><a href="global.html#updateLeds">updateLeds</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Instrument.html">Instrument</a></li><li><a href="Knob.html">Knob</a></li><li><a href="MyBufferLoader.html">MyBufferLoader</a></li><li><a href="Switch.html">Switch</a></li><li><a href="Timer.html">Timer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#audioContext">audioContext</a></li><li><a href="global.html#beat">beat</a></li><li><a href="global.html#beatTimer">beatTimer</a></li><li><a href="global.html#blankSceneObjStr">blankSceneObjStr</a></li><li><a href="global.html#changeBeat">changeBeat</a></li><li><a href="global.html#channels">channels</a></li><li><a href="global.html#clearBeatIndicator">clearBeatIndicator</a></li><li><a href="global.html#compressSceneData">compressSceneData</a></li><li><a href="global.html#compressSequence">compressSequence</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#createInstruments">createInstruments</a></li><li><a href="global.html#currentInstrument">currentInstrument</a></li><li><a href="global.html#decompressSceneData">decompressSceneData</a></li><li><a href="global.html#decompressSequence">decompressSequence</a></li><li><a href="global.html#getBufferIndex">getBufferIndex</a></li><li><a href="global.html#incrementLoadingProgress">incrementLoadingProgress</a></li><li><a href="global.html#instruments">instruments</a></li><li><a href="global.html#jMasterVolumeKnob">jMasterVolumeKnob</a></li><li><a href="global.html#jTempoKnob">jTempoKnob</a></li><li><a href="global.html#knobbify">knobbify</a></li><li><a href="global.html#leds">leds</a></li><li><a href="global.html#loadFromObject">loadFromObject</a></li><li><a href="global.html#loadScene">loadScene</a></li><li><a href="global.html#makeKnob">makeKnob</a></li><li><a href="global.html#makeSwitch">makeSwitch</a></li><li><a href="global.html#masterVolume">masterVolume</a></li><li><a href="global.html#modeButtons">modeButtons</a></li><li><a href="global.html#onBeat">onBeat</a></li><li><a href="global.html#onBeatChange">onBeatChange</a></li><li><a href="global.html#onBeatClick">onBeatClick</a></li><li><a href="global.html#onLoadFinish">onLoadFinish</a></li><li><a href="global.html#onSequenceModeChange">onSequenceModeChange</a></li><li><a href="global.html#playPause">playPause</a></li><li><a href="global.html#playSound">playSound</a></li><li><a href="global.html#pullGet">pullGet</a></li><li><a href="global.html#pushGet">pushGet</a></li><li><a href="global.html#replaceSymbols">replaceSymbols</a></li><li><a href="global.html#saveScene">saveScene</a></li><li><a href="global.html#selectInstrument">selectInstrument</a></li><li><a href="global.html#sequenceMode">sequenceMode</a></li><li><a href="global.html#sequenceNumber">sequenceNumber</a></li><li><a href="global.html#setSequenceMode">setSequenceMode</a></li><li><a href="global.html#setTempo">setTempo</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#stop">stop</a></li><li><a href="global.html#switchify">switchify</a></li><li><a href="global.html#tapTempo">tapTempo</a></li><li><a href="global.html#TapTempo">TapTempo</a></li><li><a href="global.html#tempo">tempo</a></li><li><a href="global.html#toObject">toObject</a></li><li><a href="global.html#updateLeds">updateLeds</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Apr 07 2016 19:37:13 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu May 05 2016 12:16:36 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

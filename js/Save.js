@@ -167,9 +167,6 @@ function compressSequence(sequence) {
     }
     var num = parseInt(str, 2);
     str = num.toString(16);
-    if (str.length < 8) {
-        str = leftPad(str, '0', 8 - str.length);
-    }
     return str;
 }
 
@@ -179,6 +176,9 @@ function compressSequence(sequence) {
  * @return sequence {Array} - The decompressed sequence (should be a 2x16 array of integers)
  */
 function decompressSequence(str) {
+    if (str.length < 8) {
+        str = leftPad(str, '0', 8 - str.length);
+    }
     var num = parseInt(str, 16);
     str = num.toString(2);
     var sequence = Array();

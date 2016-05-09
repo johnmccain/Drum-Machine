@@ -53,6 +53,24 @@ p {
     z-index: 120;
 }
 
+/* Github link */
+
+#github-link {
+    font-size: 1.4vw;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #222222;
+    position: fixed;
+    vertical-align: middle;
+    font-weight: bold;
+    line-height: 4vh;
+    top: 2vh;
+    right: 2vw;
+}
+#github-img {
+    height: 4vh;
+    width: 4vh;
+}
+
 /* Knob stuff */
 
 .knob {

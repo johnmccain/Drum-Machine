@@ -1,8 +1,6 @@
 <html>
 
 <head>
-  <script src="js/Knob.js"></script>
-  <script src="js/Switch.js"></script>
 
   <!-- JQuery -->
   <script src="js/jquery-2.2.0.js"></script>
@@ -25,7 +23,7 @@
     <tr>
           <td class = "channel-box">
           <div id="i1" class="channel" id="TEST1">
-              <h1 id = "display"> </h1>
+              <h1 id = "display1"> </h1>
           </div>
         </td>
         <td class = "channel-box">
@@ -34,10 +32,7 @@
         </td>
         <td class = "channel-box">
           <div id="i3" class="channel">
-            <h1 id="textinfo"></h1>
-
-
-
+              <h1 id = "display3"> </h1>
           </div>
         </td>
         <td class = "channel-box">
@@ -46,10 +41,12 @@
         </td>
         <td class = "channel-box">
           <div id="i5" class="channel">
+              <h1 id = "display5"> </h1>
           </div>
         </td>
         <td class = "channel-box">
           <div id="i6" class="channel">
+              <h1 id = "display6"> </h1>
           </div>
         </td>
       </tr>
@@ -59,31 +56,41 @@
   <div id="testButton">
     <button onclick = "test1()">TEST</button>
   </div>
+  <script src="js/BufferLists.js"></script>
+  <script src="js/Timer.js"></script>
+  <script src="js/TapTempo.js"></script>
+  <script src="js/Knob.js"></script>
+  <script src="js/Switch.js"></script>
+  <script src="js/Instrument.js"></script>
+  <script src="js/MyBufferLoader.js"></script>
+  <script src="js/Save.js"></script>
+  <script src="js/AudioCore.js"></script>
   <script>
-        //knob test setup
           var channel = document.getElementById('i1');
           var knobtest = makeKnob('#FF4444');
           channel.appendChild(knobtest);
           var jknob = $(knobtest).data('jknob');
-
-        //switch test setup
+          //switch test setup
           var mySwitch = makeSwitch();
           document.getElementById('i3').appendChild(mySwitch);
           var jswitch = $(mySwitch).data('jswitch');
           var i = 1;
-
+          var tap = new TapTempo();
           function test1()
           {
-              //knob test- channel 1
               jknob.rotate(90);
-              document.getElementById("display").innerHTML = "Rotating knob 90 degrees";
-
+              var rotated = i*90;
+              document.getElementById("display1").innerHTML = "Rotating knob " +rotated+" degrees";
+              var calculatedTempo = tap.calculateTempo();
               //switch test- channel 3
               jswitch.flip();
-              document.getElementById('textinfo').innerHTML = "Switch has been flipped " + i + " times.";
+              document.getElementById('display3').innerHTML = "Switch has been flipped " + i + " times.";
               i++;
+              document.getElementById("display5").innerHTML = "Tap Tempo Test: <br> <br> Attempting tempo calculation with only 1 second intervals <br> <br> Expected BPM: 60 <br> <br> Calculated BPM:" +calculatedTempo;
+              var interval = setTempo(60);
+              document.getElementById("display6").innerHTML = "BeatTimer Test: <br> <br> Setting tempo to 60 BPM. <br> </br> Expected beat interval: 250 ms <br> <br> Implemented beat interval:" +interval+" ms";
+              //document.getElementById("display 4").innerHTML = instruments.length;
           }
-
   </script>
 
 

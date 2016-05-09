@@ -48,11 +48,19 @@ Knob.prototype = {
     },
 
     /**
+     * Returns the type of this object (knob)
+     * @return {string} - 'knob';
+     */
+    getType() {
+        return 'knob';
+    },
+
+    /**
      * Changes the position of this knob by deg degrees, accounting for rollover and rollunder so that the value of position is always between 0 and 359 (inclusive)
      * @param {number} deg - The number of degrees to rotate the knob by
      */
     rotate: function(deg) {
-        this.position = (((this.position + (deg)) % 360) + 360) % 360; //Guarantees that change is between 0 and 359 (inclusive)
+        this.position = (((this.position + (deg * .5)) % 360) + 360) % 360; //Guarantees that change is between 0 and 359 (inclusive)
         this.visRotate(0); // Updates visual rotation to current position
     },
 
@@ -62,7 +70,7 @@ Knob.prototype = {
      */
     visRotate: function(deg) {
 
-        var pos = (((this.position + (deg) + 180) % 360) + 360) % 360;
+        var pos = (((this.position + (deg * .5) + 180) % 360) + 360) % 360;
         this.element.style.webkitTransform = "rotate(" + pos + "deg)"; /* Chrome, Safari, Opera */
         this.element.style.transform = "rotate(" + pos + "deg);"
     },

@@ -1,0 +1,348 @@
+body {
+    background-color: #AAAAAA;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+p {
+    font-size: 2.0em;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+/* Loading stuff */
+
+#loading-screen {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: block;
+    background-color: #DDDDDD;
+    z-index: 100;
+}
+#loading-container {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 110;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+#loading-bar {
+    margin-left: auto;
+    margin-right: auto;
+    height: 1vh;
+    width: 50vw;
+}
+#loading-bar-fill {
+    background-color: #003377;
+    height: 100%;
+    width: 0%;
+    border-radius: .5vh;
+    box-shadow 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+#loading-meter {
+    font-size: 2em;
+    font-weight: lighter;
+    z-index: 120;
+}
+
+/* Knob stuff */
+
+.knob {
+    margin: 1vh auto 1vh auto;
+    width: 3vw;
+    height: 3vw;
+    display: block;
+    border-radius: 50%;
+    border: .3vw solid black;
+    box-shadow 0px 1px 3px 1px rgba(0, 0, 0, 0.3);
+}
+.knobIndicator {
+    width: .3vw;
+    height: .6vw;
+    background-color: black;
+    position: relative;
+    margin: 0 auto;
+}
+#volume-knob {
+    margin: 2vh auto 2vh auto;
+    width: 13vh;
+    height: 13vh;
+}
+#tempo-knob {
+    margin: 2vh auto 2vh auto;
+    width: 13vh;
+    height: 13vh;
+}
+
+/* Switch stuff */
+
+.switch {
+    height: 3vw;
+    width: 1.75vw;
+    background-color: #121214;
+    margin-top: 1vw;
+    position: relative;
+    left: 2.125vw;
+}
+.switch-indicator {
+    height: 1.25vw;
+    width: 1.75vw;
+    position: absolute;
+    background: linear-gradient(#2A2A3C, #434353, #2A2A3C);
+}
+.switchOn .switch-indicator {
+    top: 0;
+}
+.switchOff .switch-indicator {
+    bottom: 0;
+}
+
+/* Master stuff */
+
+#master-controls {
+    float: left;
+    padding-top: 4vh;
+    height: 100%;
+    padding-bottom: 4vh%;
+    width: 15%;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #DDDDDD;
+    font-weight: bold;
+    background-color: #333343;
+    box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.2);
+}
+.master-label {
+    font-size: 2vw;
+    font-weight: lighter;
+}
+.button-large {
+    position: relative;
+    background: linear-gradient(#AB2A2C, #BB2A2C, #AB2A2C);
+    border: .1vw solid #4B0A0C;
+    border-radius: .2vw;
+    height: 8.5vh;
+    width: 11vh;
+    margin: 1vh auto 1vh auto;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #DDDDDD;
+    font-size: 2.25vh;
+    font-weight: lighter;
+}
+.button-large:active {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(#8B1A1C, #881718, #8B1A1C);
+    color: #BBBBBB;
+}
+.button-large:hover {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(#9B1A1C, #8B1A1C, #9B1A1C);
+    color: #CCCCCC;
+}
+.button-sequence {
+    margin: 1vh auto 1vh auto;
+    display: inline-block;
+    position: relative;
+    background: linear-gradient(#4E4E66, #52526B, #4E4E66);
+    border: .1vw solid #3A3A4D;
+    border-radius: .4vh;
+    height: 5vh;
+    width: 5vh;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #DDDDDD;
+    font-size: 1vw;
+    font-weight: lighter;
+}
+.button-sequence:active {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(#404054, #3A3A45, #404054);
+    color: #BBBBBB;
+}
+.button-sequence:hover {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(#444459, #404054, #444459);
+    color: #CCCCCC;
+}
+.button-sequence.on {
+    background: linear-gradient(#2B2B38, #272733, #2B2B38) !important;
+    border: .1vw solid #39394A;
+}
+.button-med {
+    margin: 1vh auto 1vh auto;
+    display: inline-block;
+    position: relative;
+    background: linear-gradient(#4E4E66, #52526B, #4E4E66);
+    border: .1vw solid #3A3A4D;
+    border-radius: .4vh;
+    height: 7vh;
+    width: 7vh;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #DDDDDD;
+    font-size: 2vh;
+    font-weight: lighter;
+}
+.button-med:active {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(#404054, #3A3A45, #404054);
+    color: #BBBBBB;
+}
+.button-med:hover {
+    box-shadow 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(#444459, #404054, #444459);
+    color: #CCCCCC;
+}
+#button-reset {
+    background: linear-gradient(#9B2A2C, #A32A2C, #9B2A2C);
+}
+#button-reset:active {
+    background: linear-gradient(#8B1A1C, #9B2A2C, #8B1A1C);
+}
+#button-reset:hover {
+    background: linear-gradient(#7B1A1C, #8B1A1C, #7B1A1C);
+}
+
+/* Channel stuff */
+
+#channels-grid {
+    position: absolute;
+    top: 5vh;
+}
+.spacer {
+    width: 4%;
+    height: 40vh;
+    display: inline-block;
+}
+.channel {
+    position: absolute;
+    top: 7vh;
+    display: inline-block;
+    width: 6vw;
+    height: 50vh;
+    padding-top: 1vh;
+    background-color: #686878;
+    border-radius: .7vw;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: .75em;
+}
+.channel-box {
+    position: relative;
+    width: 6vw;
+}
+.button-instrument {
+    margin: 1vh auto 0 auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: none;
+    height: 3vw;
+    width: 100%;
+    border-bottom-left-radius: .7vw;
+    border-bottom-right-radius: .7vw;
+    box-shadow 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    background-color: #333343;
+    color: #DDDDDD;
+    font-size: 1vw;
+    font-weight: bold;
+}
+.button-instrument:hover {
+    background-color: #2A2A38;
+}
+
+/* Beat stuff */
+
+#beats {
+    margin: 0 auto 0 auto;
+    position: absolute;
+    bottom: 5vh;
+    right: 4vw;
+}
+.button-beat {
+    border: none;
+    height: 8vw;
+    width: 4vw;
+    border-radius: .7vw;
+    position: relative;
+    box-shadow 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+}
+.button-beat:hover {
+    box-shadow 0px 2px 3px 2px rgba(0, 0, 0, 0.4);
+}
+.beat1 {
+    background-color: #ff3300;
+}
+.beat2 {
+    background-color: #ff9933;
+}
+.beat3 {
+    background-color: #ffff00;
+}
+.beat4 {
+    background-color: #ffffff;
+}
+.label {
+    margin: 0;
+    font-size: 1.2vw;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: lighter;
+    color: #DDDDDD;
+}
+.numbers {
+    border-style: solid;
+    border-color: #c0c0c0;
+    border-left-width: .1vw;
+    border-right-width: .1vw;
+    background-color: #c0c0c0;
+}
+.number {
+    font-size: 1.5vw;
+    font-weight: bold;
+    text-align: center;
+}
+.coloredbuttons {
+    margin-top: 30%;
+    height: 5%;
+    float: left;
+}
+.instrumentbuttons {
+    overflow: hidden;
+    margin-left: 10%;
+    height: 50%;
+    width: 70%;
+}
+
+/* LED Stuff */
+
+.led {
+    margin: 0 auto 100% auto;
+    width: 1.75vw;
+    height: 1.75vw;
+    display: block;
+    border-radius: 50%;
+    background: #660000;
+}
+.ledOn {
+    background-color: #ff1a1a;
+}
+.ledOff {
+    background-color: #660000;
+}
+.ledOff.ledBeat {
+    background-color: #B01a1a;
+}
+.ledOn.ledBeat {
+    background-color: #ff5a5a;
+}

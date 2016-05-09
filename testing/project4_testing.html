@@ -1,6 +1,15 @@
 <html>
 
 <head>
+  <script src="js/Knob.js"></script>
+  <!-- JQuery -->
+  <script src="js/jquery-2.2.0.js"></script>
+  <script src="js/jquery.mobile.custom.min.js"></script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
+  <script src="js/Loading.js"></script>
   <title>
     TR 808 testing suite
   </title>
@@ -10,24 +19,52 @@
 </head>
 
 <body>
-  <div id="channels-container">
-          <div class="spacer">
-          </div>
+  <table id="channels-grid">
+    <tr>
+          <td class = "channel-box">
           <div id="i1" class="channel" id="TEST1">
+              <h1 id = "display"> </h1>
           </div>
+        </td>
+        <td class = "channel-box">
           <div id="i2" class="channel">
           </div>
+        </td>
+        <td class = "channel-box">
           <div id="i3" class="channel">
           </div>
+        </td>
+        <td class = "channel-box">
           <div id="i4" class="channel">
           </div>
+        </td>
+        <td class = "channel-box">
           <div id="i5" class="channel">
           </div>
+        </td>
+        <td class = "channel-box">
           <div id="i6" class="channel">
           </div>
-  </div>
+        </td>
+      </tr>
+    </table>
 
-  <div id="testButton">
-    <button class="button-large">TEST</button>
   </div>
+  <div id="testButton">
+    <button onclick = "test1()">TEST</button>
+  </div>
+  <script>
+          var channel = document.getElementById('i1');
+          var knobtest = makeKnob('#FF4444');
+          channel.appendChild(knobtest);
+          var jknob = $(knobtest).data('jknob');
+          function test1()
+          {
+              jknob.rotate(90);
+              document.getElementById("display").innerHTML = "Rotating knob 90 degrees";
+          }
+  </script>
+
+
+
 </html>

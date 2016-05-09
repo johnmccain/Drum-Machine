@@ -13,11 +13,11 @@ The MyBufferLoader.js file is based off of [BufferLoader.js](http://www.html5roc
 
 Resources used include JQuery, FontAwesome icons, and jsdoc.
 
-You can access the drum machine [here](http://people.eecs.ku.edu/~jmccain/Project_3/TR808.html).  
+You can access the drum machine [here](http://people.eecs.ku.edu/~jmccain/Drum-Machine/TR808.html).  
 
-Documentation for this project can be accessed [here](http://people.eecs.ku.edu/~jmccain/Project_3/Documentation/index.html).
+Documentation for this project can be accessed [here](http://people.eecs.ku.edu/~jmccain/Drum-Machine/Documentation/index.html).
 
-#Known Bugs
+##Known Bugs
 
 Bug  | Details
 ------------- | -------------

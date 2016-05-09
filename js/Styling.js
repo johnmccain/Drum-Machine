@@ -26,6 +26,17 @@ for (var i = 0; i < 16; ++i) {
 }
 
 /**
+ * The DOM Element objects of each instrument volume, indexed by order on the screen from left to right
+ * @type {Array}
+ */
+var volumeKnobs = Array();
+
+for (var i = 0; i < 16; ++i) {
+    var myId = 'v' + (i + 1);
+    volumeKnobs[i] = document.getElementById(myId);
+}
+
+/**
  * The DOM Element objects of each sequnce mode button
  * @type {Array}
  */

@@ -286,8 +286,8 @@ function createInstruments(buffers) {
         gain = audioContext.createGain();
         gain.connect(masterVolume);
         gain.gain.value = .6;
-        var gainKnob = makeKnob('#5555FF');
-        var jGainKnob = $(gainKnob).data('jknob');
+        knobbify(volumeKnobs[i], '#5555FF');
+        var jGainKnob = $(volumeKnobs[i]).data('jknob');
         jGainKnob.gainNode = gain;
         jGainKnob.getValue = function() {
             return this.position / 300;
@@ -317,12 +317,6 @@ function createInstruments(buffers) {
                 instruments[this.instrumentId].updateBuffer();
             };
         }
-
-        $(channels[i]).prepend($(gainKnob).fadeIn('fast'));
-        var gainLabel = document.createElement('p');
-        gainLabel.classList = 'label';
-        gainLabel.innerHTML = 'volume';
-        $(channels[i]).prepend($(gainLabel).fadeIn('fast'));
     }
     currentInstrument = instruments[0];
     loadScene();

@@ -1,4 +1,4 @@
-# Project_3
+# Drum Machine
 TR 808 Drum Machine in HTML5, CSS, and Javascript
 
 Authors: John McCain, Audrey Evans, Hari Ramanan, and Alan Wang
@@ -11,8 +11,16 @@ Sounds are samples of a real TR808 with knobs at several positions (with resolut
 
 The MyBufferLoader.js file is based off of [BufferLoader.js](http://www.html5rocks.com/en/tutorials/webaudio/intro/js/buffer-loader.js) from HTML5Rocks.com.
 
-Resources used include JQuery and jsdoc.
+Resources used include JQuery, FontAwesome icons, and jsdoc.
 
-You can access the prototype of the drum machine [here](http://people.eecs.ku.edu/~jmccain/Project_3/TR808.html).  
+You can access the drum machine [here](http://people.eecs.ku.edu/~jmccain/Project_3/TR808.html).  
 
 Documentation for this project can be accessed [here](http://people.eecs.ku.edu/~jmccain/Project_3/Documentation/index.html).
+
+#Known Bugs
+
+Bug  | Details
+------------- | -------------
+Responsive Formatting  | Responsive formatting displays incorrectly for certain screen sizes
+Mobile timing  | Timing for beats can be inacurrate on certain browsers, particularly on mobile
+Knob turning | Knobs seem to wobble when being turned

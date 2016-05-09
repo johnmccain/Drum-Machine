@@ -22,5 +22,9 @@ Documentation for this project can be accessed [here](http://people.eecs.ku.edu/
 Bug  | Details
 ------------- | -------------
 Responsive Formatting  | Responsive formatting displays incorrectly for certain screen sizes
-Mobile timing  | Timing for beats can be inacurrate on certain browsers, particularly on mobile
-Knob turning | Knobs seem to wobble when being turned
+Mobile Timing  | Timing for beats can be inacurrate on certain browsers, particularly on mobile
+Knob Turning | Knobs seem to wobble when being turned
+Browser Support | The drum machine doesn't work in some older browsers due to the newer technologies used (like vh/vw css units & the web audio api)
+Interrupted/Slow Connection | A slow or unreliable connection will cause the drum machine to fail to load
+Tap Tempo/Knob | The tap tempo does not correctly rotate the tempo knob when used (*fixing*)
+~~Mobile Labels~~ | ~~Volume knob labels are styled incorrectly on mobile~~ **FIXED**

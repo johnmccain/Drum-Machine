@@ -2,6 +2,8 @@
 
 <head>
   <script src="js/Knob.js"></script>
+  <script src="js/Switch.js"></script>
+
   <!-- JQuery -->
   <script src="js/jquery-2.2.0.js"></script>
   <script src="js/jquery.mobile.custom.min.js"></script>
@@ -32,6 +34,10 @@
         </td>
         <td class = "channel-box">
           <div id="i3" class="channel">
+            <h1 id="textinfo"></h1>
+
+
+
           </div>
         </td>
         <td class = "channel-box">
@@ -54,15 +60,30 @@
     <button onclick = "test1()">TEST</button>
   </div>
   <script>
+        //knob test setup
           var channel = document.getElementById('i1');
           var knobtest = makeKnob('#FF4444');
           channel.appendChild(knobtest);
           var jknob = $(knobtest).data('jknob');
+
+        //switch test setup
+          var mySwitch = makeSwitch();
+          document.getElementById('i3').appendChild(mySwitch);
+          var jswitch = $(mySwitch).data('jswitch');
+          var i = 1;
+
           function test1()
           {
+              //knob test- channel 1
               jknob.rotate(90);
               document.getElementById("display").innerHTML = "Rotating knob 90 degrees";
+
+              //switch test- channel 3
+              jswitch.flip();
+              document.getElementById('textinfo').innerHTML = "Switch has been flipped " + i + " times.";
+              i++;
           }
+
   </script>
 
 

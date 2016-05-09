@@ -26,6 +26,23 @@ for (var i = 0; i < 16; ++i) {
 }
 
 /**
+ * The DOM Element objects of each instrument volume, indexed by order on the screen from left to right
+ * @type {Array}
+ */
+var volumeKnobs = Array();
+
+for (var i = 0; i < 16; ++i) {
+    var myId = 'v' + (i + 1);
+    volumeKnobs[i] = document.getElementById(myId);
+}
+
+/**
+ * The DOM Element objects of each sequnce mode button
+ * @type {Array}
+ */
+var modeButtons = [document.getElementById('sequenceA'), document.getElementById('sequenceB'), document.getElementById('sequenceAB')];
+
+/**
  * Toggles the color of the beat button pressed and calls changeBeat
  * @param {number} beat - the beat of the button that was pressed (from 0-15)
  */
@@ -33,6 +50,18 @@ function onBeatClick(beat) {
     leds[beat].classList.toggle("ledOn");
     leds[beat].classList.toggle("ledOff");
     changeBeat(beat);
+}
+
+/**
+ * Sets the sequenceMode
+ * @param {number} mode - 0 for A, 1 for B, 2 for AB
+ */
+function setSequenceMode(mode) {
+    modeButtons[mode].classList.add('on');
+    modeButtons[(mode + 1) % 3].classList.remove('on');
+    modeButtons[(mode + 2) % 3].classList.remove('on');
+    sequenceMode = mode;
+    onSequenceModeChange();
 }
 
 /**
@@ -55,7 +84,7 @@ function clearBeatIndicator() {
  */
 function updateLeds() {
     for (var i = 0; i < 16; ++i) {
-        if (currentInstrument.sequence[i] > 0) {
+        if (currentInstrument.sequence[sequenceNumber][i] > 0) {
             //led should be on
             leds[i].classList.remove("ledOff");
             leds[i].classList.add("ledOn");
@@ -66,3 +95,21 @@ function updateLeds() {
         }
     }
 }
+
+/**
+ * An array of all the instrument control elements
+ * @type {array}
+ */
+var controls = [
+    [document.getElementById('BDDecay'), document.getElementById('BDTone')],
+    [document.getElementById('SDSnappy'), document.getElementById('SDTone')],
+    [document.getElementById('LTuning'), document.getElementById('LSwitch')],
+    [document.getElementById('MTuning'), document.getElementById('MSwitch')],
+    [document.getElementById('HTuning'), document.getElementById('HSwitch')],
+    [document.getElementById('RSSwitch')],
+    [document.getElementById('CPSwitch')],
+    [],
+    [document.getElementById('CYDecay'), document.getElementById('CYTone')],
+    [document.getElementById('OHDecay')],
+    []
+];

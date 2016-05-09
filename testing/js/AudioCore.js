@@ -44,114 +44,99 @@ var beat = 0;
  */
 var masterVolume;
 
-window.addEventListener('load', setup, false);
+/*window.addEventListener('load', setup, false);
 
 /**
  * Loads the buffers, sets up the instruments, creates the knobs, and sets the current instrument to the BD
  */
-function setup() {
-    try {
-        incrementLoadingProgress();
-        beatTimer = new Timer(function() {
-            onBeat();
-        }, 107.142857143);
+ /*function setup() {
+     try {
+         incrementLoadingProgress();
+         beatTimer = new Timer(function() {
+             onBeat();
+         }, 107.142857143);
 
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioContext = new AudioContext();
+         tempo = 140;
 
-        //set up master volume gain node
-        masterVolume = audioContext.createGain();
-        masterVolume.connect(audioContext.destination);
-        masterVolume.gain.value = .6;
+         tapTempo = new TapTempo();
 
-        var masterVolumeKnob = document.getElementById('volume-knob');
-        knobbify(masterVolumeKnob, '#55FF55');
-        var jVolumeKnob = $(masterVolumeKnob).data('jknob');
-        jVolumeKnob.gainNode = masterVolume;
-        jVolumeKnob.getValue = function() {
-            return this.position / 300;
-        };
-        jVolumeKnob.onValueChange = function() {
-            this.gainNode.gain.value = this.getValue();
+         window.AudioContext = window.AudioContext || window.webkitAudioContext;
+         audioContext = new AudioContext();
 
-        };
+         //set up master volume gain node
+         masterVolume = audioContext.createGain();
+         masterVolume.connect(audioContext.destination);
+         masterVolume.gain.value = .6;
 
-        //set up the tempo knob
-        var tempoKnob = document.getElementById('tempo-knob');
-        knobbify(tempoKnob);
-        var jTempoKnob = $(tempoKnob).data('jknob');
-        jTempoKnob.getValue = function() {
-            return ((this.position / 1.8) + 40); //Possible values: 40-200bpm
-        };
-        jTempoKnob.onValueChange = function() {
-            setTempo(this.getValue());
-        };
+         var masterVolumeKnob = document.getElementById('volume-knob');
+         knobbify(masterVolumeKnob, '#5555AA');
+         jMasterVolumeKnob = $(masterVolumeKnob).data('jknob');
+         jMasterVolumeKnob.gainNode = masterVolume;
+         jMasterVolumeKnob.getValue = function() {
+             return this.position / 300;
+         };
+         jMasterVolumeKnob.onValueChange = function() {
+             this.gainNode.gain.value = this.getValue();
 
-        //Bind keys
-        $(window).bind('keyup', function(key) {
-            if (key.which == 32) //Space Bar -> Play/Pause
-            {
-                playPause();
-                key.preventDefault();
-            }
+         };
 
-        });
+         //set up the tempo knob
+         var tempoKnob = document.getElementById('tempo-knob');
+         knobbify(tempoKnob, '#DDDDDD');
+         jTempoKnob = $(tempoKnob).data('jknob');
+         jTempoKnob.getValue = function() {
+             return ((this.position / 1.8) + 40); //Possible values: 40-200bpm
+         };
+         jTempoKnob.onValueChange = function() {
+             setTempo(this.getValue());
+         };
 
-        /* buffers */
-        loader = new MyBufferLoader(
-            audioContext,
-            BufferLists,
-            function(buffers) {
-                for (var i = 0; i < buffers.length; ++i) {
-                    incrementLoadingProgress();
-                    /* knobs */
-                    var numKnobs = 0;
-                    for (var x = 0; x >= 0; ++x) {
-                        if (Math.pow(5, x) <= buffers[i].length) {
-                            numKnobs = x;
-                        } else {
-                            x = -100;
-                        }
-                    }
+         //buffers
+         loader = new MyBufferLoader(
+             audioContext,
+             BufferLists,
+             function(buffers) {
+                 createInstruments(buffers);
+             }
+         );
+         loader.load();
 
-                    gain = audioContext.createGain();
-                    gain.connect(masterVolume);
+         //Bind keys
+         $(window).bind('keyup', function(key) {
+             if (key.which == 32) {
+                 //Space Bar -> Play/Pause
+                 playPause();
+                 key.preventDefault();
+             } else if (key.which == 65) {
+                 //A -> Sequence A
+                 setSequenceMode(0);
+                 key.preventDefault();
+             } else if (key.which == 66) {
+                 //B -> Sequence B
+                 setSequenceMode(1);
+                 key.preventDefault();
+             } else if (key.which == 89) {
+                 //Y -> Sequence AB
+                 setSequenceMode(2);
+                 key.preventDefault();
+             } else if (key.which == 84) {
+                 //T -> Tap
+                 tapTempo.timing();
+                 key.preventDefault();
+             }
+         });
+         document.addEventListener("visibilitychange", function() {
+             if (document.hidden) {
+               stop();
+             }
+         }, false);
+     } catch (exception) {
+         console.trace();
+         console.log(exception);
+         alert("HTML5 audio is not supported in your browser.");
+     }
+ }*/
 
-                    gain.gain.value = .6;
-
-
-                    var gainKnob = makeKnob('#5555FF');
-                    var jGainKnob = $(gainKnob).data('jknob');
-                    jGainKnob.gainNode = gain;
-                    jGainKnob.getValue = function() {
-                        return this.position / 300;
-                    };
-                    jGainKnob.onValueChange = function() {
-                        this.gainNode.gain.value = this.getValue();
-                    };
-                    $(channels[i]).prepend($(gainKnob).fadeIn('fast'));
-
-                    var knobs = Array();
-                    for (var j = 0; j < numKnobs; ++j) {
-                        var knob = makeKnob('#FF5555');
-                        knobs[j] = $(knob).data('jknob');
-                        $(channels[i]).prepend($(knob).fadeIn('fast'));
-                    }
-                    console.log('Made ' + numKnobs + ' knobs.  Actual length of knobs: ' + knobs.length);
-                    //Create the instrument
-                    instruments[i] = new Instrument(buffers[i], knobs, gain);
-                }
-
-                currentInstrument = instruments[0];
-            }
-        );
-        loader.load();
-    } catch (exception) {
-        console.trace();
-        console.log(exception);
-        alert("HTML5 audio is not supported in your browser.");
-    }
-}
 
 /**
  * Change the currentInstrument to the instrument at index in instruments
@@ -177,7 +162,7 @@ function changeBeat(index) {
 function setTempo(newTempo) {
     tempo = newTempo;
     console.log('Changed tempo to ' + tempo);
-    beatTimer.setInterval(15000 / newTempo);
+    return(15000 / newTempo);
 }
 
 /**

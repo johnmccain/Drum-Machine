@@ -41,6 +41,8 @@ function loadFromObject(obj) {
     jMasterVolumeKnob.position = obj.gain * 300;
     jMasterVolumeKnob.rotate(0);
     setTempo(obj.tempo);
+    jTempoKnob.position = (tempo - 40) * 1.8;
+    jTempoKnob.rotate(0);
     setSequenceMode(obj.mode);
 }
 

@@ -32,7 +32,10 @@ var OHBufferList = ["TR808WAV/OH/OH00.WAV", "TR808WAV/OH/OH25.WAV", "TR808WAV/OH
 
 var CHBufferList = ["TR808WAV/CH/CH.WAV"];
 
-//Array of all the BufferLists
+/**
+ * Array of all the bufffer url arrays (for each instrument)
+ * @type {Array}
+ */
 var BufferLists = [BDBufferList,
     SDBufferList,
     LTBufferList.concat(LCBufferList),

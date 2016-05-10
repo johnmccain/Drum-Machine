@@ -10,7 +10,7 @@ var audioContext;
 
 /**
  * The currently selected instrument for editing
- * @type {object}
+ * @type {Instrument}
  */
 var currentInstrument;
 
@@ -58,7 +58,7 @@ var masterVolume;
 
 /**
  * Knob for the master volume
- * @type {knob}
+ * @type {Knob}
  */
 var jMasterVolumeKnob;
 

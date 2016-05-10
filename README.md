@@ -25,6 +25,7 @@ Responsive Formatting  | Responsive formatting displays incorrectly for certain 
 Mobile Timing  | Timing for beats can be inaccurate on certain browsers, particularly on mobile (this is due to constraints placed on the frequency of scheduled callbacks in some browsers)
 Knob Turning | Knobs seem to wobble slightly when being turned
 Browser Support | The drum machine doesn't work in some older browsers due to the newer technologies used (like vh/vw css units & the Web Audio API)
+Clipping | Volumes set to high levels can cause the drum machine to clip
 Sticky Knobs | Mouseup event sometimes doesn't register, causing the knob to continue to rotate until another click event happens (difficult to replicate)
 Interrupted/Slow Connection | A slow or unreliable connection will cause the drum machine to fail to load
 ~~Tap Tempo/Knob~~ | ~~The tap tempo does not correctly rotate the tempo knob when used~~ **FIXED**

@@ -2,15 +2,31 @@
  * @author Alan Wang
  */
 
+
+/**
+ * The Tap Tempo function
+ * @constructor
+ */
 function TapTempo() {
+    
+    //stores the time between taps
     this.timeStore = [];
+    
+    //the time the first tap was clicked, overridden on odd numbered taps
     this.firstTime = 0;
+    
+    //the time the second tap was clicked, overridden on even numbered taps
     this.secondTime = 0;
+    
+    //the actual time to push into the array. (difference between tap times).
     this.timetoStore = 0;
 
     //this checks which variable to add the click time to (firstTime or secondTime)
     this.firstBool = true;
 
+        /**
+        * Times when the tap button or hotkey is pressed, finds which difference to use then pushes it to *timeStore, and calls calculateTempo()
+        */
     this.timing = function() {
 
         //first click value
@@ -50,6 +66,9 @@ function TapTempo() {
         }
         this.calculateTempo();
     }
+        /**
+        * Calculates the correct tempo from the values stored in timeStore
+        */
     this.calculateTempo = function() {
 
         var newTapTempo = 0;
@@ -78,20 +97,31 @@ function TapTempo() {
         var deviationCorrect = false;
         var deviationCount = 0;
 
+        //as long as there is more than one time stored in timeStore and less than 4 values to calculate
         if (this.timeStore.length <= 1) {} else if (this.timeStore.length < 5) {
+            
+            //calculates average time
             for (var i = 0; i < this.timeStore.length; ++i) {
                 totalTime = totalTime + this.timeStore[i];
             }
             avgTime = totalTime / this.timeStore.length;
+            
+            //breaks out of the loop
             deviationCorrect = true;
+            
+            //converts the average time between taps and converts it into a tempo
             newTapTempo = (1 / (avgTime / 1000) * 60);
+            
+            //sets the new tempo
             setTempo(newTapTempo);
         } else {
             while (!deviationCorrect) {
+                //breaks out of loop if nothing was removed from the array.
                 if (deviationCount == 0) {
                     deviationCorrect = true;
                 }
 
+                //Gives priority to the first 5 values
                 for (var i = this.timeStore.length - 6; i < this.timeStore.length; ++i) {
                     totalTimePriority = totalTimePriority + this.timeStore[i];
                 }
@@ -104,7 +134,9 @@ function TapTempo() {
                 standardDeviationPriority = standardDeviationPriority / 5;
 
                 standardDeviationPriority = Math.sqrt(standardDeviationPriority);
-
+                
+                
+                //calculations for the rest of the array
                 for (var i = 0; i < this.timeStore.length; ++i) {
                     totalTime = totalTime + this.timeStore[i];
                 }
@@ -121,19 +153,27 @@ function TapTempo() {
 
 
                 deviationCount = 0;
-
+                
+                
+                //checks to see if the first 5 value avg is too different from the total average
                 if (avgTime > avgTimePriority + (3 * standardDeviationPriority) || avgTime < avgTimePriority - (3 * standardDeviationPriority)) {
-                    this.timeStore.splice(0, this.timeStore.length - 6);
-                    deviationCount++;
+                    //if values differ by 3 stds, remove everything except first 5 values.
+                    this.timeStore.splice(0, this.timeStore.length - 6); 
+                    deviationCount++; //if a value is removed, keep going through the loop
                 }
+                
+                //remove outliers.
                 for (var i = 0; i < (this.timeStore.length - 6); ++i) {
                     if (this.timeStore[i] > avgTime + (2.3 * standardDeviation) || this.timeStore[i] < avgTime - (2.3 * standardDeviation)) {
                         this.timeStore.splice(i, 1);
-                        deviationCount++;
+                        deviationCount++; //if a value is removed, keep going through the loop
                     }
                 }
                 newTapTempo = (1 / (avgTime / 1000) * 60);
             }
+
+            //applies limits on tempo then rotates the knob accordingly.
+            (newTapTempo < 240) ? newTapTempo: 239;
             newTapTempo = (newTapTempo < 240) ? newTapTempo: 239;
             setTempo(newTapTempo);
             jTempoKnob.position = (newTapTempo - 40) * 1.8;

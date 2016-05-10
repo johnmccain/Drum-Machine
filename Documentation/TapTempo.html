@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Timer</title>
+    <title>JSDoc: Class: TapTempo</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Timer</h1>
+    <h1 class="page-title">Class: TapTempo</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Timer</h2>
+        <h2>TapTempo</h2>
         
     
 </header>
@@ -40,14 +40,14 @@
 
     
 
-    <h4 class="name" id="Timer"><span class="type-signature"></span>new Timer<span class="signature">(callback, interval)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="TapTempo"><span class="type-signature"></span>new TapTempo<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Represents a timer.
+    The Tap Tempo constructor
 </div>
 
 
@@ -56,78 +56,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The function to call on an interval</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>interval</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The time interval (in ms) the function should be called on</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -163,7 +91,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Timer.js.html">Timer.js</a>, <a href="Timer.js.html#line13">line 13</a>
+        <a href="TapTempo.js.html">TapTempo.js</a>, <a href="TapTempo.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -207,157 +135,13 @@
 
         
             
-<h4 class="name" id="callback"><span class="type-signature"></span>callback<span class="type-signature"> :function</span></h4>
+<h4 class="name" id="firstBool"><span class="type-signature"></span>firstBool<span class="type-signature"> :boolean</span></h4>
 
 
 
 
 <div class="description">
-    The function to call at the specified interval
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">function</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Timer.js.html">Timer.js</a>, <a href="Timer.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="interval"><span class="type-signature"></span>interval<span class="type-signature"> :number</span></h4>
-
-
-
-
-<div class="description">
-    The interval to call the callback function on
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Timer.js.html">Timer.js</a>, <a href="Timer.js.html#line24">line 24</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="running"><span class="type-signature"></span>running<span class="type-signature"> :boolean</span></h4>
-
-
-
-
-<div class="description">
-    The current running state of the Timer
+    This checks which variable to add the click time to (firstTime or secondTime)
 </div>
 
 
@@ -405,7 +189,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Timer.js.html">Timer.js</a>, <a href="Timer.js.html#line40">line 40</a>
+        <a href="TapTempo.js.html">TapTempo.js</a>, <a href="TapTempo.js.html#line40">line 40</a>
     </li></ul></dd>
     
 
@@ -423,13 +207,13 @@
 
         
             
-<h4 class="name" id="tickTimer"><span class="type-signature"></span>tickTimer<span class="type-signature"> :IntervalTimer</span></h4>
+<h4 class="name" id="firstTime"><span class="type-signature"></span>firstTime<span class="type-signature"> :number</span></h4>
 
 
 
 
 <div class="description">
-    The interval timer used by this Timer
+    The time the first tap was clicked, overridden on odd numbered taps
 </div>
 
 
@@ -438,7 +222,7 @@
     <ul>
         <li>
             
-<span class="param-type">IntervalTimer</span>
+<span class="param-type">number</span>
 
 
         </li>
@@ -477,7 +261,223 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Timer.js.html">Timer.js</a>, <a href="Timer.js.html#line32">line 32</a>
+        <a href="TapTempo.js.html">TapTempo.js</a>, <a href="TapTempo.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="secondTime"><span class="type-signature"></span>secondTime<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    The time the second tap was clicked, overridden on even numbered taps
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="TapTempo.js.html">TapTempo.js</a>, <a href="TapTempo.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="timeStore"><span class="type-signature"></span>timeStore<span class="type-signature"> :Array</span></h4>
+
+
+
+
+<div class="description">
+    stores the time between taps
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="TapTempo.js.html">TapTempo.js</a>, <a href="TapTempo.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="timetoStore"><span class="type-signature"></span>timetoStore<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    The actual time to push into the array. (difference between tap times).
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="TapTempo.js.html">TapTempo.js</a>, <a href="TapTempo.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -504,14 +504,14 @@
 
     
 
-    <h4 class="name" id="onTick"><span class="type-signature"></span>onTick<span class="signature">(myTimer)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="calculateTempo"><span class="type-signature"></span>calculateTempo<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Handles the interval call that happens every millisecond.  Should only be called by the window.
+    Calculates the correct tempo from the values stored in timeStore
 </div>
 
 
@@ -520,55 +520,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>myTimer</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Timer.html">Timer</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A reference to the timer this onTick belongs to</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -604,7 +555,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Timer.js.html">Timer.js</a>, <a href="Timer.js.html#line73">line 73</a>
+        <a href="TapTempo.js.html">TapTempo.js</a>, <a href="TapTempo.js.html#line87">line 87</a>
     </li></ul></dd>
     
 
@@ -635,145 +586,14 @@
 
     
 
-    <h4 class="name" id="setInterval"><span class="type-signature"></span>setInterval<span class="signature">(interval)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="timing"><span class="type-signature"></span>timing<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Sets the interval of the callback
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>interval</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The new interval of the timer</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Timer.js.html">Timer.js</a>, <a href="Timer.js.html#line65">line 65</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="start"><span class="type-signature"></span>start<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Starts the Timer if it is not already running
+    Times when the tap button or hotkey is pressed, finds which difference to use then pushes it to *timeStore, and calls calculateTempo()
 </div>
 
 
@@ -817,89 +637,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Timer.js.html">Timer.js</a>, <a href="Timer.js.html#line47">line 47</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="stop"><span class="type-signature"></span>stop<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Stops the timer
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Timer.js.html">Timer.js</a>, <a href="Timer.js.html#line57">line 57</a>
+        <a href="TapTempo.js.html">TapTempo.js</a>, <a href="TapTempo.js.html#line45">line 45</a>
     </li></ul></dd>
     
 

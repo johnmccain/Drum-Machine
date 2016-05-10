@@ -30,17 +30,47 @@
  * @author Alan Wang
  */
 
+
+/**
+ * The Tap Tempo constructor
+ * @constructor
+ */
 function TapTempo() {
+
+    /**
+     * stores the time between taps
+     * @type {Array}
+     */
     this.timeStore = [];
+
+    /**
+     * The time the first tap was clicked, overridden on odd numbered taps
+     * @type {number}
+     */
     this.firstTime = 0;
+
+    /**
+     * The time the second tap was clicked, overridden on even numbered taps
+     * @type {number}
+     */
     this.secondTime = 0;
+
+    /**
+     * The actual time to push into the array. (difference between tap times).
+     * @type {number}
+     */
     this.timetoStore = 0;
 
-    //this checks which variable to add the click time to (firstTime or secondTime)
+    /**
+     * This checks which variable to add the click time to (firstTime or secondTime)
+     * @type {boolean}
+     */
     this.firstBool = true;
 
+    /**
+     * Times when the tap button or hotkey is pressed, finds which difference to use then pushes it to *timeStore, and calls calculateTempo()
+     */
     this.timing = function() {
-
         //first click value
         if (this.firstTime == 0 &amp;&amp; this.secondTime == 0) {
             this.firstTime = window.performance.now();
@@ -78,6 +108,10 @@ function TapTempo() {
         }
         this.calculateTempo();
     }
+
+    /**
+     * Calculates the correct tempo from the values stored in timeStore
+     */
     this.calculateTempo = function() {
 
         var newTapTempo = 0;
@@ -106,20 +140,31 @@ function TapTempo() {
         var deviationCorrect = false;
         var deviationCount = 0;
 
+        //as long as there is more than one time stored in timeStore and less than 4 values to calculate
         if (this.timeStore.length &lt;= 1) {} else if (this.timeStore.length &lt; 5) {
+
+            //calculates average time
             for (var i = 0; i &lt; this.timeStore.length; ++i) {
                 totalTime = totalTime + this.timeStore[i];
             }
             avgTime = totalTime / this.timeStore.length;
+
+            //breaks out of the loop
             deviationCorrect = true;
+
+            //converts the average time between taps and converts it into a tempo
             newTapTempo = (1 / (avgTime / 1000) * 60);
+
+            //sets the new tempo
             setTempo(newTapTempo);
         } else {
             while (!deviationCorrect) {
+                //breaks out of loop if nothing was removed from the array.
                 if (deviationCount == 0) {
                     deviationCorrect = true;
                 }
 
+                //Gives priority to the first 5 values
                 for (var i = this.timeStore.length - 6; i &lt; this.timeStore.length; ++i) {
                     totalTimePriority = totalTimePriority + this.timeStore[i];
                 }
@@ -133,6 +178,8 @@ function TapTempo() {
 
                 standardDeviationPriority = Math.sqrt(standardDeviationPriority);
 
+
+                //calculations for the rest of the array
                 for (var i = 0; i &lt; this.timeStore.length; ++i) {
                     totalTime = totalTime + this.timeStore[i];
                 }
@@ -150,19 +197,27 @@ function TapTempo() {
 
                 deviationCount = 0;
 
+
+                //checks to see if the first 5 value avg is too different from the total average
                 if (avgTime > avgTimePriority + (3 * standardDeviationPriority) || avgTime &lt; avgTimePriority - (3 * standardDeviationPriority)) {
+                    //if values differ by 3 stds, remove everything except first 5 values.
                     this.timeStore.splice(0, this.timeStore.length - 6);
-                    deviationCount++;
+                    deviationCount++; //if a value is removed, keep going through the loop
                 }
+
+                //remove outliers.
                 for (var i = 0; i &lt; (this.timeStore.length - 6); ++i) {
                     if (this.timeStore[i] > avgTime + (2.3 * standardDeviation) || this.timeStore[i] &lt; avgTime - (2.3 * standardDeviation)) {
                         this.timeStore.splice(i, 1);
-                        deviationCount++;
+                        deviationCount++; //if a value is removed, keep going through the loop
                     }
                 }
                 newTapTempo = (1 / (avgTime / 1000) * 60);
             }
+
+            //applies limits on tempo then rotates the knob accordingly.
             (newTapTempo &lt; 240) ? newTapTempo: 239;
+            newTapTempo = (newTapTempo &lt; 240) ? newTapTempo : 239;
             setTempo(newTapTempo);
             jTempoKnob.position = (newTapTempo - 40) * 1.8;
             jTempoKnob.rotate(0);
@@ -179,13 +234,13 @@ function TapTempo() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Instrument.html">Instrument</a></li><li><a href="Knob.html">Knob</a></li><li><a href="MyBufferLoader.html">MyBufferLoader</a></li><li><a href="Switch.html">Switch</a></li><li><a href="Timer.html">Timer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#audioContext">audioContext</a></li><li><a href="global.html#beat">beat</a></li><li><a href="global.html#beatTimer">beatTimer</a></li><li><a href="global.html#blankSceneObjStr">blankSceneObjStr</a></li><li><a href="global.html#changeBeat">changeBeat</a></li><li><a href="global.html#channels">channels</a></li><li><a href="global.html#clearBeatIndicator">clearBeatIndicator</a></li><li><a href="global.html#compressSceneData">compressSceneData</a></li><li><a href="global.html#compressSequence">compressSequence</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#createInstruments">createInstruments</a></li><li><a href="global.html#currentInstrument">currentInstrument</a></li><li><a href="global.html#decompressSceneData">decompressSceneData</a></li><li><a href="global.html#decompressSequence">decompressSequence</a></li><li><a href="global.html#getBufferIndex">getBufferIndex</a></li><li><a href="global.html#incrementLoadingProgress">incrementLoadingProgress</a></li><li><a href="global.html#instruments">instruments</a></li><li><a href="global.html#jMasterVolumeKnob">jMasterVolumeKnob</a></li><li><a href="global.html#jTempoKnob">jTempoKnob</a></li><li><a href="global.html#knobbify">knobbify</a></li><li><a href="global.html#leds">leds</a></li><li><a href="global.html#loadFromObject">loadFromObject</a></li><li><a href="global.html#loadScene">loadScene</a></li><li><a href="global.html#makeKnob">makeKnob</a></li><li><a href="global.html#makeSwitch">makeSwitch</a></li><li><a href="global.html#masterVolume">masterVolume</a></li><li><a href="global.html#modeButtons">modeButtons</a></li><li><a href="global.html#onBeat">onBeat</a></li><li><a href="global.html#onBeatChange">onBeatChange</a></li><li><a href="global.html#onBeatClick">onBeatClick</a></li><li><a href="global.html#onLoadFinish">onLoadFinish</a></li><li><a href="global.html#onSequenceModeChange">onSequenceModeChange</a></li><li><a href="global.html#playPause">playPause</a></li><li><a href="global.html#playSound">playSound</a></li><li><a href="global.html#pullGet">pullGet</a></li><li><a href="global.html#pushGet">pushGet</a></li><li><a href="global.html#replaceSymbols">replaceSymbols</a></li><li><a href="global.html#saveScene">saveScene</a></li><li><a href="global.html#selectInstrument">selectInstrument</a></li><li><a href="global.html#sequenceMode">sequenceMode</a></li><li><a href="global.html#sequenceNumber">sequenceNumber</a></li><li><a href="global.html#setSequenceMode">setSequenceMode</a></li><li><a href="global.html#setTempo">setTempo</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#stop">stop</a></li><li><a href="global.html#switchify">switchify</a></li><li><a href="global.html#tapTempo">tapTempo</a></li><li><a href="global.html#TapTempo">TapTempo</a></li><li><a href="global.html#tempo">tempo</a></li><li><a href="global.html#toObject">toObject</a></li><li><a href="global.html#updateLeds">updateLeds</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Instrument.html">Instrument</a></li><li><a href="Knob.html">Knob</a></li><li><a href="MyBufferLoader.html">MyBufferLoader</a></li><li><a href="Switch.html">Switch</a></li><li><a href="TapTempo.html">TapTempo</a></li><li><a href="Timer.html">Timer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#audioContext">audioContext</a></li><li><a href="global.html#beat">beat</a></li><li><a href="global.html#beatTimer">beatTimer</a></li><li><a href="global.html#blankSceneObjStr">blankSceneObjStr</a></li><li><a href="global.html#BufferLists">BufferLists</a></li><li><a href="global.html#changeBeat">changeBeat</a></li><li><a href="global.html#channels">channels</a></li><li><a href="global.html#clearBeatIndicator">clearBeatIndicator</a></li><li><a href="global.html#compressSceneData">compressSceneData</a></li><li><a href="global.html#compressSequence">compressSequence</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#createInstruments">createInstruments</a></li><li><a href="global.html#currentInstrument">currentInstrument</a></li><li><a href="global.html#decompressSceneData">decompressSceneData</a></li><li><a href="global.html#decompressSequence">decompressSequence</a></li><li><a href="global.html#getBufferIndex">getBufferIndex</a></li><li><a href="global.html#incrementLoadingProgress">incrementLoadingProgress</a></li><li><a href="global.html#instruments">instruments</a></li><li><a href="global.html#jMasterVolumeKnob">jMasterVolumeKnob</a></li><li><a href="global.html#jTempoKnob">jTempoKnob</a></li><li><a href="global.html#knobbify">knobbify</a></li><li><a href="global.html#leds">leds</a></li><li><a href="global.html#leftPad">leftPad</a></li><li><a href="global.html#LOAD_TOTAL">LOAD_TOTAL</a></li><li><a href="global.html#loadCount">loadCount</a></li><li><a href="global.html#loadFromObject">loadFromObject</a></li><li><a href="global.html#loadScene">loadScene</a></li><li><a href="global.html#makeKnob">makeKnob</a></li><li><a href="global.html#makeSwitch">makeSwitch</a></li><li><a href="global.html#masterVolume">masterVolume</a></li><li><a href="global.html#modeButtons">modeButtons</a></li><li><a href="global.html#onBeat">onBeat</a></li><li><a href="global.html#onBeatChange">onBeatChange</a></li><li><a href="global.html#onBeatClick">onBeatClick</a></li><li><a href="global.html#onLoadFinish">onLoadFinish</a></li><li><a href="global.html#onSequenceModeChange">onSequenceModeChange</a></li><li><a href="global.html#playPause">playPause</a></li><li><a href="global.html#playSound">playSound</a></li><li><a href="global.html#pullGet">pullGet</a></li><li><a href="global.html#pushGet">pushGet</a></li><li><a href="global.html#replaceSymbols">replaceSymbols</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#saveScene">saveScene</a></li><li><a href="global.html#selectInstrument">selectInstrument</a></li><li><a href="global.html#sequenceMode">sequenceMode</a></li><li><a href="global.html#sequenceNumber">sequenceNumber</a></li><li><a href="global.html#setSequenceMode">setSequenceMode</a></li><li><a href="global.html#setTempo">setTempo</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#stop">stop</a></li><li><a href="global.html#switchify">switchify</a></li><li><a href="global.html#tapTempo">tapTempo</a></li><li><a href="global.html#tempo">tempo</a></li><li><a href="global.html#toObject">toObject</a></li><li><a href="global.html#updateLeds">updateLeds</a></li><li><a href="global.html#volumeKnobs">volumeKnobs</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu May 05 2016 12:16:36 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue May 10 2016 16:56:12 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

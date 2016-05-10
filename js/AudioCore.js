@@ -163,7 +163,7 @@ function setup() {
         });
         document.addEventListener("visibilitychange", function() {
             if (document.hidden) {
-              stop();
+                stop();
             }
         }, false);
     } catch (exception) {
@@ -322,6 +322,9 @@ function createInstruments(buffers) {
     loadScene();
 }
 
+/**
+ * Resets the drum machine to default settings
+ */
 function reset() {
     loadFromObject(JSON.parse(decompressSceneData(replaceSymbols(blankSceneObjStr))));
 

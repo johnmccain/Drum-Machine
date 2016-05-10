@@ -12,23 +12,43 @@
  */
 function Instrument(buffers, knobs, gain, gainKnob) //has array of knobs, array of buffers, array of sequence, and eventually a gainnode with associated volume knob
 {
-    //An array of the buffers of this instrument
+    /**
+     * An array of the buffers of this instrument
+     * @type {Array}
+     */
     this.buffers = buffers;
 
-    //Sequence represents the sequences of beats that this instrument should be played on.  Valid values for each of the 16 beats are 0 (rest) and 1 (note)
+    /**
+     * The sequences of beats that this instrument should be played on.  Valid values for each of the 16 beats are 0 (rest) and 1 (note)
+     * @type {Array}
+     */
     this.sequence = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
 
-    //An array of the knobs of this instrument (the first knob should be in the first index)
+    /**
+     * An array of the knobs of this instrument (the first knob should be in the first index)
+     * @type {Array}
+     */
     this.knobs = knobs;
 
+    /**
+     * The GainNode for this instrument
+     * @type {GainNode}
+     */
     this.gain = gain;
 
+    /**
+     * The knob controlling this instrument's GainNode
+     * @type {Knob}
+     */
     this.gainKnob = gainKnob;
 
-    //The current buffer
+    /**
+     * The current buffer
+     * @type {object | AudioBuffer}
+     */
     this.buffer = {};
     this.updateBuffer();
 }

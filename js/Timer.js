@@ -11,16 +11,32 @@
  * @param {number} interval - The time interval (in ms) the function should be called on
  */
 function Timer(callback, interval) {
+    /**
+     * The function to call at the specified interval
+     * @type {function}
+     */
     this.callback = callback;
 
+    /**
+     * The interval to call the callback function on
+     * @type {number}
+     */
     this.interval = interval;
 
     var me = this;
 
+    /**
+     * The interval timer used by this Timer
+     * @type {IntervalTimer}
+     */
     this.tickTimer = window.setInterval(function() {
         me.onTick(me);
     }, 1);
 
+    /**
+     * The current running state of the Timer
+     * @type {boolean}
+     */
     this.running = false;
 }
 

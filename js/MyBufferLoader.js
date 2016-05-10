@@ -13,8 +13,22 @@
  * @param {function} callback - The function to call upon completion
  */
 function MyBufferLoader(context, urlList, callback) {
+    /**
+     * The AudioContext this MyBufferLoader is loading to
+     * @type {AudioContext}
+     */
     this.context = context;
+
+    /**
+     * The array of URLS (2d) to load
+     * @type {Array}
+     */
     this.urlList = urlList;
+
+    /**
+     * The function to call upon completion of loading
+     * @type {function}
+     */
     this.onload = callback;
     this.bufferList = new Array([]);
 

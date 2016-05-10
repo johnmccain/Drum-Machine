@@ -11,21 +11,38 @@
  * @param {object} knob - The Element object of this knob (should be a div)
  */
 function Knob(color, element) {
+
+    /**
+     * The DOM element that parallels this knob
+     * @type {element}
+     */
     this.element = element;
 
-    //The position in degrees.  Should always be between 0-359
+    /**
+    * The position in degrees.  Should always be between 0-359
+    * @type {number}
+    */
     this.position = 180;
 
-    //The color of the knob in hex code
+    /**
+     * The color of the knob in hex code
+     * @type {string}
+     */
     this.color = color;
 
-    //Used for keeping reference of original click when changing value.  Always set to null when not in click mode
+    /**
+     * Used for keeping reference of original click when changing value.  Always set to null when not in click mode
+     * @type {null | number}
+     */
     this.startPosition = null;
 
-    //Used to store the change in degrees for a knobClick event.  Always set to 0 unless in the midst of a rotation
+    /**
+     * Used to store the change in degrees for a knobClick event.  Always set to 0 unless in the midst of a rotation
+     * @type {number}
+     */
     this.delta = 0;
 
-    //Set styling stuff for a knob
+     //Set styling stuff for a knob
     this.element.style.backgroundColor = this.color;
 
     //Set the className for styling purposes

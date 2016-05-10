@@ -9,10 +9,17 @@
  * @constructor
  */
 function Switch(element) {
+    /**
+     * The value of this switch (0 or 1)
+     * @type {number}
+     */
     this.value = 0;
 
+    /**
+     * The element that parallels this switch
+     * @type {element}
+     */
     this.element = element;
-
     this.element.className = "switch switchOff";
 
     //Create a div for an indicator

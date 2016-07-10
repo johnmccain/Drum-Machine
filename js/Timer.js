@@ -79,4 +79,4 @@ Timer.prototype = {
             }
         }
     }
-}
+};
